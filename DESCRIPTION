@@ -12,7 +12,7 @@ Authors@R:
     person("Julio M", "Alcántara Gámez", , "jmalcan@ujaen.es", role = c("aut"),
            comment = c(ORCID = "0000"))
    )
-Description: What the package does (one paragraph).
+Description: Package to analyze patterns of plant-plant interactions.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
