@@ -3,10 +3,15 @@ Title: Metrics of recruitment networks
 Version: 0.0.0.9000
 Authors@R: 
   c(
-    person("Francisco", "Rodriguez-Sanchez", , "f.rodriguez.sanc@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-7981-1599")),
-    person("My", "coauthor", role = "aut")
-  )
+    person("José Luis", "Garrido Sánchez", , "jlgarridosan@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000")),
+    person("Alicia", "Montesinos-Navarro", , "alimontesinos@gmail.com", role = c("aut"),
+           comment = c(ORCID = "0000")),
+    person("Miguel", "Verdú del Campo", , "Miguel.Verdu@ext.uv.es", role = c("aut"),
+           comment = c(ORCID = "0000")),
+    person("Julio M", "Alcántara Gámez", , "jmalcan@ujaen.es", role = c("aut"),
+           comment = c(ORCID = "0000"))
+   )
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
