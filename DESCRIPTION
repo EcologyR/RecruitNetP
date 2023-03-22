@@ -7,7 +7,7 @@ Authors@R:
            comment = c(ORCID = "0000-0002-7981-1599")),
     person("My", "coauthor", role = "aut")
   )
-Description: What the package does (one paragraph).
+Description: Package to analyze patterns of plant-plant interactions.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
