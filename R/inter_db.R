@@ -1,3 +1,12 @@
+#' Function inter_db
+#'
+#' @param data a data frame with interactions of recruit & canopy species in each plot of many study sites
+#' @param dbcover a data frame with the cover of each canopy species per plot in each study site
+#'
+#' @return a data frame with interactions of recruit & canopy species in each study site and the cover of each species in columns
+#' @export
+#'
+#' @examples
 inter_db <- function(data, dbcover) {
 
   options(dplyr.summarise.inform = FALSE)
@@ -135,4 +144,5 @@ inter_db <- function(data, dbcover) {
 
 
 }
+
 
