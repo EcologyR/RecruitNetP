@@ -27,6 +27,16 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: 
+    combinat,
     dplyr,
     ggplot2,
-    tibble
+    glmmTMB,
+    lmerTest,
+    performance
+    raster,
+    reshape2,
+    rgdal,
+    tibble,
+    tidyverse,
+    tigerstats
+    
