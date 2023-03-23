@@ -30,13 +30,12 @@ Imports:
     combinat,
     dplyr,
     ggplot2,
+    TMB,
     glmmTMB,
     lmerTest,
-    performance
-    raster,
+    performance,
     reshape2,
-    rgdal,
     tibble,
-    tidyverse,
-    tigerstats
+    tidyverse
+  
     
