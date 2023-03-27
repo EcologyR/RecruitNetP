@@ -4,36 +4,39 @@
     <loc>/404.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
     <loc>/LICENSE-text.html</loc>
   </url>
   <url>
     <loc>/LICENSE.html</loc>
   </url>
   <url>
+    <loc>/authors.html</loc>
+  </url>
+  <url>
+    <loc>/index.html</loc>
+  </url>
+  <url>
     <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/exampledata.html</loc>
+    <loc>/reference/RN.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RNCover.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RecruitnetP-package.html</loc>
+  </url>
+  <url>
+    <loc>/reference/asocindex.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/make_scatterplot.html</loc>
+    <loc>/reference/inter_db.html</loc>
   </url>
   <url>
-    <loc>/reference/resta.html</loc>
-  </url>
-  <url>
-    <loc>/reference/suma.html</loc>
-  </url>
-  <url>
-    <loc>/reference/templateRpackage-package.html</loc>
+    <loc>/reference/intertest.html</loc>
   </url>
 </urlset>
