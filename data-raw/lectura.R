@@ -8,6 +8,6 @@ RNCover <- read.csv("data-raw/CanopyCover.csv")
 usethis::use_data(RN, overwrite = TRUE)
 usethis::use_data(RNCover, overwrite = TRUE)
 
-data("RN")
-data("RNCover")
+# data("RN")
+# data("RNCover")
 
