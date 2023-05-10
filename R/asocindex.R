@@ -5,6 +5,7 @@
 #'
 #' @return a data frame with interactions of recruit & canopy species in each study site and the cover of each species in columns
 #' @export
+#' @import dplyr
 #'
 #' @examples
 asocindex <- function(data, dbcover) {
@@ -15,20 +16,38 @@ asocindex <- function(data, dbcover) {
   dbcover2 <- droplevels(dbcover[!is.na(dbcover$Cover), ])
   rmnets <- setdiff(dbcover$Study_site, dbcover2$Study_site)
 
-  dbcover <- dbcover[dbcover$Study_site %in% setdiff(dbcover$Study_site, rmnets), ]
+  #add a warning to the user if there is some study_site that does not
+  #have information about the canopy of any of its species. Those study sites will be removed
+
+  if (!(length(rmnets==0)))
+    warning("For some Study_site there is no information about the canopy of any species")
+
+
+  dbcover<-dbcover[dbcover$Study_site%in%setdiff(dbcover$Study_site, rmnets),]
+
 
   data <- data[data$Study_site %in% setdiff(data$Study_site, rmnets), ]
 
-  dbcover$Canopy_cover_abs <- with(dbcover, (Cover * Sampled_distance_or_area) / 100)
 
-  surfN <- data.frame(dbcover %>%
-                        group_by(Study_site, Canopy) %>%
-                        summarise(Canopy_cover_abs = sum(Canopy_cover_abs, na.rm = TRUE)))
+  #check if the pruning of the study sites, if required, have worked properly i.e. now all the study sites have at least one canopy species
+  # with information about its cover (if not stop the process)
+
+    if (!(length(setdiff(dbcover$Study_site, data$Study_site))==0|length(setdiff(data$Study_site, dbcover$Study_site))==0))
+    stop("Study_site with complete information in the two arguments x,y does not match")
+
+  ###############
+
+  dbcover$Canopy_cover_abs<-with (dbcover, (Cover*Sampled_distance_or_area)/100)
+
+  surfN<-data.frame(dbcover%>%
+                      group_by(Study_site, Canopy)%>%
+                      dplyr::summarise(Canopy_cover_abs = sum(Canopy_cover_abs,na.rm=TRUE)))
 
 
-  site_surf <- data.frame(unique(dbcover[, c("Study_site", "Plot", "Sampled_distance_or_area")]) %>%
-                 group_by(Study_site) %>%
-                 summarise(Plot_sup = sum(Sampled_distance_or_area)))
+  site_surf<-data.frame(unique(dbcover[,c("Study_site","Plot","Sampled_distance_or_area")])%>%
+                          group_by(Study_site)%>%
+                          summarise(Plot_sup = sum(Sampled_distance_or_area)))
+
 
 
   Canopy_all <- merge(surfN, site_surf, by = "Study_site")
@@ -50,6 +69,7 @@ asocindex <- function(data, dbcover) {
   data <- droplevels(data[data$Study_site %in% setdiff(data$Study_site, rmnets_anyNA), ])
   Canopy_all <- droplevels(Canopy_all[Canopy_all$Study_site %in% setdiff(Canopy_all$Study_site, rmnets_anyNA), ])
 
+
   inter <- data.frame(
     data %>%
       group_by(Study_site, Recruit, Canopy, inter_ID) %>%
@@ -61,6 +81,7 @@ asocindex <- function(data, dbcover) {
 
 
 
+
   adjlist <- list()
   coverlist <- list()
   edgelist <- list()
@@ -68,6 +89,7 @@ asocindex <- function(data, dbcover) {
   NorecrOpen <- NULL
   for (z in 1:length(unique(Canopy_all$Study_site)))
   {
+
     net[z] <- unique(Canopy_all$Study_site)[z]
     mycovs <- Canopy_all[Canopy_all$Study_site == unique(Canopy_all$Study_site)[z], ]
     myadj <- data[data$Study_site == unique(Canopy_all$Study_site)[z], ]
@@ -88,6 +110,7 @@ asocindex <- function(data, dbcover) {
     myadj <- myadj2
     myadj2 <- rm
     myadj[is.na(myadj)] <- 0
+
     #selecciono solo aquellas nodrizas de las que tenemos en ambas ( coberturas y adj mat)
     myadj <- myadj[, colnames(myadj) %in% mycovs$Canopy]
     #en "AltiplanoNorteGyp" no hay reclutas en abierto hay que añadir la columna #en la matriz a mano
