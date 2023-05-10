@@ -5,6 +5,7 @@
 #'
 #' @return a data frame with interactions of recruit & canopy species in each study site and the cover of each species in columns
 #' @export
+#' @import dplyr
 #'
 #' @examples
 asocindex <- function(data, dbcover) {
@@ -15,20 +16,35 @@ asocindex <- function(data, dbcover) {
   dbcover2<-droplevels(dbcover[!is.na(dbcover$Cover),])
   rmnets<-setdiff(dbcover$Study_site, dbcover2$Study_site)
 
+  #add a warning to the user if there is some study_site that does not
+  #have information about the canopy of any of its species. Those study sites will be removed
+
+  if (!(length(rmnets==0)))
+    warning("For some Study_site there is no information about the canopy of any species")
+
+
   dbcover<-dbcover[dbcover$Study_site%in%setdiff(dbcover$Study_site, rmnets),]
 
   data<-data[data$Study_site%in%setdiff(data$Study_site, rmnets),]
+
+  #check if the pruning of the study sites, if required, have worked properly i.e. now all the study sites have at least one canopy species
+  # with information about its cover (if not stop the process)
+
+    if (!(length(setdiff(dbcover$Study_site, data$Study_site))==0|length(setdiff(data$Study_site, dbcover$Study_site))==0))
+    stop("Study_site with complete information in the two arguments x,y does not match")
+
+  ###############
 
   dbcover$Canopy_cover_abs<-with (dbcover, (Cover*Sampled_distance_or_area)/100)
 
   surfN<-data.frame(dbcover%>%
                       group_by(Study_site, Canopy)%>%
-                      summarise(Canopy_cover_abs = sum(Canopy_cover_abs,na.rm=TRUE)))
+                      dplyr::summarise(Canopy_cover_abs = sum(Canopy_cover_abs,na.rm=TRUE)))
 
 
   site_surf<-data.frame(unique(dbcover[,c("Study_site","Plot","Sampled_distance_or_area")])%>%
                           group_by(Study_site)%>%
-                          summarise(Plot_sup = sum(Sampled_distance_or_area)))
+                          dplyr::summarise(Plot_sup = sum(Sampled_distance_or_area)))
 
 
   Canopy_all<-merge(surfN,site_surf, by="Study_site")
@@ -52,7 +68,7 @@ asocindex <- function(data, dbcover) {
 
   inter<-data.frame(data%>%
                       group_by(Study_site, Recruit, Canopy,inter_ID)%>%
-                      summarise(inter_ID=unique(inter_ID), Frequency = sum(Frequency)))
+                      dplyr::summarise(inter_ID=unique(inter_ID), Frequency = sum(Frequency)))
 
 
 
@@ -72,7 +88,7 @@ asocindex <- function(data, dbcover) {
 
     Freq<-data.frame(myadj%>%
                        group_by(inter_ID)%>%
-                       summarise(Freq = sum(Frequency)))
+                       dplyr::summarise(Freq = sum(Frequency)))
 
     alledge<-merge(Freq,unique(myadj[,c("Study_site","inter_ID","Canopy","Recruit")]),by="inter_ID")
     myadj<-dcast(data=alledge[,c("Recruit","Canopy","Freq")], Recruit~Canopy,value.var="Freq")
