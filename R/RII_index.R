@@ -12,7 +12,9 @@
 #
 #com<-plot_to_com (data,dbcover)
 #db_inter<-asocindex(com[[1]],com[[2]],com[[3]])
-#RII<-asocindex(db_inter)
+#db_asoc<-asocindex(db_inter)
+#RII<-RIIindex(db_asoc)
+
 
 #calculates the RII observed for each interaction
 
