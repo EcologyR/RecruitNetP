@@ -1,7 +1,7 @@
 #' Function plot_to_com.It summarize the information of many plots per site into a single data frame at the community level
 #'
-#' @param dbinter a data frame with frequency of recruits under canopy species species in each plot of many study sites
-#' @param dbcover a data frame with the cover of each canopy species per plot in each study site
+#' @param dbinter a data frame with frequency of recruits under canopy species species in each plot of many study sites. The data frame must contain columns named:"Study_site","Plot", "Recruit", "Canopy", "Frequency"
+#' @param dbcover a data frame with the cover of each canopy species per plot in each study site. The data frame must contain columns named:"Study_site", "Plot", "Canopy", "Cover", "Sampled_distance_or_area"
 #'
 #' @return a list with three elements: a data frame with the number of recruits observed under each canopy species(including the open), a data frame with the relative cover of each canopy species and Open in each study site and a list of quantitative community matrices (per study site) with recruit and canopy species in rows and columns respectively
 #' @export
@@ -78,7 +78,7 @@ plot_to_com <- function(dbinter, dbcover) {
   dbinter <- droplevels(dbinter[dbinter$Study_site %in% setdiff(dbinter$Study_site, rmnets_anyNA), ])
   Canopy_all <- droplevels(Canopy_all[Canopy_all$Study_site %in% setdiff(Canopy_all$Study_site, rmnets_anyNA), ])
 
-  Canopy_all$inter_ID<-paste(Canopy_all$Study_site,Canopy_all$Recruit, Canopy_all$Canopy, sep="_")
+  Canopy_all$Frequency<-paste(Canopy_all$Study_site,Canopy_all$Recruit, Canopy_all$Canopy, sep="_")
 
   inter <- data.frame(
     dbinter |>
@@ -102,7 +102,7 @@ plot_to_com <- function(dbinter, dbcover) {
     dplyr::mutate(data = lapply(data, fillOpen)) |>
     tidyr::unnest(cols=c(data))
 
- inter$inter_ID<-paste(inter$Study_site,inter$Recruit, inter$Canopy, sep="_")
+ inter$Frequency<-paste(inter$Study_site,inter$Recruit, inter$Canopy, sep="_")
 inter<-data.frame(inter)
 
   Canopy_all <- Canopy_all |> arrange(Study_site)
@@ -113,7 +113,7 @@ inter<-data.frame(inter)
   for (z in 1:length(unique(Canopy_all$Study_site)))
   {
 
-  myadj <- data.frame(inter[inter$Study_site == unique(Canopy_all$Study_site)[z],c("Study_site", "inter_ID", "Canopy", "Recruit","Freq") ])
+  myadj <- data.frame(inter[inter$Study_site == unique(Canopy_all$Study_site)[z],c("Study_site", "Frequency", "Canopy", "Recruit","Freq") ])
 
   myadj <- maditr::dcast(dbinter = myadj[, c("Recruit", "Canopy", "Freq")], Recruit ~ Canopy, value.var =
                            "Freq", fill = 0)
