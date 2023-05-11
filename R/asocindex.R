@@ -13,7 +13,8 @@
 #'
 #
 #com<-plot_to_com (data,dbcover)
-#asocindex(com[[1]],com[[2]],com[[3]])
+#db_inter<-asocindex(com[[1]],com[[2]],com[[3]])
+#o db_inter<-asocindex()
 
 asocindex <- function(inter=com[[1]],Canopy_all=com[[2]], adjlist=com[[3]]) {
 
