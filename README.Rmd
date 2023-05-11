@@ -39,10 +39,10 @@ This is a basic example which shows you how to solve a common problem:
 ```{r example}
 # library(RecruitnetP)
 ## 
+#devtools::install_github("EcologyR/RecruitnetP")
+library(RecruitnetP)
 data(RN)
 data(RNCover)
-data<-RN[RN$Study_site==unique(RN$Study_site)[1:2],]
-dbcover<-RNCover[RNCover$Study_site==unique(RNCover$Study_site)[1:2],]
 com<-plot_to_com(data,dbcover)
 db_asoc<-asocindex(com[[1]],com[[2]],com[[3]])
 RII<-RIIindex(db_asoc)

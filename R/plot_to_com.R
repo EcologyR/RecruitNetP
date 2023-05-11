@@ -1,7 +1,7 @@
 #' Function plot_to_com.It summarize the information of many plots per site into a single data frame at the community level
 #'
-#' @param data a data frame with frequency of recruits under canopy species species in each plot of many study sites
-#' @param Canopy_all a data frame with the cover of each canopy species per plot in each study site
+#' @param dbinter a data frame with frequency of recruits under canopy species species in each plot of many study sites
+#' @param dbcover a data frame with the cover of each canopy species per plot in each study site
 #'
 #' @return a list with three elements: a data frame with the number of recruits observed under each canopy species(including the open), a data frame with the relative cover of each canopy species and Open in each study site and a list of quantitative community matrices (per study site) with recruit and canopy species in rows and columns respectively
 #' @export
@@ -15,7 +15,7 @@
 
 
 
-plot_to_com <- function(data, dbcover) {
+plot_to_com <- function(dbinter, dbcover) {
 
   options(dplyr.summarise.inform = FALSE)
 
@@ -32,13 +32,13 @@ plot_to_com <- function(data, dbcover) {
   dbcover<-dbcover[dbcover$Study_site%in%setdiff(dbcover$Study_site, rmnets),]
 
 
-  data <- data[data$Study_site %in% setdiff(data$Study_site, rmnets), ]
+  dbinter <- dbinter[dbinter$Study_site %in% setdiff(dbinter$Study_site, rmnets), ]
 
 
   #check if the pruning of the study sites, if required, have worked properly i.e. now all the study sites have at least one canopy species
   # with information about its cover (if not stop the process)
 
-  if (!(length(setdiff(dbcover$Study_site, data$Study_site))==0|length(setdiff(data$Study_site, dbcover$Study_site))==0))
+  if (!(length(setdiff(dbcover$Study_site, dbinter$Study_site))==0|length(setdiff(dbinter$Study_site, dbcover$Study_site))==0))
     stop("Study_site with complete information in the two arguments x,y does not match")
 
   ###############
@@ -66,22 +66,22 @@ plot_to_com <- function(data, dbcover) {
   Canopy_all[Canopy_all$Canopy_cover == 0, "Canopy_cover"] <- "NA"
 
   Canopy_all$Canopy_cover <- as.numeric(Canopy_all$Canopy_cover)
-  data$mynet_sp <- paste(data$Study_site, data$Canopy, sep = "-")
+  dbinter$mynet_sp <- paste(dbinter$Study_site, dbinter$Canopy, sep = "-")
   Canopy_all$mycover_sp <- paste(Canopy_all$Study_site, Canopy_all$Canopy, sep = "-")
 
   Canopy_all <- Canopy_all[!is.na(Canopy_all$Canopy_cover), ]
 
 
-  rmnets_anyNA <- unique(data[data$mynet_sp %in% setdiff(unique(data$mynet_sp), (Canopy_all$mycover_sp)), "Study_site"])
+  rmnets_anyNA <- unique(dbinter[dbinter$mynet_sp %in% setdiff(unique(dbinter$mynet_sp), (Canopy_all$mycover_sp)), "Study_site"])
 
   dbcover <- droplevels(dbcover[dbcover$Study_site %in% setdiff(dbcover$Study_site, rmnets_anyNA), ])
-  data <- droplevels(data[data$Study_site %in% setdiff(data$Study_site, rmnets_anyNA), ])
+  dbinter <- droplevels(dbinter[dbinter$Study_site %in% setdiff(dbinter$Study_site, rmnets_anyNA), ])
   Canopy_all <- droplevels(Canopy_all[Canopy_all$Study_site %in% setdiff(Canopy_all$Study_site, rmnets_anyNA), ])
 
   Canopy_all$inter_ID<-paste(Canopy_all$Study_site,Canopy_all$Recruit, Canopy_all$Canopy, sep="_")
 
   inter <- data.frame(
-    data |>
+    dbinter |>
       group_by(Study_site, Recruit, Canopy) |>
       summarise( Freq = sum(Frequency)
       )
@@ -115,7 +115,7 @@ inter<-data.frame(inter)
 
   myadj <- data.frame(inter[inter$Study_site == unique(Canopy_all$Study_site)[z],c("Study_site", "inter_ID", "Canopy", "Recruit","Freq") ])
 
-  myadj <- maditr::dcast(data = myadj[, c("Recruit", "Canopy", "Freq")], Recruit ~ Canopy, value.var =
+  myadj <- maditr::dcast(dbinter = myadj[, c("Recruit", "Canopy", "Freq")], Recruit ~ Canopy, value.var =
                            "Freq", fill = 0)
   nam <- myadj[, 1]
   myadj <- as.matrix(myadj[, -1], rownames = nam$Recruit)

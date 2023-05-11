@@ -11,8 +11,8 @@
 #'
 #
 #com<-plot_to_com (data,dbcover)
-#db_inter<-asocindex(com[[1]],com[[2]],com[[3]])
-#db_asoc<-asocindex(db_inter)
+#db_asoc<-asocindex(com[[1]],com[[2]],com[[3]])
+#db_asoc<-asocindex(db_asoc)
 #RII<-RIIindex(db_asoc)
 
 

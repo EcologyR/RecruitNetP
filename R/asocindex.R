@@ -13,8 +13,8 @@
 #'
 #
 #com<-plot_to_com (data,dbcover)
-#db_inter<-asocindex(com[[1]],com[[2]],com[[3]])
-#o db_inter<-asocindex()
+#db_asoc<-asocindex(com[[1]],com[[2]],com[[3]])
+
 
 asocindex <- function(inter=com[[1]],Canopy_all=com[[2]], adjlist=com[[3]]) {
 
@@ -76,12 +76,12 @@ asocindex <- function(inter=com[[1]],Canopy_all=com[[2]], adjlist=com[[3]]) {
 
   }
 
-  db_inter <- data.frame(do.call("rbind", edgelist))
+  db_inter_com <- data.frame(do.call("rbind", edgelist))
 
-  db_inter$Freq_total <- db_inter$Canopy_Freq + db_inter$Open_Freq
-  db_inter <- db_inter[db_inter$Freq_total > 1, ]   #We remove recruit species with just 1 individual
+  db_inter_com$Freq_total <- db_inter$Canopy_Freq + db_inter_com$Open_Freq
+  db_inter_com <- db_inter_com[db_inter_com$Freq_total > 1, ]   #We remove recruit species with just 1 individual
 
-  return(db_inter)
+  return(db_inter_com)
 
 
 }
