@@ -1,6 +1,10 @@
-#' Function plot_to_com.It summarize the information of many plots per site into a single data frame at the community level
+#' Aggregate plot data into a community dataset
 #'
-#' @param dbinter a data frame with frequency of recruits under canopy species species in each plot of many study sites. The data frame must contain columns named:"Study_site","Plot", "Recruit", "Canopy", "Frequency"
+#' Summarize the information of many plots per site into a single data frame at the community level.
+#'
+#' @param dbinter a data frame with frequency of recruits under canopy species
+#' in each plot of many study sites. The data frame must contain columns
+#' named: "Study_site","Plot", "Recruit", "Canopy", "Frequency"
 #' @param dbcover a data frame with the cover of each canopy species per plot in each study site. The data frame must contain columns named:"Study_site", "Plot", "Canopy", "Cover", "Sampled_distance_or_area"
 #'
 #' @return a list with three elements: a data frame with the number of recruits observed under each canopy species(including the open), a data frame with the relative cover of each canopy species and Open in each study site and a list of quantitative community matrices (per study site) with recruit and canopy species in rows and columns respectively
@@ -15,7 +19,7 @@
 
 
 
-plot_to_com <- function(dbinter, dbcover) {
+plot_to_com <- function(dbinter = NULL, dbcover = NULL) {
 
   options(dplyr.summarise.inform = FALSE)
 
