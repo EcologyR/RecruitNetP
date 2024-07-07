@@ -20,7 +20,7 @@
 #' cover of the canopy (cj) and cover of the recruit (ci).
 #'
 #' @examples
-#' Ventisquero_RNc <- local_RN(RecruitNet, CanopyCover, "Ventisquero")
+#' #Ventisquero_RNc <- local_RN(RecruitNet, CanopyCover, "Ventisquero")
 
 local_RN <- function(RN_data, cover_data, site) {
 

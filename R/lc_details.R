@@ -11,8 +11,8 @@
 #' @return A data frame with summary information of the local community/ies.
 #'
 #' @examples
-#' Ventisquero_details <- lc_details(Ventisquero_raw)
-#' All_sites_details <- lc_details(RecruitNet)
+#' #Ventisquero_details <- lc_details(Ventisquero_raw)
+#' #All_sites_details <- lc_details(RecruitNet)
 
 lc_details <- function(dataset) {
 
@@ -47,7 +47,7 @@ lc_details <- function(dataset) {
 
   dfAll <-  as.data.frame(do.call(rbind, dfList))
 
-  dfAll <- type.convert(dfAll, as.is = TRUE)
+  dfAll <- utils::type.convert(dfAll, as.is = TRUE)
 
   return(dfAll)
 

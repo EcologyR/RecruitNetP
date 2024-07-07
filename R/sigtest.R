@@ -5,7 +5,7 @@
 #' the number of recruits observed under any canopy species (Recruit species)
 #' or the number of Recruits of any given speies under a given canopy species (Canopy species)
 #'
-#' @param db_inter data frame obtained as the output of the functions pre_asocindex,
+#' @param data_freq data frame obtained as the output of the functions pre_asocindex,
 #' recruit_level,canopy_level, or com_level
 #' @param iteration number of iterations
 #' @param threshold minimun number of recruits to perform the binomial test
@@ -21,10 +21,10 @@
 #' @export
 #'
 #' @examples
-#' sigtest(com_level(RecruitNet, CanopyCover))
-#' sigtest(pre_asocindex(RecruitNet, CanopyCover)) "very slow"
+#' #sigtest(com_level(RecruitNet, CanopyCover))
+#' #sigtest(pre_asocindex(RecruitNet, CanopyCover)) # "very slow"
 
-sigtest <- function(data_freq = db_inter,
+sigtest <- function(data_freq,
                     iteration = 100,
                     threshold = 5
                     ) {
@@ -37,7 +37,7 @@ sigtest <- function(data_freq = db_inter,
   for (i in 1:dim(db_inter)[1]) {
     if (sum(db_inter$Canopy_Freq[i] + db_inter$Open_Freq[i]) < 100000) {
       test <-
-        chisq.test(
+        stats::chisq.test(
           c(db_inter$Canopy_Freq[i], db_inter$Open_Freq[i]),
           p = c(db_inter$Canopy_cover[i], db_inter$Open_cover[i]),
           rescale.p = TRUE,
@@ -60,7 +60,7 @@ sigtest <- function(data_freq = db_inter,
 
     if (sum(db_inter$Canopy_Freq[i] + db_inter$Open_Freq[i]) >= 100000) {
       test <-
-        chisq.test(
+        stats::chisq.test(
           c(db_inter$Canopy_Freq[i], db_inter$Open_Freq[i]),
           p = c(db_inter$Canopy_cover[i], db_inter$Open_cover[i]),
           rescale.p = TRUE,
@@ -109,7 +109,7 @@ sigtest <- function(data_freq = db_inter,
         ifelse(length(which(
           replicate(
             iteration,
-            chisq.test(
+            stats::chisq.test(
               c(fcan, fopen),
               p = c(db_inter$Canopy_cover[i], db_inter$Open_cover[i]),
               rescale.p = T,

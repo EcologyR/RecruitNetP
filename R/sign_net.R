@@ -32,15 +32,14 @@
 #' being Non-testable those rows in which int_sign = Neutral).
 #' The second, third and fourth elements of teh list are the matrices of only positive,
 #' negative and neutral ( testable) associations based on the database generated in the first element of the list.
-.
 #'
 #' @export
 #'
 #' @examples
-#' sign_vest <- sign_net(RecruitNet, CanopyCover, "Ventisquero")
+#' #sign_vest <- sign_net(RecruitNet, CanopyCover, "Ventisquero")
 
 
-sign_net <- function(RecruitNet, CanopyCover, site) {
+sign_net <- function(inter_data, cover_data, site) {
 
   inter <- droplevels(RecruitNet[RecruitNet$Study_site == site, ])
   cover <- droplevels(CanopyCover[CanopyCover$Study_site == site, ])

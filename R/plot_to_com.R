@@ -11,8 +11,6 @@
 #' @export
 #' @import dplyr
 #'
-#' @examples
-#'
 #'
 #
 

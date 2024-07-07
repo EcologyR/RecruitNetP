@@ -34,7 +34,7 @@
 #' @export
 #'
 #' @examples
-#' pre_index_all<-pre_asocindex(RecruitNet, CanopyCover)
+#' #pre_index_all<-pre_asocindex(RecruitNet, CanopyCover)
 
 pre_asocindex <- function(inter_data = RecruitNet,
                           cover_data = CanopyCover

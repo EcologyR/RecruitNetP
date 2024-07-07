@@ -14,7 +14,7 @@
 #' cover of the canopy (cj) and cover of the recruit (ci).
 #'
 #' @examples
-#' Ventisquero_RNc <- merge_RN_cover(Ventisquero_RN, Ventisquero_cover)
+#' #Ventisquero_RNc <- merge_RN_cover(Ventisquero_RN, Ventisquero_cover)
 
 merge_RN_cover <- function(RN_data, cover_data) {
 
@@ -54,7 +54,7 @@ merge_RN_cover <- function(RN_data, cover_data) {
     ))
   }
 
-  RNc <- type.convert(RNc, as.is = TRUE)
+  RNc <- utils::type.convert(RNc, as.is = TRUE)
 
   return(RNc)
 

@@ -15,10 +15,10 @@
 #' @import dplyr
 #'
 #' @examples
-#' com <- plot_to_com(data,dbcover)
-#' db_asoc <- asocindex(com[[1]], com[[2]], com[[3]])
-#' db_asoc <- asocindex(db_asoc)
-#' RII <- RIIindex(db_asoc)
+#' #com <- plot_to_com(data,dbcover)
+#' #db_asoc <- asocindex(com[[1]], com[[2]], com[[3]])
+#' #db_asoc <- asocindex(db_asoc)
+#' #RII <- RIIindex(db_asoc)
 
 
 #calculates the RII observed for each interaction

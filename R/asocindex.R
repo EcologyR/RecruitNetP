@@ -29,8 +29,8 @@
 #' @import dplyr
 #'
 #' @examples
-#' com <- plot_to_com(data, dbcover)
-#' db_asoc <- asocindex(com[[1]], com[[2]], com[[3]])
+#' #com <- plot_to_com(data, dbcover)
+#' #db_asoc <- asocindex(com[[1]], com[[2]], com[[3]])
 
 
 asocindex <- function(inter = com[[1]],

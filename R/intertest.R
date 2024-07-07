@@ -9,7 +9,7 @@
 #' @return data frame with the tests of association
 #' @export
 #'
-#' @examples
+
 intertest <- function(db_inter,
                       iteration = 100,
                       threshold = 5) {
@@ -29,7 +29,7 @@ intertest <- function(db_inter,
   for (i in 1:dim(db_inter)[1]) {
     if (sum(db_inter$Canopy_Freq[i] + db_inter$Open_Freq[i]) < 100000) {
       test <-
-        chisq.test(
+        stats::chisq.test(
           c(db_inter$Canopy_Freq[i], db_inter$Open_Freq[i]),
           p = c(db_inter$Canopy_cover[i], db_inter$Open_cover[i]),
           rescale.p = TRUE,
@@ -52,7 +52,7 @@ intertest <- function(db_inter,
 
     if (sum(db_inter$Canopy_Freq[i] + db_inter$Open_Freq[i]) >= 100000) {
       test <-
-        chisq.test(
+        stats::chisq.test(
           c(db_inter$Canopy_Freq[i], db_inter$Open_Freq[i]),
           p = c(db_inter$Canopy_cover[i], db_inter$Open_cover[i]),
           rescale.p = TRUE,
@@ -101,7 +101,7 @@ intertest <- function(db_inter,
         ifelse(length(which(
           replicate(
             iteration,
-            chisq.test(
+            stats::chisq.test(
               c(fcan, fopen),
               p = c(db_inter$Canopy_cover[i], db_inter$Open_cover[i]),
               rescale.p = T,

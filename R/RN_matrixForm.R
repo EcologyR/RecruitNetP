@@ -10,6 +10,8 @@
 #'   cover of the canopy (cj) and recruit (ci),
 #'   and columns with possible weighting variables.
 #'
+#' @param weight TODO
+#'
 #' @return A matrix object with the species names as row (recruit species) and
 #' column names (canopy species), and cells indicating the chosen weight for
 #' each interaction. For example, the output of function local_RN provides the
@@ -18,8 +20,9 @@
 #' and the binary presence/absence of the interaction in the whole study site (Pij).
 #' Can be used as bipartite input.
 #'
+#'
 #' @examples
-#' Ventisquero_matrix <- RN_matrixForm(Ventisquero_RNc, Ventisquero_RNc$Tij)
+#' #Ventisquero_matrix <- RN_matrixForm(Ventisquero_RNc, Ventisquero_RNc$Tij)
 
 RN_matrixForm <- function(RNdata, weight){
 

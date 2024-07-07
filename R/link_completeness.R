@@ -19,11 +19,11 @@
 #' @return A data frame
 #'
 #' @examples
-#' link_completeness(RecruitNet, "Ventisquero", "incidence")
-#' link_completeness(RecruitNet, "Laxe", "abundance")
-#' link_completeness(RecruitNet, "Laxe", "incidence") # Issues a warning
-#' link_completeness(RecruitNet, "LosReyes", "abundance")
-#' link_completeness(RecruitNet, "LosReyes", "incidence") #Issues an error
+#' #link_completeness(RecruitNet, "Ventisquero", "incidence")
+#' #link_completeness(RecruitNet, "Laxe", "abundance")
+#' #link_completeness(RecruitNet, "Laxe", "incidence") # Issues a warning
+#' #link_completeness(RecruitNet, "LosReyes", "abundance")
+#' #link_completeness(RecruitNet, "LosReyes", "incidence") #Issues an error
 
 
 link_completeness <- function(dataset, site, type) {

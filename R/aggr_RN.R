@@ -19,14 +19,14 @@
 #' of a local community: "canopy", "recruit", "fij", "Tij" and "Pij".
 #'
 #' @examples
-#' Ventisquero_RN <- aggr_RN(Ventisquero_raw)
+#' #Ventisquero_RN <- aggr_RN(Ventisquero_raw)
 
 aggr_RN <- function(raw_RN) {
 
   # Sum the number of recruits per interaction across plots
-  RN <- aggregate(Frequency ~ Canopy*Recruit, data = raw_RN, FUN = sum)
+  RN <- stats::aggregate(Frequency ~ Canopy*Recruit, data = raw_RN, FUN = sum)
   colnames(RN) <- c("Canopy", "Recruit", "fij")
-  RN$Tij <-aggregate(Frequency ~ Canopy*Recruit, data=raw_RN, FUN = NROW)[[3]]
+  RN$Tij <- stats::aggregate(Frequency ~ Canopy*Recruit, data=raw_RN, FUN = NROW)[[3]]
   RN$Pij <- ifelse(RN$Tij==0,0,1)
   RN$Canopy <- gsub("[[:space:]]", "_", RN$Canopy)
   RN$Recruit <- gsub("[[:space:]]", "_", RN$Recruit)

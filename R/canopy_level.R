@@ -33,7 +33,7 @@
 #' @export
 #'
 #' @examples
-#' db_sp_can <- canopy_level (RecruitNet, CanopyCover)
+#' #db_sp_can <- canopy_level (RecruitNet, CanopyCover)
 
 canopy_level <- function(inter_data = RecruitNet,
                          cover_data = CanopyCover

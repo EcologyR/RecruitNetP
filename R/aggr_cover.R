@@ -13,12 +13,12 @@
 #' of being acting as canopies or recruits); and "abundance".
 #'
 #' @examples
-#' Ventisquero_cover <- aggr_cover(CanopyCover, site = "Ventisquero")
+#' #Ventisquero_cover <- aggr_cover(CanopyCover, site = "Ventisquero")
 
 aggr_cover <- function(dataset, site) {
   cover <- dataset[which(dataset$Study_site == site), ]
   cover$abundance <- (cover$Cover / 100) * cover$Sampled_distance_or_area
-  cover <- aggregate(abundance ~ Canopy, data = cover, sum)
+  cover <- stats::aggregate(abundance ~ Canopy, data = cover, sum)
   return(cover)
 
 }

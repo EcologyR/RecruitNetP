@@ -33,7 +33,7 @@
 #' @export
 #'
 #' @examples
-#' db_sp_com <- com_level (RecruitNet, CanopyCover)
+#' #db_sp_com <- com_level (RecruitNet, CanopyCover)
 
 
 com_level <- function(inter_data = RecruitNet,

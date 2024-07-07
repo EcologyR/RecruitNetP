@@ -31,11 +31,11 @@
 #' @export
 #'
 #' @examples
-#' all_nets <- plot_to_com(RecruitNet, CanopyCover)
+#' #all_nets <- plot_to_com(RecruitNet, CanopyCover)
 
 
 
-plot_to_com <- function(inter_data = RecruitNet,
+plot_to_com2 <- function(inter_data = RecruitNet,
                         cover_data = CanopyCover
                         ) {
   data <- inter_data

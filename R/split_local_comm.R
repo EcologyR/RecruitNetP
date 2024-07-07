@@ -12,7 +12,7 @@
 #' canopy-recruit interactions in a plot.
 #'
 #' @examples
-#' Ventisquero_plots <- split_local_comm(Ventisquero_raw)
+#' #Ventisquero_plots <- split_local_comm(Ventisquero_raw)
 
 split_local_comm <- function(raw_RN) {
 

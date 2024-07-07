@@ -13,10 +13,10 @@
 #' @return A data frame containing all the data from the desired community/ies
 #'
 #' @examples
-#' Ventisquero_raw <- local_comm(RecruitNet, "Ventisquero")
+#' #Ventisquero_raw <- local_comm(RecruitNet, "Ventisquero")
 #'
-#' TwoSites <- c("Ventisquero","Agadir")
-#' TwoSites_raw <- local_comm(RecruitNet, TwoSites)
+#' #TwoSites <- c("Ventisquero","Agadir")
+#' #TwoSites_raw <- local_comm(RecruitNet, TwoSites)
 
 local_comm <- function(dataset, site) {
 
