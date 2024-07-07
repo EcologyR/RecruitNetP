@@ -1,0 +1,36 @@
+#' Function RN_matrixForm
+#'
+#' For some analyses, the data must be stored as a matrix rather than data frame.
+#' The next function takes a RN stored as data frame and transforms it into a matrix.
+#' The output matrix can be used input for bipartite package.
+#'
+#' @param RNdata A data frame generated with "local_RN" function or a data.frame
+#'  containing columns with all the information needed for the basic analysis of
+#'   recruitment networks: canopy species (canopy), recruit species (recruit),
+#'   cover of the canopy (cj) and recruit (ci),
+#'   and columns with possible weighting variables.
+#'
+#' @return A matrix object with the species names as row (recruit species) and
+#' column names (canopy species), and cells indicating the chosen weight for
+#' each interaction. For example, the output of function local_RN provides the
+#' number of recruits of species i interacting with canopy species j (fij),
+#' the number of plots (i.e. incidence) where the interaction has been found (Tij),
+#' and the binary presence/absence of the interaction in the whole study site (Pij).
+#' Can be used as bipartite input.
+#'
+#' @examples
+#' Ventisquero_matrix <- RN_matrixForm(Ventisquero_RNc, Ventisquero_RNc$Tij)
+
+RN_matrixForm <- function(RNdata, weight){
+
+  list_Canopy <- sort(unique(RNdata$Canopy))
+  list_Recruit <- sort(unique(RNdata$Recruit))
+  Num_canopy <- length(list_Canopy)
+  Num_recruit <- length(list_Recruit)
+  RNmat <- weight
+  dim(RNmat) <- c(Num_recruit, Num_canopy)
+  colnames(RNmat) <- list_Canopy
+  rownames(RNmat) <- list_Recruit
+  return(RNmat)
+
+}
