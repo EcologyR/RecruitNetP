@@ -2,18 +2,20 @@
 % Please edit documentation in R/plot_to_com.R
 \name{plot_to_com}
 \alias{plot_to_com}
-\title{Function plot_to_com.It summarize the information of many plots per site into a single data frame at the community level}
+\title{Aggregate plot data into a community dataset}
 \usage{
-plot_to_com(data, dbcover)
+plot_to_com(dbinter = NULL, dbcover = NULL)
 }
 \arguments{
-\item{data}{a data frame with frequency of recruits under canopy species species in each plot of many study sites}
+\item{dbinter}{a data frame with frequency of recruits under canopy species
+in each plot of many study sites. The data frame must contain columns
+named: "Study_site","Plot", "Recruit", "Canopy", "Frequency"}
 
-\item{Canopy_all}{a data frame with the cover of each canopy species per plot in each study site}
+\item{dbcover}{a data frame with the cover of each canopy species per plot in each study site. The data frame must contain columns named:"Study_site", "Plot", "Canopy", "Cover", "Sampled_distance_or_area"}
 }
 \value{
 a list with three elements: a data frame with the number of recruits observed under each canopy species(including the open), a data frame with the relative cover of each canopy species and Open in each study site and a list of quantitative community matrices (per study site) with recruit and canopy species in rows and columns respectively
 }
 \description{
-Function plot_to_com.It summarize the information of many plots per site into a single data frame at the community level
+Summarize the information of many plots per site into a single data frame at the community level.
 }

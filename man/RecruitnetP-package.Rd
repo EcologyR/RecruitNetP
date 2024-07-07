@@ -17,13 +17,14 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: José Luis Garrido Sánchez \email{jlgarridosan@gmail.com} (\href{https://orcid.org/0000}{ORCID})
+\strong{Maintainer}: Alicia Montesinos-Navarro \email{alimontesinos@gmail.com} (\href{https://orcid.org/0000}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
-  \item Alicia Montesinos-Navarro \email{alimontesinos@gmail.com} (\href{https://orcid.org/0000}{ORCID})
-  \item Miguel Verdú del Campo \email{Miguel.Verdu@ext.uv.es} (\href{https://orcid.org/0000}{ORCID})
-  \item Julio M Alcántara Gámez \email{jmalcan@ujaen.es} (\href{https://orcid.org/0000}{ORCID})
+  \item José Luis Garrido Sánchez \email{jlgarridosan@gmail.com} (\href{https://orcid.org/0000}{ORCID}) [copyright holder]
+  \item Miguel Verdú del Campo \email{Miguel.Verdu@ext.uv.es} (\href{https://orcid.org/0000}{ORCID}) [copyright holder]
+  \item Julio M Alcántara Gámez \email{jmalcan@ujaen.es} (\href{https://orcid.org/0000}{ORCID}) [copyright holder]
+  \item Francisco Rodríguez-Sánchez \email{f.rodriguez.sanc@gmail.com} (\href{https://orcid.org/0000}{ORCID})
 }
 
 }

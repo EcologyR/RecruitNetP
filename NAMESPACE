@@ -2,6 +2,13 @@
 
 export(RIIindex)
 export(asocindex)
+export(canopy_level)
+export(com_level)
 export(intertest)
 export(plot_to_com)
+export(plot_to_com2)
+export(pre_asocindex)
+export(recruit_level)
+export(sign_net)
+export(sigtest)
 import(dplyr)
