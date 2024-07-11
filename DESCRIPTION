@@ -1,26 +1,26 @@
-Package: RecruitnetP
-Title: Metrics of recruitment networks 
+Package: RecruitNetP
+Title: Analysis of Recruitment Networks 
 Version: 0.0.0.9000
 Authors@R: 
   c(
     person("Alicia", "Montesinos-Navarro", , "alimontesinos@gmail.com", 
       role = c("aut", "cre", "cph"), comment = c(ORCID = "0000")),
-    person("José Luis", "Garrido Sánchez", , "jlgarridosan@gmail.com", 
+    person("José Luis", "Garrido", , "jlgarridosan@gmail.com", 
       role = c("aut", "cph"), comment = c(ORCID = "0000")),
-    person("Miguel", "Verdú del Campo", , "Miguel.Verdu@ext.uv.es", 
+    person("Miguel", "Verdú", , "Miguel.Verdu@ext.uv.es", 
       role = c("aut", "cph"), comment = c(ORCID = "0000")),
-    person("Julio M", "Alcántara Gámez", , "jmalcan@ujaen.es", 
+    person("Julio M.", "Alcántara", , "jmalcan@ujaen.es", 
       role = c("aut", "cph"), comment = c(ORCID = "0000")),
-    person("Francisco", "Rodríguez-Sánchez", , "f.rodriguez.sanc@gmail.com", 
-      role = c("aut"), comment = c(ORCID = "0000"))
+    person("Francisco", "Rodriguez-Sanchez", , "f.rodriguez.sanc@gmail.com", 
+      role = c("aut"), comment = c(ORCID = "0000-0002-7981-1599"))
    )
-Description: Package to analyze patterns of plant-plant interactions.
-License: MIT + file LICENSE
+Description: Analyze recruitment networks and patterns of plant-plant interactions.
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
-URL: https://github.com/EcologyR/templateRpackage
-BugReports: https://github.com/EcologyR/templateRpackage/issues
+URL: https://github.com/EcologyR/RecruitNetP
+BugReports: https://github.com/EcologyR/RecruitNetP/issues
 Depends: 
     R (>= 4.1.0)
 LazyData: true
@@ -32,4 +32,3 @@ Imports:
     dplyr,
     iNEXT,
     reshape2
-
