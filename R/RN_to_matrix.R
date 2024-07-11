@@ -4,7 +4,7 @@
 #' The next function takes a RN stored as data frame and transforms it into a matrix.
 #' The output matrix can be used input for bipartite package.
 #'
-#' @param RNdata A data frame generated with "local_RN" function or a data.frame
+#' @param RNdata A data frame generated with [comm_subset()] or a data.frame
 #'  containing columns with all the information needed for the basic analysis of
 #'   recruitment networks: canopy species (canopy), recruit species (recruit),
 #'   cover of the canopy (cj) and recruit (ci),
@@ -21,13 +21,16 @@
 #' and the binary presence/absence of the interaction in the whole study site (Pij).
 #' Can be used as bipartite input.
 #'
+#' @export
 #'
 #' @examples
+#' data(RecruitNet)
+#' data(CanopyCover)
 #' Ventisquero_RNc <- comm_to_RN(RecruitNet, CanopyCover, site = "Ventisquero")
-#' Ventisquero_matrix <- RN_to_matrix(Ventisquero_RNc)
+#' Ventisquero_matrix <- RN_to_matrix(Ventisquero_RNc, weight = "fij")
 #' Ventisquero_matrix <- RN_to_matrix(Ventisquero_RNc, weight = "Tij")
 
-RN_to_matrix <- function(RNdata, weight = "fij"){
+RN_to_matrix <- function(RNdata = NULL, weight = NULL){
 
   list_Canopy <- sort(unique(RNdata$Canopy))
   list_Recruit <- sort(unique(RNdata$Recruit))
