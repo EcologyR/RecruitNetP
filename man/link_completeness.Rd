@@ -22,16 +22,16 @@ if your data set is structured in multiple plots. Alternatively, for data
 collected in a single plot, estimates can be based only on abundance data.}
 }
 \value{
-A data frame
+A data frame TODO
 }
 \description{
 Observed and estimated number of links, and link completeness.
 Methods based in Chao et al. (2014) as implemented in R package iNEXT.
 }
 \examples{
-#link_completeness(RecruitNet, "Ventisquero", "incidence")
-#link_completeness(RecruitNet, "Laxe", "abundance")
-#link_completeness(RecruitNet, "Laxe", "incidence") # Issues a warning
-#link_completeness(RecruitNet, "LosReyes", "abundance")
-#link_completeness(RecruitNet, "LosReyes", "incidence") #Issues an error
+link_completeness(RecruitNet, "Ventisquero", "incidence")
+link_completeness(RecruitNet, "Laxe", "abundance")
+link_completeness(RecruitNet, "Laxe", "incidence") # Issues a warning
+link_completeness(RecruitNet, "LosReyes", "abundance")
+link_completeness(RecruitNet, "LosReyes", "incidence") #Issues an error
 }

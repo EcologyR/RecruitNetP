@@ -16,14 +16,16 @@
 #' if your data set is structured in multiple plots. Alternatively, for data
 #' collected in a single plot, estimates can be based only on abundance data.
 #'
-#' @return A data frame
+#' @export
+#'
+#' @return A data frame TODO
 #'
 #' @examples
-#' #link_completeness(RecruitNet, "Ventisquero", "incidence")
-#' #link_completeness(RecruitNet, "Laxe", "abundance")
-#' #link_completeness(RecruitNet, "Laxe", "incidence") # Issues a warning
-#' #link_completeness(RecruitNet, "LosReyes", "abundance")
-#' #link_completeness(RecruitNet, "LosReyes", "incidence") #Issues an error
+#' link_completeness(RecruitNet, "Ventisquero", "incidence")
+#' link_completeness(RecruitNet, "Laxe", "abundance")
+#' link_completeness(RecruitNet, "Laxe", "incidence") # Issues a warning
+#' link_completeness(RecruitNet, "LosReyes", "abundance")
+#' link_completeness(RecruitNet, "LosReyes", "incidence") #Issues an error
 
 
 link_completeness <- function(dataset, site, type) {

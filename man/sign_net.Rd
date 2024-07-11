@@ -43,5 +43,5 @@ of association of each interaction (in rows) and three matrices of interaction
 of positive, negative and neutral interactions, from a study site (for a single sites)
 }
 \examples{
-#sign_vest <- sign_net(RecruitNet, CanopyCover, "Ventisquero")
+sign_vest <- sign_net(RecruitNet, CanopyCover, "Ventisquero")
 }

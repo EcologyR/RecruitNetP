@@ -36,7 +36,7 @@
 #' @export
 #'
 #' @examples
-#' #sign_vest <- sign_net(RecruitNet, CanopyCover, "Ventisquero")
+#' sign_vest <- sign_net(RecruitNet, CanopyCover, "Ventisquero")
 
 
 sign_net <- function(inter_data, cover_data, site) {
@@ -49,7 +49,7 @@ sign_net <- function(inter_data, cover_data, site) {
 
   pre_index_all$Frequency <- pre_index_all$Canopy_Freq
 
-  db_inter <- sigtest(pre_index_all)
+  db_inter <- sig_test(pre_index_all)
 
   db_inter$fij <- db_inter$Canopy_Freq
 

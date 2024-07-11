@@ -1,35 +1,42 @@
-#' TODO: name
+#' Calculate significance test of association
 #'
+#' @description
 #' Calculate a significance tests of association for each row.
 #' Rows can be a pair-wise interaction (Recruit species-Canopy species interaction),
 #' the number of recruits observed under any canopy species (Recruit species)
-#' or the number of Recruits of any given speies under a given canopy species (Canopy species)
+#' or the number of Recruits of any given speies under a given canopy species
+#' (Canopy species)
 #'
-#' @param data_freq data frame obtained as the output of the functions pre_asocindex,
-#' recruit_level,canopy_level, or com_level
+#' @param db_inter data frame obtained as the output of the functions
+#' pre_asocindex, recruit_level,canopy_level, or com_level
 #' @param iteration number of iterations
 #' @param threshold minimun number of recruits to perform the binomial test
 #'
-#' @return data frame with the same structure as the input with three additional columns:
-#' int_p (p-value of the binomial test of association),
+#' @return data frame with the same structure as the input with three
+#' additional columns:int_p (p-value of the binomial test of association),
 #' int_sign (the sign of the association, being Posive (or Negative) if the
-#' association is stronger (or weaker) than expected by the percentage cover of Canopy and Open,
-#' and Neutral if there is not enougth power to conduct the test,
-#' stdres (standarized resdual quantifying the difference between the observed and expected values),
-#' and testability (indicating whether the sample size allow to conduct or not the test
-#' being Non-testable those rows in which int_sign = Neutral)
-#' @export
+#' association is stronger (or weaker) than expected by the percentage cover
+#' of Canopy and Open, and Neutral if there is not enougth power to conduct
+#' the test, stdres (standarized resdual quantifying the difference between
+#' the observed and expected values), and testability (indicating whether
+#' the sample size allow to conduct or not the test being Non-testable those
+#'  rows in which int_sign = Neutral)
+#'
+#' @noRd
 #'
 #' @examples
-#' #sigtest(com_level(RecruitNet, CanopyCover))
-#' #sigtest(pre_asocindex(RecruitNet, CanopyCover)) # "very slow"
+#' Ventisquero_RN <- comm_subset(RecruitNet, "Ventisquero")
+#' Ventisquero_cover <- comm_subset(CanopyCover, "Ventisquero")
+#' sig_test(site_level(Ventisquero_RN, Ventisquero_cover)) # overall
+#'
+#' sig_test(pre_asocindex(Ventisquero_RN, Ventisquero_cover))  # per species
 
-sigtest <- function(data_freq,
-                    iteration = 100,
-                    threshold = 5
-                    ) {
+sig_test <- function(data_freq=db_inter,
+                      iteration = 100,
+                      threshold = 5) {
 
-  db_inter <- data_freq
+  db_inter<-data_freq
+
 
   db_inter$int_p <- rep(NA, dim(db_inter)[1])
   db_inter$int_sign <- rep(NA, dim(db_inter)[1])
@@ -37,7 +44,7 @@ sigtest <- function(data_freq,
   for (i in 1:dim(db_inter)[1]) {
     if (sum(db_inter$Canopy_Freq[i] + db_inter$Open_Freq[i]) < 100000) {
       test <-
-        stats::chisq.test(
+        chisq.test2(
           c(db_inter$Canopy_Freq[i], db_inter$Open_Freq[i]),
           p = c(db_inter$Canopy_cover[i], db_inter$Open_cover[i]),
           rescale.p = TRUE,
@@ -60,7 +67,7 @@ sigtest <- function(data_freq,
 
     if (sum(db_inter$Canopy_Freq[i] + db_inter$Open_Freq[i]) >= 100000) {
       test <-
-        stats::chisq.test(
+        chisq.test2(
           c(db_inter$Canopy_Freq[i], db_inter$Open_Freq[i]),
           p = c(db_inter$Canopy_cover[i], db_inter$Open_cover[i]),
           rescale.p = TRUE,
@@ -109,7 +116,7 @@ sigtest <- function(data_freq,
         ifelse(length(which(
           replicate(
             iteration,
-            stats::chisq.test(
+            chisq.test2(
               c(fcan, fopen),
               p = c(db_inter$Canopy_cover[i], db_inter$Open_cover[i]),
               rescale.p = T,
