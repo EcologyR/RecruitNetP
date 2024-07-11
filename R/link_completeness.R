@@ -28,7 +28,23 @@
 #' link_completeness(RecruitNet, "LosReyes", "incidence") #Issues an error
 
 
-link_completeness <- function(dataset, site, type) {
+link_completeness <- function(dataset = NULL,
+                              site = NULL,
+                              type = c("incidence", "abundance")) {
+
+  stopifnot(
+    c("Study_site",
+      "Plot",
+      "Canopy",
+      "Recruit",
+      "Frequency"
+    ) %in% names(dataset))
+
+  stopifnot(is.character(site))
+  stopifnot(length(site) == 1)
+
+  type <- match.arg(type)
+
 
   data_raw <- data.frame(dataset[dataset$Study_site %in% site, ])
   data_RN <- aggr_RN(data_raw)
