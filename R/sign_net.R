@@ -27,7 +27,7 @@
 #' the number observed in the open, considering the percentage of cover of all canopy species together and open area (i.e.bare ground), respectively.
 #' 3) "by_canopy_sp":  whether the number of recuits of any recruit species (all together) under a given canopy species is significantly different from
 #' the number observed in the open, considering the percentage of cover of that canopy species and open area (i.e.bare ground), respectively
-#' 
+#'
 #' @return a list with four elements. The first element data frame with the
 #' same structure as the input with three additional columns:
 #' int_p (p-value of the binomial test of association),
@@ -43,7 +43,8 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf interactive()
+#'
 #' sign_vest <- sign_net(RecruitNet, CanopyCover, "Ventisquero", "by_pairwise_interaction" )
 
 
