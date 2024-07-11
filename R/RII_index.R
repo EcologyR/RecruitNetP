@@ -1,6 +1,6 @@
 #' RII index
 #'
-#' It generates the relative association index described by Armas et al. 2002
+#' It generates the relative association index described by Armas et al. 2004
 #'
 #' @param db_inter a data frame which must include at least seven columns named:
 #' "Study_site","Recruit","Canopy","Canopy_Freq","Canopy_cover","Open_Freq",
