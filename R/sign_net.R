@@ -20,16 +20,14 @@
 #'
 #' @param site is the name of the Study_site
 #'
-#' @param type is a character that identifies which hypothesis is being tested with four options:
+#' @param type is a character that identifies which hypothesis is being tested with three options:
 #' 1) "by_pairwise_interaction": whether the number of recuits of each recruit species under each canopy species is significantly different from
 #' the number observed in the open, considering the percentage of cover of that canopy species and open area (i.e.bare ground), respectively.
 #' 2) "by_recruit_sp": whether the number of recuits of each recruit species under any canopy species (all together) is significantly different from
 #' the number observed in the open, considering the percentage of cover of all canopy species together and open area (i.e.bare ground), respectively.
 #' 3) "by_canopy_sp":  whether the number of recuits of any recruit species (all together) under a given canopy species is significantly different from
 #' the number observed in the open, considering the percentage of cover of that canopy species and open area (i.e.bare ground), respectively
-#' 4) "by_site":  whether the number of recuits of any recruit species (all together) under any canopy species (all together) is significantly different from
-#' the number observed in the open, considering the percentage of cover of all canopy species together and open area (i.e.bare ground), respectively.
-#'
+#' 
 #' @return a list with four elements. The first element data frame with the
 #' same structure as the input with three additional columns:
 #' int_p (p-value of the binomial test of association),
@@ -58,7 +56,6 @@ sign_net <- function(inter_data, cover_data, site, type) {
 if (type == "by_pairwise_interaction") { pre_index_all <- pre_asocindex(inter, cover)}
 if (type == "by_recruit_sp") {pre_index_all <- recruit_level(inter, cover)}
 if (type == "by_canopy_sp") {pre_index_all <- canopy_level(inter, cover)}
-if (type == "by_site") {pre_index_all <- site_level(inter, cover)}
 
 
   pre_index_all$Frequency <- pre_index_all$Canopy_Freq
@@ -75,17 +72,17 @@ if (type == "by_site") {pre_index_all <- site_level(inter, cover)}
   cov_neg <- droplevels(cover[cover$Canopy %in% unique(neg$Canopy), ])
   cov_neu <- droplevels(cover[cover$Canopy %in% unique(neu$Canopy), ])
 
-  posRN <- local_RN(pos, cov_pos, unique(pos$Study_site))
-  negRN <- local_RN(neg, cov_pos, unique(neg$Study_site))
-  neuRN <- local_RN(neu, cov_pos, unique(neu$Study_site))
+  posRN <- comm_to_RN(pos, cov_pos, unique(pos$Study_site))
+  negRN <- comm_to_RN(neg, cov_pos, unique(neg$Study_site))
+  neuRN <- comm_to_RN(neu, cov_pos, unique(neu$Study_site))
 
-  pos_net <- RN_matrixForm(posRN[, c("Canopy", "Recruit", "fij")])
+  pos_net <- RN_to_matrix(posRN[, c("Canopy", "Recruit", "fij")])
   pos_net <- pos_net[rowSums(pos_net) > 0, colSums(pos_net) > 0]
 
-  neg_net <- RN_matrixForm(negRN[, c("Canopy", "Recruit", "fij")])
+  neg_net <- RN_to_matrix(negRN[, c("Canopy", "Recruit", "fij")])
   neg_net <- neg_net[rowSums(neg_net) > 0, colSums(neg_net) > 0]
 
-  neu_net <- RN_matrixForm(neuRN[, c("Canopy", "Recruit", "fij")])
+  neu_net <- RN_to_matrix(neuRN[, c("Canopy", "Recruit", "fij")])
   neu_net <- neu_net[rowSums(neu_net) > 0, colSums(neu_net) > 0]
 
 
