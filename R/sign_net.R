@@ -75,17 +75,17 @@ if (type == "by_site") {pre_index_all <- site_level(inter, cover)}
   cov_neg <- droplevels(cover[cover$Canopy %in% unique(neg$Canopy), ])
   cov_neu <- droplevels(cover[cover$Canopy %in% unique(neu$Canopy), ])
 
-  posRN <- local_RN(pos, cov_pos, unique(pos$Study_site))
-  negRN <- local_RN(neg, cov_pos, unique(neg$Study_site))
-  neuRN <- local_RN(neu, cov_pos, unique(neu$Study_site))
+  posRN <- comm_to_RN(pos, cov_pos, unique(pos$Study_site))
+  negRN <- comm_to_RN(neg, cov_pos, unique(neg$Study_site))
+  neuRN <- comm_to_RN(neu, cov_pos, unique(neu$Study_site))
 
-  pos_net <- RN_matrixForm(posRN[, c("Canopy", "Recruit", "fij")])
+  pos_net <- RN_to_matrix(posRN[, c("Canopy", "Recruit", "fij")])
   pos_net <- pos_net[rowSums(pos_net) > 0, colSums(pos_net) > 0]
 
-  neg_net <- RN_matrixForm(negRN[, c("Canopy", "Recruit", "fij")])
+  neg_net <- RN_to_matrix(negRN[, c("Canopy", "Recruit", "fij")])
   neg_net <- neg_net[rowSums(neg_net) > 0, colSums(neg_net) > 0]
 
-  neu_net <- RN_matrixForm(neuRN[, c("Canopy", "Recruit", "fij")])
+  neu_net <- RN_to_matrix(neuRN[, c("Canopy", "Recruit", "fij")])
   neu_net <- neu_net[rowSums(neu_net) > 0, colSums(neu_net) > 0]
 
 
