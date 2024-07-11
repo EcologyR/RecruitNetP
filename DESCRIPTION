@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: 
   c(
     person("Alicia", "Montesinos-Navarro", , "alimontesinos@gmail.com", 
-      role = c("aut", "cre", "cph"), comment = c(ORCID = "0000")),
+      role = c("aut", "cph"), comment = c(ORCID = "0000")),
     person("José Luis", "Garrido", , "jlgarridosan@gmail.com", 
       role = c("aut", "cph"), comment = c(ORCID = "0000")),
     person("Miguel", "Verdú", , "Miguel.Verdu@ext.uv.es", 
@@ -12,7 +12,7 @@ Authors@R:
     person("Julio M.", "Alcántara", , "jmalcan@ujaen.es", 
       role = c("aut", "cph"), comment = c(ORCID = "0000")),
     person("Francisco", "Rodriguez-Sanchez", , "f.rodriguez.sanc@gmail.com", 
-      role = c("aut"), comment = c(ORCID = "0000-0002-7981-1599"))
+      role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-7981-1599"))
    )
 Description: Analyze recruitment networks and patterns of plant-plant interactions.
 License: GPL (>= 3)
