@@ -4,12 +4,12 @@ download.file("https://zenodo.org/record/6567608/files/Data_S1.zip?download=1",
 unzip("data-raw/RNDB.v4.zip", exdir = "data-raw")
 file.remove("data-raw/RNDB.v4.zip")
 
-RN <- as.data.frame(readr::read_csv("data-raw/RecruitNet.csv"))
-RNCover <- as.data.frame(readr::read_csv("data-raw/CanopyCover.csv"))
+RecruitNet <- as.data.frame(readr::read_csv("data-raw/RecruitNet.csv"))
+CanopyCover <- as.data.frame(readr::read_csv("data-raw/CanopyCover.csv"))
 
-usethis::use_data(RN, overwrite = TRUE)
-usethis::use_data(RNCover, overwrite = TRUE)
+usethis::use_data(RecruitNet, overwrite = TRUE)
+usethis::use_data(CanopyCover, overwrite = TRUE)
 
-# data("RN")
-# data("RNCover")
+# data("RecruitNet")
+# data("CanopyCover")
 
