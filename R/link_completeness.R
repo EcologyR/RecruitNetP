@@ -20,7 +20,8 @@
 #'
 #' @return A data frame TODO
 #'
-#' @examples
+#' @examplesIf interactive()
+#'
 #' link_completeness(RecruitNet, "Ventisquero", "incidence")
 #' link_completeness(RecruitNet, "Laxe", "abundance")
 #' link_completeness(RecruitNet, "Laxe", "incidence") # Issues a warning
