@@ -1,4 +1,4 @@
-#' Function merge_RN_cover
+#' Merge cover data with interaction data
 #'
 #' This function makes a data frame that merges the information from the recruitment network
 #' and species cover for a local community.
@@ -13,8 +13,13 @@
 #' canopy species (canopy), recruit species (recruit), recruitment frequency (fij),
 #' cover of the canopy (cj) and cover of the recruit (ci).
 #'
+#' @noRd
+#'
 #' @examples
-#' #Ventisquero_RNc <- merge_RN_cover(Ventisquero_RN, Ventisquero_cover)
+#' Ventisquero_raw <- comm_subset(RecruitNet, site = "Ventisquero")
+#' Ventisquero_RN <- aggr_RN(Ventisquero_raw)
+#' Ventisquero_cover <- aggr_cover(CanopyCover, site = "Ventisquero")
+#' Ventisquero_RNc <- merge_RN_cover(Ventisquero_RN, Ventisquero_cover)
 
 merge_RN_cover <- function(RN_data, cover_data) {
 
@@ -38,7 +43,7 @@ merge_RN_cover <- function(RN_data, cover_data) {
   # Add variables with the cover of the canopy (cj) and recruit (ci) species
   RNc$cj <- RNc$Canopy
   RNc$ci <- RNc$Recruit
-  for (i in 1:dim(RNc[1])) {
+  for (i in 1:dim(RNc)[1]) {
     RNc$cj[i] <- as.numeric(replace(
       RNc$Canopy[i],
       match(RN_list, RNc$Canopy[i]),
@@ -46,7 +51,7 @@ merge_RN_cover <- function(RN_data, cover_data) {
     ))
   }
 
-  for (i in 1:dim(RNc[1])) {
+  for (i in 1:dim(RNc)[1]) {
     RNc$ci[i] <- as.numeric(replace(
       RNc$Recruit[i],
       match(RN_list, RNc$Recruit[i]),

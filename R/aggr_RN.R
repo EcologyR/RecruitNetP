@@ -18,8 +18,11 @@
 #' @return A data frame containing the data to build a recruitment network
 #' of a local community: "canopy", "recruit", "fij", "Tij" and "Pij".
 #'
+#' @noRd
+#'
 #' @examples
-#' #Ventisquero_RN <- aggr_RN(Ventisquero_raw)
+#' Ventisquero_raw <- comm_subset(RecruitNet, site = "Ventisquero")
+#' Ventisquero_RN <- aggr_RN(Ventisquero_raw)
 
 aggr_RN <- function(raw_RN) {
 

@@ -10,7 +10,8 @@
 #'   cover of the canopy (cj) and recruit (ci),
 #'   and columns with possible weighting variables.
 #'
-#' @param weight TODO
+#' @param weight The name of the column of the data frame to be used as weight
+#' variable for the links.
 #'
 #' @return A matrix object with the species names as row (recruit species) and
 #' column names (canopy species), and cells indicating the chosen weight for
@@ -22,15 +23,17 @@
 #'
 #'
 #' @examples
-#' #Ventisquero_matrix <- RN_matrixForm(Ventisquero_RNc, Ventisquero_RNc$Tij)
+#' Ventisquero_RNc <- comm_to_RN(RecruitNet, CanopyCover, site = "Ventisquero")
+#' Ventisquero_matrix <- RN_to_matrix(Ventisquero_RNc)
+#' Ventisquero_matrix <- RN_to_matrix(Ventisquero_RNc, weight = "Tij")
 
-RN_matrixForm <- function(RNdata, weight){
+RN_to_matrix <- function(RNdata, weight = "fij"){
 
   list_Canopy <- sort(unique(RNdata$Canopy))
   list_Recruit <- sort(unique(RNdata$Recruit))
   Num_canopy <- length(list_Canopy)
   Num_recruit <- length(list_Recruit)
-  RNmat <- weight
+  RNmat <- RNdata[[weight]]
   dim(RNmat) <- c(Num_recruit, Num_canopy)
   colnames(RNmat) <- list_Canopy
   rownames(RNmat) <- list_Recruit

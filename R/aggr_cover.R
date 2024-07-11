@@ -12,8 +12,10 @@
 #' aggregated across plots. It has two columns: "Canopy", with the name of each species (irrespective
 #' of being acting as canopies or recruits); and "abundance".
 #'
+#' @noRd
+#'
 #' @examples
-#' #Ventisquero_cover <- aggr_cover(CanopyCover, site = "Ventisquero")
+#' Ventisquero_cover <- aggr_cover(CanopyCover, site = "Ventisquero")
 
 aggr_cover <- function(dataset, site) {
   cover <- dataset[which(dataset$Study_site == site), ]

@@ -1,4 +1,4 @@
-#' Function local_comm
+#' Subset sites
 #'
 #' This function extracts the information of a given local community and
 #' stores it in a separate data frame. It can also extract more than one.
@@ -12,14 +12,18 @@
 #'
 #' @return A data frame containing all the data from the desired community/ies
 #'
+#' @export
+#'
 #' @examples
-#' #Ventisquero_raw <- local_comm(RecruitNet, "Ventisquero")
+#' #Ventisquero_raw <- comm_subset(RecruitNet, "Ventisquero")
 #'
 #' #TwoSites <- c("Ventisquero","Agadir")
-#' #TwoSites_raw <- local_comm(RecruitNet, TwoSites)
+#' #TwoSites_raw <- comm_subset(RecruitNet, TwoSites)
 
-local_comm <- function(dataset, site) {
+comm_subset <- function(dataset = NULL, site = NULL) {
 
-  data_set <- data.frame(dataset[dataset$Study_site %in% site, ])
+  stopifnot("Study_site" %in% names(dataset))
+
+  data_set <- dataset[dataset$Study_site %in% site, ]
 
 }

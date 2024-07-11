@@ -1,4 +1,4 @@
-#' TODO: title
+#' Calculate the number of recruits under each canopy species
 #'
 #' Calculate in separate columns the total number of recruits (of any species)
 #' under each species of canopy and in the open and its respective percentage
@@ -30,10 +30,10 @@
 #' Freq_tot is the sum of Canopy_Freq and Open_Freq (total number of recruits of
 #'  that speices observed in the area sampled in the Study_site).
 #'
-#' @export
+#' @noRd
 #'
 #' @examples
-#' #db_sp_can <- canopy_level (RecruitNet, CanopyCover)
+#' db_sp_can <- canopy_level (RecruitNet, CanopyCover)
 
 canopy_level <- function(inter_data = RecruitNet,
                          cover_data = CanopyCover

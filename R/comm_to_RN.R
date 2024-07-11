@@ -1,4 +1,4 @@
-#' TODO: title
+#' Merge cover data with interaction data for a given site
 #'
 #' This function makes a data frame that merges the information from the
 #' recruitment network and species cover for a local community.
@@ -19,11 +19,13 @@
 #' canopy species (canopy), recruit species (recruit), recruitment frequency (fij),
 #' cover of the canopy (cj) and cover of the recruit (ci).
 #'
+#' @export
+#'
 #' @examples
-#' #Ventisquero_RNc <- local_RN(RecruitNet, CanopyCover, "Ventisquero")
+#' Ventisquero_RNc <- comm_to_RN(RecruitNet, CanopyCover, site = "Ventisquero")
 
-local_RN <- function(RN_data, cover_data, site) {
+comm_to_RN <- function(RN_data, cover_data, site) {
 
-  merge_RN_cover(aggr_RN(local_comm(RN_data, site)), aggr_cover(cover_data, site))
+  merge_RN_cover(aggr_RN(comm_subset(RN_data, site)), aggr_cover(cover_data, site))
 
 }

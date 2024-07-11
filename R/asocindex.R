@@ -29,7 +29,7 @@
 #' @import dplyr
 #'
 #' @examples
-#' #com <- plot_to_com(data, dbcover)
+#' #com <- plot_to_site(data, dbcover)
 #' #db_asoc <- asocindex(com[[1]], com[[2]], com[[3]])
 
 

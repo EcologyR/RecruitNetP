@@ -28,14 +28,14 @@
 #' sampled area of the Study_site) and mycover_sp (a unique identifier
 #' for each canopy species in each Study_site, combining Study_site and Canopy species).
 #'
-#' @export
+#' @noRd
 #'
 #' @examples
-#' #all_nets <- plot_to_com(RecruitNet, CanopyCover)
+#' all_nets <- plot_to_site(RecruitNet, CanopyCover)
 
 
 
-plot_to_com2 <- function(inter_data = RecruitNet,
+plot_to_site <- function(inter_data = RecruitNet,
                         cover_data = CanopyCover
                         ) {
   data <- inter_data

@@ -31,6 +31,5 @@ Config/testthat/edition: 3
 Imports: 
     dplyr,
     iNEXT,
-    maditr,
     reshape2,
     tidyr,

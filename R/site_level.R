@@ -30,13 +30,13 @@
 #' Freq_tot is the sum of Canopy_Freq and Open_Freq (total number of recruits
 #' of that speices observed in the area sampled in the Study_site).
 #'
-#' @export
+#' @noRd
 #'
 #' @examples
-#' #db_sp_com <- com_level (RecruitNet, CanopyCover)
+#' db_sp_com <- site_level (RecruitNet, CanopyCover)
 
 
-com_level <- function(inter_data = RecruitNet,
+site_level <- function(inter_data = RecruitNet,
                       cover_data = CanopyCover) {
 
   options(dplyr.summarise.inform = FALSE)

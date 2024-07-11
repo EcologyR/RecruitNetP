@@ -31,18 +31,19 @@
 #' Freq_tot is the sum of Canopy_Freq and Open_Freq (total number of recruits
 #' of that speices observed in the area sampled in the Study_site).
 #'
-#' @export
+#' @noRd
 #'
 #' @examples
-#' #pre_index_all<-pre_asocindex(RecruitNet, CanopyCover)
+#' pre_index_all <- pre_asocindex(RecruitNet, CanopyCover)
 
 pre_asocindex <- function(inter_data = RecruitNet,
                           cover_data = CanopyCover
                           ) {
+
   data <- inter_data
   dbcover <- cover_data
 
-  com <- plot_to_com(data, dbcover)
+  com <- plot_to_site(data, dbcover)
 
   inter <- com[[1]]
   Canopy_all <- com[[2]]

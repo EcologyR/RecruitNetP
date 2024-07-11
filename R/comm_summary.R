@@ -1,27 +1,31 @@
-#' TODO: title
+#' Summarise metadata of a community
 #'
 #' This function provides a summary of the characteristics (i.e. metadata) of
 #' a local community.
 #'
 #' @param dataset A data frame for a single site (or a group of sites).
-#' For example, a data frame created with local_comm. This function relies on
+#' For example, a data frame created with subset_comm. This function relies on
 #' the variable names used in the original RecruitNet database, so it cannot be used
 #' with other datasets unless they follow exactly the ordering and the names used in RecruitNet.
 #'
 #' @return A data frame with summary information of the local community/ies.
 #'
+#' @export
+#'
 #' @examples
-#' #Ventisquero_details <- lc_details(Ventisquero_raw)
-#' #All_sites_details <- lc_details(RecruitNet)
+#' All_sites_details <- comm_summary(RecruitNet)
+#' Ventisquero_raw <- comm_subset(RecruitNet, site = "Ventisquero")
+#' Ventisquero_details <- comm_summary(Ventisquero_raw)
 
-lc_details <- function(dataset) {
+
+comm_summary <- function(dataset) {
 
   dfList <- list()
 
 
   for (i in 1:length(unique(dataset$Study_site))) {
 
-    data <- local_comm(dataset, unique(dataset$Study_site)[i])
+    data <- comm_subset(dataset, unique(dataset$Study_site)[i])
 
     # Plots data
     n_plots <- length(unique(data$Plot))
