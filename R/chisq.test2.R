@@ -141,7 +141,7 @@ chisq.test2 <-function (x, y = NULL, correct = TRUE, p = rep(1/length(x), length
 
     else {
       PARAMETER <- length(x) - 1
-      PVAL <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
+      PVAL <- stats::pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
     }
   }
   names(STATISTIC) <- "X-squared"
