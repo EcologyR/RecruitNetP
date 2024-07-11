@@ -23,7 +23,7 @@
 
 #calculates the RII observed for each interaction
 
-RIIindex <- function(db_inter, newarg = NULL) {
+RIIindex <- function(db_inter) {
 
   db_inter$RII <-
   with(db_inter, ((Canopy_Freq / Canopy_cover) - (Open_Freq / Open_cover)) /
