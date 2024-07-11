@@ -55,10 +55,10 @@ sign_net <- function(inter_data, cover_data, site, type) {
   cover <- droplevels(CanopyCover[CanopyCover$Study_site == site, ])
   site <- unique(inter$Study_site)
 
-if(type="by_pairwise_interaction") { pre_index_all <- pre_asocindex(inter, cover)}
-if(type="by_recruit_sp") {pre_index_all <- recruit_level(inter, cover)}
-if(type="by_canopy_sp") {pre_index_all <- canopy_level(inter, cover)}
-if(type="by_site") {pre_index_all <- site_level(inter, cover)}
+if(type=="by_pairwise_interaction") { pre_index_all <- pre_asocindex(inter, cover)}
+if(type=="by_recruit_sp") {pre_index_all <- recruit_level(inter, cover)}
+if(type=="by_canopy_sp") {pre_index_all <- canopy_level(inter, cover)}
+if(type=="by_site") {pre_index_all <- site_level(inter, cover)}
 
   pre_index_all$Frequency <- pre_index_all$Canopy_Freq
 
