@@ -60,6 +60,7 @@ if (type == "by_recruit_sp") {pre_index_all <- recruit_level(inter, cover)}
 if (type == "by_canopy_sp") {pre_index_all <- canopy_level(inter, cover)}
 if (type == "by_site") {pre_index_all <- site_level(inter, cover)}
 
+
   pre_index_all$Frequency <- pre_index_all$Canopy_Freq
 
   db_inter <- sig_test(pre_index_all)
