@@ -42,7 +42,7 @@ chisq.test2 <-function (x, y = NULL, correct = TRUE, p = rep(1/length(x), length
                  30)
       ""
     else DNAME2
-    OK <- complete.cases(x, y)
+    OK <- stats::complete.cases(x, y)
     x <- factor(x[OK])
     y <- factor(y[OK])
     if ((nlevels(x) < 2L) || (nlevels(y) < 2L))
@@ -92,7 +92,7 @@ chisq.test2 <-function (x, y = NULL, correct = TRUE, p = rep(1/length(x), length
       else YATES <- 0
       STATISTIC <- sum((abs(x - E) - YATES)^2/E)
       PARAMETER <- (nr - 1L) * (nc - 1L)
-      PVAL <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
+      PVAL <- stats::pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
     }
   }
   else {

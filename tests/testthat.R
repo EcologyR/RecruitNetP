@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(RecruitnetP)
+library(RecruitNetP)
 
-test_check("RecruitnetP")
+test_check("RecruitNetP")

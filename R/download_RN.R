@@ -16,11 +16,11 @@
 
 download_RN <- function(path = getwd(), destfile = "RN.zip", unzip = TRUE) {
 
-  download.file("https://zenodo.org/record/6567608/files/Data_S1.zip?download=1",
+  utils::download.file("https://zenodo.org/record/6567608/files/Data_S1.zip?download=1",
                 destfile = file.path(path, destfile), mode = "wb")
 
   if (isTRUE(unzip)) {
-    unzip(file.path(path, destfile), exdir = path)
+    utils::unzip(file.path(path, destfile), exdir = path)
     file.remove(file.path(path, destfile))
   }
 
