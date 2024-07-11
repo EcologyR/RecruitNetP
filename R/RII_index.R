@@ -1,6 +1,6 @@
 #' RII index
 #'
-#' It generates the relative association index described by Armas et al. XXX
+#' It generates the relative association index described by Armas et al. 2002
 #'
 #' @param db_inter a data frame which must include at least seven columns named:
 #' "Study_site","Recruit","Canopy","Canopy_Freq","Canopy_cover","Open_Freq",
@@ -23,7 +23,7 @@
 
 #calculates the RII observed for each interaction
 
-RIIindex <- function(db_inter) {
+RIIindex <- function(db_inter, newarg = NULL) {
 
   db_inter$RII <-
   with(db_inter, ((Canopy_Freq / Canopy_cover) - (Open_Freq / Open_cover)) /
