@@ -3,7 +3,7 @@
 \docType{data}
 \name{CanopyCover}
 \alias{CanopyCover}
-\title{RecruitNet-Cover}
+\title{CanopyCover}
 \format{
 An object of class \code{data.frame} with 26812 rows and 7 columns.
 }

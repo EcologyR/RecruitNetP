@@ -5,7 +5,7 @@
 #' @source https://doi.org/10.1002/ecy.3923
 "RecruitNet"
 
-#' RecruitNet-Cover
+#' CanopyCover
 #'
 #' Canopy cover of plant-plant interactions global database
 #'
