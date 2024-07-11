@@ -1,0 +1,41 @@
+---
+title: "Completeness of the recruitment network"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(RecruitNetP)
+```
+
+# Is my RN representative of the "true" RN of the local community? 
+
+The basic parameters of a RN are its *order* (number of nodes: *S*) and *size* (number of links: *l*). The ratio of the size to the square of order is the *connectance* of the network: $C = l/S^2$ (proportion of the maximum possible number of links that are actually realized). An important preliminary step before the analysis of the RN is determining to which extent our sampling provides a good approximation to estimate these basic parameters for the "real" RN.
+
+It is well known in community ecology that estimates of *S* depend on sampling effort, and there is ample literature on how to determine the completeness of the list of species sampled in a local assemblage (see Chao et al. 2020 and references therein). The same problem affects the estimation of the number of links that can take place in a local assemblage. Even if we scan a locality inch by inch, some interactions may not be realized within the scanned area just by chance. Besides, the frequency of some interactions may be too low to be detected with a limited sampling effort, and some canopy species may pose difficulties to searching beneath them (e.g. those covered by spines or thorns). The studies that have assessed the completeness of ecological networks (Goldwasser and Roughgarden 1997, Nielsen and Bascompte 2007, Rivera-Hutinel et al. 2012, Costa et al. 2016, Vizentin-Bugoni et al. 2016, Pulgar et al. 2017, Henriksen et al 2019) agree in that the level of sampling effort needed for a good coverage of the links present in a network is much larger than the effort needed to obtain a good coverage of the number of species in the local assemblage. This implies that *C* may often be underestimated and that other properties of the network can also be affected. Networks inferred with insufficient or biased data will lead to biased or totally wrong conclusions. This was a fundamental flaw in the early studies on food webs that slowed down the development of this field (Pascual & Dunne 2006).
+
+Analytical procedures developed to estimate species richness can be adapted for the study of interactions in ecological networks, simply treating each link as if it was a "species" and its frequency as equivalent to species abundance (Chacoff et al. 2012, Jordano 2016, Chiu et al. 2023). Particularly interesting is the adaptation for the study of interaction networks made by Chiu et al. (2023) of the methods for the analysis of completeness developed by Chao et al. (2014, 2020) based in Hill's numbers (*q*). In the context of ecological networks, we are mostly interested in the Hill's numbers of order 0 and 1 as applied to species and interactions counts. Hill's number of order 0 (*q0*) estimated with the whole sample is simply the observed number of species or links (*q0~obs~*). But the observed number underestimates the real number, so we need an estimate of the real *q0~est~*, which can be obtained using non-parametric estimators (e.g, Chao1, Chao2, ACE or ICE). Using the non-parametric estimate as reference, we can estimate the completeness of *q0* as $^0^C = q0~obs~/q0~est~$. In turn, Hill's number of order 1 (*q~1~*) is the exponential of Shannon's index of diversity. Differently from *q0*, *q1* incorporates information on the relative frequencies. The completeness of *q~1~* (*^1^C*) is most often referred to as "coverage", and indicates the proportion of the total number of individuals of any species, or of events of any interaction, occurring the real community that belong to species or links that have already been sampled.
+
+The counts to estimate the number of species or links can be obtained by means of different sampling schemes but, in general, there are two types of counting: abundance counts and incidence counts (a.k.a. occurrence or presence counts) (Gotelli and Colwell 2001). Cases (defined as independent individuals of any species or as occurrences of any link in different sampling units) are randomly sampled from the whole set of cases in the local assemblage. In abundance counts, the cases are counted individually, as when counting the number of recruits of each species in a plot. Incidence counts are used when individual cases cannot be clearly distinguished to be counted (e.g. when counting clonal plants or corals) or when they cannot be considered as independent samples (e.g. multiple individual ants of the same species falling in a pit-fall trap). In these cases, we count the number of times each species or link is detected across multiple samples, and these samples are considered as randomly chosen "replicates" of the local community. When estimating species richness, incidence-based estimates are less sensitive to the spatial aggregation of individuals than abundance-based estimates (Chazdon et al. 1998, Colwell et al. 2004, Chao et al. 2014). 
+
+Incidence data have another interesting advantage over abundance data in the context of networks: when each sample is sufficiently large to be considered as a replicate of the local community, the stability of network descriptors against sampling effort can be estimated (Nielsen and Bascompte 2007, Costa et al. 2016, Pulgar et al. 2017). Basically, if we sample canopy-recruit interactions in *N* plots, we can use the following process:
+
+(1) Build the partial RN of each of the *N* plots.
+(2) Combine the partial RNs of *k*  (see explanation below) randomly chosen pairs of plots, obtain their metric and calculate the mean and 95%CL. This is the value with sampling effort *n*=2.
+(3) Repeat the process for all the levels of sampling effort up to *n*=*N*-2 plots. 
+
+The metrics for sampling effort of *n*=1 plot and for *n*=*N*-1 plots can only be based on *N* different values (one for each of the *N* plots or one per each of the *N* possible combination of *N*-1 plots). However, the number of random combinations (*k*) of *n* = 2, 3 ... *N*-2 partial RNs can be much larger than *N* (i.e. combinations of *N* partial RNs taken *n* at a time). Therefore, to obtain comparable confidence intervals across levels of sampling effort, *k* must be constant in all levels. The value of *k* should not be too small so that the confidence intervals are obtained for a large number of random combinations. For example, with *N*=20 plots, there are 20 possible combinations of 1 (or of *N*-1) plots, 190 possible combinations of 2 (or of *N*-2) plots and 1140 possible combinations of 3 (or of *N*-3) plots. In this example, if we set *k* = 100, then we could estimate the effect of sampling effort for *n* in the range between 2 and 18 plots.
+
+This procedure allows determining whether the value of each network metric stabilizes within the sampling effort of the survey.
+
+To address the quality of a dataset for the study of recruitment networks, we will determine (1) the completeness (*^0^C*) and coverage (*^1^C*) of the number of species and links detected, and (2) the stability of network metrics to sampling effort. 
+
+## 1. Completeness and coverage of species and links.
+
+The following analyses apply to data collected using the Recruitment Network protocol described in Alcantara et al. (2019), which involves partial RNs sampled in multiple plots. Accordingly, to obtain completeness and coverage estimates for a recruitment network, we will use **iNEXT** package (Hsieh et al. 2016) for incidence data.
+

@@ -1,0 +1,27 @@
+---
+title: "The RecruitNet database"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(RecruitNetP)
+```
+
+# Introduction to the RecruitNet database.
+
+The RecruitNet is a dataset containing information on plant-plant recruitment interactions in 143 local plant communities (Study sites) from 23 countries across five continents, including temperate and tropical ecosystems. Each network provides information on the number of individuals of every "recruit" species recruiting in the proximity of every "canopy" species or away from other plants (in so called "open" interspaces). The data set includes more than 850000 recruiting individuals involved in 87924 different canopy-recruit pairs among 3186 vascular plant species. The cover of canopy species and open ground is also provided. It was published as a data paper by Verdu et al. (2023)^1^ and can be downloaded from:
+
+https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecy.3923
+
+^1^*Verdú, M., Garrido, J. L., Alcantara, J. M., Montesinos‐Navarro, A., Aguilar, S., Aizen, M. A., ... & Zamora, R. (2023). RecruitNet: A global database of plant recruitment networks. Ecology 104(2):e3923.*
+
+The objectives of this script are: (1) extracting from RecruitNet database the information from one of the study sites, and (2) define the optional data structures required for different analyses. Before starting, it is always a good idea to familiarize with the contentes of the dataset by reading the Metadata file provided with the paper. 
+
+The RecruitNet contains two "csv" files: **RecruitNet.csv**, with the bulk of data for canopy-recruit interactions, and **CanopyCover.csv** with data on the cover of each species in each study site.
+

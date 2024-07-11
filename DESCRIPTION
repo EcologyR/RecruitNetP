@@ -32,3 +32,4 @@ Imports:
     dplyr,
     iNEXT,
     reshape2
+Config/Needs/website: rmarkdown
