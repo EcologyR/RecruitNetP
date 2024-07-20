@@ -30,6 +30,7 @@ Suggests:
 Config/testthat/edition: 3
 Imports: 
     dplyr,
+    igraph,
     iNEXT,
     reshape2
 Config/Needs/website: rmarkdown
