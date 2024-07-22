@@ -41,7 +41,7 @@ aggr_RN <- function(raw_RN) {
   RN[is.na(RN)] <- 0
   RN$Canopy <- as.character(RN$Canopy)
   RN$Recruit <- as.character(RN$Recruit)
-  RN <- RN[which(RN$Recruit!="Open"),] # Remove Open from the Recruit species
+  # RN <- RN[which(RN$Recruit!="Open"),] # Remove Open from the Recruit species
   return(RN)
 
 }
