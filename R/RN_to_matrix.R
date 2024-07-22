@@ -4,7 +4,7 @@
 #' The next function takes a RN stored as data frame and transforms it into a matrix.
 #' The output matrix can be used input for bipartite package.
 #'
-#' @param RNdata A data frame generated with [comm_subset()] or a data.frame
+#' @param RNdata A data frame generated with [comm_to_RN()] or a data.frame
 #'  containing columns with all the information needed for the basic analysis of
 #'   recruitment networks: canopy species (canopy), recruit species (recruit),
 #'   cover of the canopy (cj) and recruit (ci),
