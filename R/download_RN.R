@@ -1,4 +1,4 @@
-#' Download RecruitNet database
+#' Download RecruitNet database from Zenodo
 #'
 #' Download latest version of the RecruitNet database (Verdú et al. 2023,
 #' \doi{doi:10.1002/ecy.3923}).
@@ -8,11 +8,7 @@
 #' @param unzip Logical. Uncompress the zip file? Default is TRUE.
 #'
 #' @return A zip file or two CSV files, depending if unzip is TRUE.
-#' @export
-#'
-#' @examplesIf interactive()
-#' download_RN()
-#'
+
 
 download_RN <- function(path = getwd(), destfile = "RN.zip", unzip = TRUE) {
 
