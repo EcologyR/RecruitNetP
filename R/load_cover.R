@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-#' int_data <- load_cover()
+#' cover_data <- load_cover()
 load_cover <- function(path = getwd()) {
 
   if (!file.exists(file.path(path, "CanopyCover.csv"))) {
