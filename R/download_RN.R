@@ -1,4 +1,4 @@
-#' Download RecruitNet database
+#' Download RecruitNet database from Zenodo
 #'
 #' Download latest version of the RecruitNet database (Verdú et al. 2023,
 #' \doi{doi:10.1002/ecy.3923}).
