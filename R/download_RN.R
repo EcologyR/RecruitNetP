@@ -8,11 +8,7 @@
 #' @param unzip Logical. Uncompress the zip file? Default is TRUE.
 #'
 #' @return A zip file or two CSV files, depending if unzip is TRUE.
-#' @export
-#'
-#' @examplesIf interactive()
-#' download_RN()
-#'
+
 
 download_RN <- function(path = getwd(), destfile = "RN.zip", unzip = TRUE) {
 
