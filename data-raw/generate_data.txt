@@ -1,0 +1,67 @@
+
+generate_test_data <- function(){
+
+  edges <- data.frame(
+    Canopy = c("A","B",
+               "B","C",
+               "B","E",
+               "B","I",
+               "F","G",
+	       "H","J",
+"F","C","E",
+"A","J","I","D","D",
+"K","H",
+		"Open","Open","Open","Open","Open","Open","Open","Open","Open","Open","Open"),
+    
+    Recruit = c("B","A",
+                "C","D",
+                "E","H",
+                "I","J",
+                "G","F",
+		"B","B",
+"C","E","F",
+"J","I","D","B","H",
+"E","K",
+		"A","B","C","D","E","F","G","H","I","J","K"),
+    
+    stringsAsFactors = FALSE
+  )
+  
+  n <- nrow(edges)
+  
+  mysite_comP <- data.frame(
+    Study_site = "TestSite",
+    PlotdimX = 10,
+    PlotdimY = 10,
+    Sampling_date = 2024,
+    Plot = "1",
+    Canopy = edges$Canopy,
+    Recruit = edges$Recruit,
+    Frequency = c(30,10,90,90,5,90,90,90,90,10,30,30,
+4,4,4,
+4,4,4,4,4,
+90,30,
+90,10,20,20,20,90,10,10,20,20,10),
+    stringsAsFactors = FALSE
+  )
+  
+  # cover data (una fila por especie)
+  species <- unique(c(edges$Canopy, edges$Recruit))
+  
+  mysite_covP <- data.frame(
+    Study_site = "TestSite",
+    Plot = "1",
+    Canopy = species,
+    Cover = c(60,10,60,40,60,60,10,10,60,90,
+10,60),
+    Sampled_distance_or_area = 100,
+    stringsAsFactors = FALSE
+  )
+  
+  return(list(com = mysite_comP,
+              cov = mysite_covP))
+}
+
+
+test_data <- generate_test_data()
+
