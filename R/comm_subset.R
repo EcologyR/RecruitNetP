@@ -1,4 +1,4 @@
-#' Subset sites
+#' Subset sites CAMBIO
 #'
 #' This function extracts the information of a given local community and
 #' stores it in a separate data frame. It can also extract more than one site.
