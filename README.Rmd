@@ -22,6 +22,8 @@ knitr::opts_chunk$set(
 `r badger::badge_repostatus("WIP")` 
 [![HitCount](https://hits.dwyl.com/EcologyR/RecruitNetP.svg?style=flat-square)](http://hits.dwyl.com/EcologyR/RecruitNetP)
 [![HitCount](https://hits.dwyl.com/EcologyR/RecruitNetP.svg?style=flat-square&show=unique)](http://hits.dwyl.com/EcologyR/RecruitNetP)
+[![R-CMD-check](https://github.com/EcologyR/RecruitnetP/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EcologyR/RecruitnetP/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/EcologyR/RecruitnetP/graph/badge.svg)](https://app.codecov.io/gh/EcologyR/RecruitnetP)
 <!-- badges: end -->
 
 The goal of RecruitNetP is to ...
