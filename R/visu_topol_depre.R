@@ -1,20 +1,24 @@
-#' Title
+#' Allow the visualization of intransitivity loops of recruitment depression
 #'
-#' @param int_data
-#' @param cover_data
-#' @param layout_fun
-#' @param vertex_size
-#' @param edge_arrow_size
+#' @description with nodes in different SCC identified by different colors (in grey if they
+#' do not belong to any SCC).
+#' It may be frequent that in recruitment enhancement (i.e. facilitation) or
+#' depression (i.e.competition) networks, there is not any SCC as they tend to
+#' have smaller dimensions that general recruitment networks.
 #'
-#' @returns
+#' @inheritParams check_interactions
+#' @inheritParams check_cover
+#'
+#'
+#' @returns a plot
 #' @export
 #'
 #' @examples
-#'
+#' visu_topol_depre(test_data$com,test_data$cov)
 #'
 visu_topol_depre <- function(int_data,
                              cover_data,
-                             layout_fun = layout_with_fr,
+                             layout_fun = igraph::layout_with_fr,
                              vertex_size = 20,
                              edge_arrow_size = 0.4) {
 
@@ -32,24 +36,24 @@ visu_topol_depre <- function(int_data,
   A[rownames(M), colnames(M)] <- M
   M <- t(A)
 
-  g <- graph_from_adjacency_matrix(M,
+  g <- igraph::graph_from_adjacency_matrix(M,
                                    mode = "directed",
                                    diag = FALSE)
 
   # 2. Detect SCCs
   scc <- igraph::components(g, mode = "strong")
-  scc_groups <- split(V(g)$name, scc$membership)
+  scc_groups <- split(igraph::V(g)$name, scc$membership)
 
   # Keep only real loops (>1 node)
   scc_groups <- scc_groups[sapply(scc_groups, length) > 1]
 
   # 3. Assign colors
-  vertex_colors <- rep("grey80", vcount(g))
-  names(vertex_colors) <- V(g)$name
+  vertex_colors <- rep("grey80", igraph::vcount(g))
+  names(vertex_colors) <- igraph::V(g)$name
 
   if (length(scc_groups) > 0) {
 
-    palette_colors <- grDevices::rainbow(length(scc_groups))
+    palette_colors <- rainbow(length(scc_groups))
 
     for (i in seq_along(scc_groups)) {
       vertex_colors[scc_groups[[i]]] <- palette_colors[i]
