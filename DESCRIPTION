@@ -4,13 +4,15 @@ Version: 0.0.0.9000
 Authors@R: 
   c(
     person("Alicia", "Montesinos-Navarro", , "alimontesinos@gmail.com", 
-      role = c("aut", "cph"), comment = c(ORCID = "0000")),
+      role = c("aut", "cph"), comment = c(ORCID = "0000-0003-4656-0321")),
     person("José Luis", "Garrido", , "jlgarridosan@gmail.com", 
-      role = c("aut", "cph"), comment = c(ORCID = "0000")),
+      role = c("aut", "cph"), comment = c(ORCID = "0000-0002-6859-4234")),
     person("Miguel", "Verdú", , "Miguel.Verdu@ext.uv.es", 
-      role = c("aut", "cph"), comment = c(ORCID = "0000")),
+      role = c("aut", "cph"), comment = c(ORCID = "0000-0002-9778-7692")),
     person("Julio M.", "Alcántara", , "jmalcan@ujaen.es", 
-      role = c("aut", "cph"), comment = c(ORCID = "0000")),
+      role = c("aut", "cph"), comment = c(ORCID = "0000-0002-8003-7844")),
+    person("Verónica", "Cruz-Alonso", , "veronica.cral@gmail.com", 
+      role = c("ctb"), comment = c(ORCID = "0000-0002-0642-036X")),
     person("Francisco", "Rodriguez-Sanchez", , "f.rodriguez.sanc@gmail.com", 
       role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-7981-1599"))
    )
@@ -30,13 +32,13 @@ Suggests:
 Config/testthat/edition: 3
 Imports: 
     bipartite,
-    dplyr,
     extremevalues,
     ggplot2,
     igraph,
     iNEXT,
     reshape2,
     stats,
+    tibble,
     utils,
     visNetwork
 Config/Needs/website: rmarkdown

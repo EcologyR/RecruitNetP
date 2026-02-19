@@ -8,8 +8,6 @@
 #'
 #' @examples
 #'
-#' # antigua visu_funtopol externa con solo la opción para redes de reclutamiento
-#'necesita el paquete visNetwork(segun Rstudio)
 #'
 #'
 visu_funtopol_rec <- function(int_data,cover_data){
@@ -50,7 +48,7 @@ visu_funtopol_rec <- function(int_data,cover_data){
                          title = "Functional types", id = 1:5)
 
     # Network visualization and export to html
-    require(visNetwork)
+
     network <- visNetwork(nodes_list, edges_list) %>%
       visNetwork::visIgraphLayout(layout = "layout_with_fr") %>%
       visEdges(arrows ="to") %>%

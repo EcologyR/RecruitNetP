@@ -1,3 +1,4 @@
+
 test_that("RN_to_matrix rec has non-negative values for Fcr (Amoladeras)", {
 
   net <- RN_to_matrix(
