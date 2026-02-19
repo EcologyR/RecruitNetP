@@ -27,11 +27,11 @@ check_interactions <- function(int_data = NULL) {
 
   stopifnot(is.character(int_data$Plot))
   stopifnot(is.character(int_data$Canopy))
-  if (grepl(" ", int_data$Canopy)) {
+  if (any(grepl(" ", int_data$Canopy))) {
     stop("There cannot be spaces in 'Canopy'")
   }
   stopifnot(is.character(int_data$Recruit))
-  if (grepl(" ", int_data$Recruit)) {
+  if (any(grepl(" ", int_data$Recruit))) {
     stop("There cannot be spaces in 'Recruit'")
   }
   # require _ between genus and species?

@@ -11,3 +11,6 @@
 ^pkgdown$
 .Rprofile
 ^vignettes/articles$
+other/
+CanopyCover.csv
+RecruitNet.csv

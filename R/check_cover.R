@@ -25,7 +25,7 @@ check_cover <- function(cover_data = NULL) {
 
   stopifnot(is.character(cover_data$Plot))
   stopifnot(is.character(cover_data$Canopy))
-  if (grepl(" ", cover_data$Canopy)) {
+  if (any(grepl(" ", cover_data$Canopy))) {
     stop("There cannot be spaces in 'Canopy'")
   }
   if (!"Open" %in% cover_data$Canopy) {
@@ -33,7 +33,7 @@ check_cover <- function(cover_data = NULL) {
   }
 
   stopifnot(is.numeric(cover_data$Cover))
-  if (cover_data$Cover < 0) stop("Cover values cannot be negative.")
+  if (any(cover_data$Cover < 0)) stop("Cover values cannot be negative.")
 
   stopifnot(is.numeric(cover_data$Sampled_distance_or_area))
   stopifnot(cover_data$Sampled_distance_or_area > 0)
