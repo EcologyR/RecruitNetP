@@ -11,7 +11,7 @@
 #'
 #' @examples
 #'
-#' data<-load_RN()
+#' data<-load_interactions()
 #' comm_subset(data, site="Amoladeras")
 #'
 comm_subset <- function(data=NULL, site = NULL) {
