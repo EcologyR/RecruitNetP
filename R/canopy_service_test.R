@@ -1,21 +1,23 @@
-#' Title
+#' Identifies whether a species acts as depressing, enhancing or neutral
+#' @description
+#' Tests whether a canopy species has a depressing, enhancing or neutral
+#' effect on recruitment in general (i.e., at the community level) compared
+#' to the "Open", independently considering all the recruit species together.
 #'
-#' @param int_data
-#' @param cover_data
 #'
-#' @returns
+#' @inheritParams check_interactions
+#' @inheritParams check_cover
+#'
+#'
+#' @returns Data frame with the same variables provided by the function
+#' [int_significance()] but without distinguishing between recruit species.
+#'
 #' @export
 #'
 #' @examples
+#' canopy_service_test(Amoladeras_int, Amoladeras_cover)
 #'
-#' #como canopy_service_test_UNI pero sin quitar especies de reclutas
-#que no tienen cover ( solo las canopy que no tienen cover)
-#sustituimos pre_associndex_UNISITE_UNI por
-#associndex(int_data,cover_data, expand="yes", rm_sp_no_cover="onlycanopy")
-#calcula para cada especie de nodriza, si alberga bajo su copa una mayor (o menor)
-# densidad de reclutas (de cualquier especie) que la esperada en funcion del area que ocupa.
-#The input data are two files: the field data containing interactions and species cover
-#'
+
 canopy_service_test <- function(int_data,cover_data){
 
   df<-associndex(int_data,cover_data, expand="yes", rm_sp_no_cover="onlycanopy")
@@ -34,21 +36,22 @@ canopy_service_test <- function(int_data,cover_data){
 
   df$Ftot <- df$Fc+df$Fro
 
-  extreme_p <- c()
+  # extreme_p <- c()
+  extreme_p <- vector(mode = "numeric", length = nrow(df))
   for(i in 1:n_tests){
     extreme_p[i] <- min(df$exp_p[i], 1-df$exp_p[i])
   }
   df$extreme_p <- extreme_p
 
-  testability <- c()
+  testability <- vector(mode = "numeric", length = nrow(df))
   for(i in 1:n_tests) {
-    testability[i] <- binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
+    testability[i] <- stats::binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
   }
   df$testability <- testability
 
   # Binomial (or Chi square) Test Significance
 
-  Significance <- c()
+  Significance <- vector(mode = "numeric", length = nrow(df))
   for(i in 1:n_tests) {
     ifelse(((df$Fc[i]+df$Fro[i])*(df$Ac[i]/(df$Ac[i]+df$Ao[i]))<=5 | (df$Fc[i]+df$Fro[i])*(df$Ao[i]/(df$Ac[i]+df$Ao[i]))<=5),
            Significance[i] <- binom.test(df$Fc[i], df$Fc[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
@@ -57,7 +60,7 @@ canopy_service_test <- function(int_data,cover_data){
   }
   df$Significance <- Significance
 
-  Test_type <- c()
+  Test_type <- vector(mode = "character", length = nrow(df))
   for(i in 1:n_tests) {
     ifelse(((df$Fc[i]+df$Fro[i])*(df$Ac[i]/(df$Ac[i]+df$Ao[i]))<=5 | (df$Fc[i]+df$Fro[i])*(df$Ao[i]/(df$Ac[i]+df$Ao[i]))<=5),
            Test_type[i] <- "Binomial",
@@ -68,7 +71,7 @@ canopy_service_test <- function(int_data,cover_data){
 
   if(length(unique(df$Test_type))>1) message("Different tests were used for different canopy-recruit pairs. Check column Test_type")
 
-  Effect_int <- c()
+  Effect_int <- vector(mode = "character", length = nrow(df))
   for(i in 1:n_tests) {
     ifelse((df$testability[i]>0.05),
            Effect_int[i] <- "Not testable",
@@ -86,4 +89,3 @@ canopy_service_test <- function(int_data,cover_data){
   df <- df[ , !(names(df) %in% drops)]
   return(df)
 }
-
