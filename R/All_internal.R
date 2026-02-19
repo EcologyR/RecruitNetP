@@ -185,120 +185,6 @@ RN_to_matrix_UNI <- function(int_data=NULL, weight = "Fcr"){
 
 # -------------------------------------------------------
 
-# link_completeness_UNI()
-
-link_completeness_UNI <- function(int_data = NULL,
-                                  type = c("incidence", "abundance")) {
-
-  stopifnot(
-    c("Plot",
-      "Canopy",
-      "Recruit",
-      "Frequency"
-    ) %in% names(int_data))
-
-  type <- match.arg(type)
-
-  data_raw <- int_data
-  data_RN <- aggr_RN_UNI(data_raw)
-
-  # Completeness based on incidence data.
-
-  if (type == "incidence") {
-    netRaw <- data.frame(cbind(data_raw$Plot, paste(data_raw$Canopy, data_raw$Recruit)))
-    colnames(netRaw) <- c("Plot", "Pair")
-    nPlots <- length(unique(netRaw$Plot))
-
-    # Check points.
-
-    if (nPlots == 1)
-      stop(
-        "ERROR: your data is not structured in multiple plots. Incidence approach cannot be used. Try the abundance approach."
-      )
-    if (nPlots < 10)
-      warning(
-        "WARNING: your are using the incidence approach with very few plots. Consider using the abundance approach if appropriate."
-      )
-
-    # Combine the lists of canopy and recruit species to obtain the total list of canopy-recruit pairs (links) sampled.
-
-    a1 <- split(netRaw[-1], f = netRaw[1])
-    a2 <- lapply(a1, unique)
-    a3 <- unlist(unlist(a2, recursive = FALSE, use.names = FALSE))
-
-    # Table showing the incidence of each canopy-recruit pair in the study site
-
-    a4 <- table(a3)
-    linkIncidence <- as.data.frame(a4)
-    colnames(linkIncidence) <- c("Pair", "Incidence")
-
-    # Incidence list to be passed to iNEXT
-
-    data_iNEXT <- c(nPlots, sort(linkIncidence$Incidence, decreasing = TRUE))
-
-    # Call to iNEXT to obtain completeness values
-
-    out <- iNEXT::iNEXT(
-      data_iNEXT,
-      q = c(0, 1),
-      datatype = "incidence_freq",
-      se = FALSE,
-      size = nPlots
-    )
-    Lobs <- out$AsyEst[1, 1]
-    Lest <- out$AsyEst[1, 2]
-    Lest_LCL <- out$AsyEst[1, 4]
-    Lest_UCL <- out$AsyEst[1, 5]
-    Cq0_L <- Lobs / Lest
-    Cq1_L <- out$DataInfo[1, 5]
-    df <- data.frame(c(nPlots, Lobs, Lest, Cq0_L, Cq1_L))
-    colnames(df) <- c("Incidence based estimate")
-    rownames(df) <- c("Num. Plots sampled",
-                      "Lobs",
-                      "Lest",
-                      "Completeness Links (q=0)",
-                      "Coverage Links (q=1)")
-  }
-
-  # Completeness based on abundance or frequency of recruits.
-
-  if (type == "abundance") {
-
-    warning("Abundance-based approach assumes that each individual recruit provides
-            independent data about the canopy-recruit interaction. If conspecific
-            recruits frequently occur aggregated under individual canopy plants,
-            the estimates of completeness and coverage may be severely overestimated."
-    )
-
-    # Call to iNEXT to obtain completeness values
-
-    nPlots <- length(unique(int_data$Plot))
-
-    if (nPlots > 9)
-      warning(
-        "Your data is structured in multiple plots. Incidence-based approach is recommended."
-      )
-
-    out <- iNEXT::iNEXT(data_RN$Fcr[which(data_RN$Fcr > 0)], q = 0, datatype = "abundance")
-    nPlants <- out$DataInfo[1,2]
-    Lobs <- out$AsyEst[1, 1]
-    Lest <- out$AsyEst[1, 2]
-    Cq0_L <- Lobs / Lest
-    Cq1_L <- out$DataInfo[1, 4]
-    df <- data.frame(c(nPlants, Lobs, Lest, Cq0_L, Cq1_L))
-    colnames(df) <- c("Abundance based estimate")
-    rownames(df) <- c("Num. plants (recruits) sampled",
-                      "Lobs",
-                      "Lest",
-                      "Completeness of links (q=0)",
-                      "Coverage of links (q=1)")
-  }
-
-  return(df)
-}
-
-# -------------------------------------------------------
-
 # pre_associndex_UNISITE_UNI()
 
 pre_associndex_UNISITE_UNI <- function(int_data = NULL) {
@@ -673,7 +559,6 @@ partial_RNs_UNI <- function(int_data, k) {
 
   if (!"Plot" %in% names(int_data)) stop("ERROR: your interactions data lacks a column named Plots. This function requires data assembled in plots.")
 
-  require(igraph)
   # Prepare the data
   int_data$Pcr <- ifelse(int_data$Frequency==0,0,1)
   netRaw <- data.frame(cbind(int_data$Plot, int_data$Canopy, int_data$Recruit, int_data$Pcr))
@@ -710,36 +595,6 @@ partial_RNs_UNI <- function(int_data, k) {
     }}
 
   return(union_RNs)
-}
-
-# -------------------------------------------------------
-
-# cum_values_UNI()
-
-cum_values_UNI <- function(int_data, property, k = 100, title){
-
-  if (!"Plot" %in% names(int_data)) stop("ERROR: your interactions data lacks a column named Plots. This function requires data assembled in plots.")
-  nPlots <- length(unique(int_data$Plot))
-
-  if (nPlots < 10)
-    warning(
-      "WARNING: your are using the incidence approach with very few plots."
-    )
-
-  require(ggplot2)
-  part_RNs <- partial_RNs_UNI(int_data, k)
-  nSteps <- length(part_RNs)
-  borrar <- unlist(part_RNs, recursive = FALSE)
-  df <- data.frame(unlist(lapply(borrar, property)))
-  colnames(df) <- c("Value")
-  df$sampleSize <- sort(rep(c(1:nSteps),k))
-  plot_cumm_value <- ggplot(df, aes(x=as.factor(sampleSize), y=Value)) +
-    geom_jitter(colour="turquoise3", alpha=0.5, height = 0, width=0.1) +
-    geom_point(stat="summary", fun="mean") +
-    geom_errorbar(stat="summary", fun.data="mean_se", fun.args = list(mult = 1.96), width=0.3) +
-    labs(x="Sample Size (Num. Plots)", y="Value (mean + 95%CI)") +
-    ggtitle(title)
-  return(plot_cumm_value)
 }
 
 # -------------------------------------------------------
@@ -956,19 +811,18 @@ visu_funtopol_UNI <- function(int_data){
                          title = "Functional types", id = 1:5)
 
     # Network visualization and export to html
-    require(visNetwork)
-    network <- visNetwork(nodes_list, edges_list) %>%
+    network <- visNetwork::visNetwork(nodes_list, edges_list) %>%
       visNetwork::visIgraphLayout(layout = "layout_with_fr") %>%
-      visEdges(arrows ="to") %>%
-      visGroups(groupname = "Open", color = "#F0E442") %>%
-      visGroups(groupname = "Core", color = "#009E73") %>%
-      visGroups(groupname = "Satellite", color = "#0072B2") %>%
-      visGroups(groupname = "Strict_transients", color = "#D55E00") %>%
-      visGroups(groupname = "Disturbance_dependent_transients", color = "#CC79A7") %>%
-      visOptions(nodesIdSelection = TRUE) %>%
+      visNetwork::visEdges(arrows ="to") %>%
+      visNetwork::visGroups(groupname = "Open", color = "#F0E442") %>%
+      visNetwork::visGroups(groupname = "Core", color = "#009E73") %>%
+      visNetwork::visGroups(groupname = "Satellite", color = "#0072B2") %>%
+      visNetwork::visGroups(groupname = "Strict_transients", color = "#D55E00") %>%
+      visNetwork::visGroups(groupname = "Disturbance_dependent_transients", color = "#CC79A7") %>%
+      visNetwork::visOptions(nodesIdSelection = TRUE) %>%
       visNetwork::visLegend(addNodes = lnodes, useGroups = FALSE)
 
-    visSave(network, file = "network.html") # Save the html version of the network
+    visNetwork::visSave(network, file = "network.html") # Save the html version of the network
 
     return(network)
 
@@ -1004,12 +858,11 @@ RN_heatmap_UNI <- function(int_data, weight_var = c("Fcr", "Dcr", "Icr", "Pcr"),
   lowest_W <- min(int_data$weight[int_data$weight>0])
 
   # Plot the heatmap
-  ggplot(int_data, aes(Canopy2, Recruit2, fill= Dcr)) +
-    geom_tile(colour="gray", size=0.25, aes(height = 1)) +
-    scale_fill_gradientn(colours = c("#F5F5F5", "#E69F00","#0072B2"), values = c(0,lowest_W, scale_top*highest_W)) +
-    #    scale_fill_gradient(low="white", high="turquoise3")+
-    scale_x_discrete(position = "top") +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0))
+  ggplot2::ggplot(int_data, ggplot2::aes(Canopy2, Recruit2, fill= Dcr)) +
+    ggplot2::geom_tile(colour="gray", size=0.25, aes(height = 1)) +
+    ggplot2::scale_fill_gradientn(colours = c("#F5F5F5", "#E69F00","#0072B2"), values = c(0,lowest_W, scale_top*highest_W)) +
+    ggplot2::scale_x_discrete(position = "top") +
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=0))
 }
 
 # -------------------------------------------------------
