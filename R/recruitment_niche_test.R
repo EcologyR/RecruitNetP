@@ -1,20 +1,22 @@
-#' Title
+#' Recruitment niche: community-level effects on species recruitment
 #'
-#' @param int_data
-#' @param cover_data
+#' @description
+#' tests whether the presence of vegetation (i.e any canopy species) compared to the
+#' "Open", enhances, depresses or has a neutral effect on the recruitment of a given
+#' recruit species. **Input**:The canopy-recruit interactions dataset and the canopy
+#' cover dataset (details as explained in [int_significance()] documentation).
 #'
-#' @returns
+#' @inheritParam check_interactions
+#' @inheritParam check_cover
+#'
+#' @returns The same variables provided by the function [int_significance()]
+#' but without distinguishing between canopy species.
+
+#'
 #' @export
 #'
 #' @examples
-#'
-#' #como recruitment_niche_test_UNI pero sin quitar especies de reclutas
-#que no tienen cover ( solo las canopy que no tienen cover)
-#sustituimos pre_associndex_UNISITE_UNI por
-#associndex(int_data,cover_data, expand="yes", rm_sp_no_cover="onlycanopy")
-#calcula para cada especie de recluta, si se establece con una mayor (o menor)
-# densidad de reclutas (bajo cualquier especie de canopy) que la esperada en funcion del area que ocupa las canopies en conjunto y el open.
-#The input data are two files: the field data containing interactions and species cover
+#' recruitment_niche_test (Amoladeras_int, Amoladeras_cover)
 #'
 recruitment_niche_test <- function(int_data,cover_data){
 
@@ -28,7 +30,8 @@ recruitment_niche_test <- function(int_data,cover_data){
   myvars <- names(df) %in% c("Recruit.1", "Recruit.2", "Recruit.3")
   df <- df[!myvars]
   colnames(df) <- c("Recruit", "Fr", "Av", "Fro", "Ao")
-  df$exp_p <- df$Av/(df$Av+df$Ao) # Expected probability of success (i.e. of recruiting under canopy)
+  df$exp_p <- df$Av/(df$Av+df$Ao) # Expected probability of success (i.e. of recruiting
+  # under canopy)
 
   # Testability through Binomial test
 
@@ -42,7 +45,8 @@ recruitment_niche_test <- function(int_data,cover_data){
 
   testability <- c()
   for(i in 1:n_tests) {
-    testability[i] <- binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
+    testability[i] <- stats::binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i],
+                                 alternative ="two.sided")$p.value
   }
   df$testability <- testability
 

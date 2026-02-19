@@ -1,17 +1,12 @@
 test_that("RN_dims works for recruitment networks in Amoladeras", {
-  #data(RecruitNet)
-  #data(CanopyCover)
-  Amoladeras_com <- comm_subset(RecruitNet, site = "Amoladeras")
-  Amoladeras_cov <- comm_subset(CanopyCover, site = "Amoladeras")
-
 
   out <- RN_dims(
-    int_data   = Amoladeras_com,
-    cover_data = Amoladeras_cov,
+    int_data   = Amoladeras_int,
+    cover_data = Amoladeras_cover,
     int_type   = "rec"
   )
 
-  # estructura del output
+  # Output structure
   expect_s3_class(out, "data.frame")
   expect_equal(rownames(out),
                c("Num. Nodes", "Num. Links", "Connectance"))
@@ -20,19 +15,15 @@ test_that("RN_dims works for recruitment networks in Amoladeras", {
 
 #-------------------
 test_that("RN_dims computes connectance correctly for rec networks", {
-  #data(RecruitNet)
-  #data(CanopyCover)
-  Amoladeras_com <- comm_subset(RecruitNet, site = "Amoladeras")
-  Amoladeras_cov <- comm_subset(CanopyCover, site = "Amoladeras")
 
   out <- RN_dims(
-    int_data   = Amoladeras_com,
-    cover_data = Amoladeras_cov,
+    int_data   = Amoladeras_int,
+    cover_data = Amoladeras_cover,
     int_type   = "rec"
   )
 
-  # reconstrucción manual del cálculo
-  df <- comm_to_RN_UNI(Amoladeras_com, Amoladeras_cov)
+  # Manual calculation
+  df <- comm_to_RN_UNI(Amoladeras_int, Amoladeras_cover)
   n_nodes <- length(unique(c(df$Canopy, df$Recruit)))
   n_links <- sum(df$Pcr)
   connectance_expected <- n_links / (n_nodes^2 - n_nodes)
@@ -42,14 +33,10 @@ test_that("RN_dims computes connectance correctly for rec networks", {
 
 #---------------------
 test_that("RN_dims works for facilitation networks in Amoladeras", {
-  #data(RecruitNet)
-  #data(CanopyCover)
-  Amoladeras_com <- comm_subset(RecruitNet, site = "Amoladeras")
-  Amoladeras_cov <- comm_subset(CanopyCover, site = "Amoladeras")
 
-  out <- RN_dims(
-    int_data   = Amoladeras_com,
-    cover_data = Amoladeras_cov,
+   out <- RN_dims(
+    int_data   = Amoladeras_int,
+    cover_data = Amoladeras_cover,
     int_type   = "fac"
   )
 
@@ -61,14 +48,11 @@ test_that("RN_dims works for facilitation networks in Amoladeras", {
 
 #---------------------
 test_that("RN_dims works for competition networks in Amoladeras", {
-  #data(RecruitNet)
-  #data(CanopyCover)
-  Amoladeras_com <- comm_subset(RecruitNet, site = "Amoladeras")
-  Amoladeras_cov <- comm_subset(CanopyCover, site = "Amoladeras")
+
 
  out <- RN_dims(
-    int_data   = Amoladeras_com,
-    cover_data = Amoladeras_cov,
+    int_data   = Amoladeras_int,
+    cover_data = Amoladeras_cover,
     int_type   = "comp"
   )
 
@@ -80,15 +64,11 @@ test_that("RN_dims works for competition networks in Amoladeras", {
 
 #-----------------------------
 test_that("RN_dims connectance for bipartite networks is correctly calculated", {
-  #data(RecruitNet)
-  #data(CanopyCover)
-  Amoladeras_com <- comm_subset(RecruitNet, site = "Amoladeras")
-  Amoladeras_cov <- comm_subset(CanopyCover, site = "Amoladeras")
 
 
-  fac_dims <- RN_dims(Amoladeras_com, Amoladeras_cov, int_type = "fac")
+  fac_dims <- RN_dims(Amoladeras_int, Amoladeras_cover, int_type = "fac")
 
-  mat <- RN_to_matrix(Amoladeras_com, Amoladeras_cov,
+  mat <- RN_to_matrix(Amoladeras_int, Amoladeras_cover,
                       int_type = "fac", weight = "Pcr")
 
   n_links <- sum(mat)

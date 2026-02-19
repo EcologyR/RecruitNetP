@@ -36,7 +36,6 @@ RN_heatmap <- function(int_data,cover_data,int_type=c("rec","fac","comp"), weigh
     if (weight %in% c("Ns", "NintC", "NintA", "RII")) {
       warning("Since the index specified in the 'weight' argument is defined relative to 'Open', rows or columns labeled 'Open' are mathematically zero and not biologically meaningful")}
 
-    require(ggplot2)
     # manually set node order
     canopy_order <- unique(int_data$Canopy)
     canopy_order <- canopy_order[!canopy_order %in% c('Open')]
@@ -84,7 +83,6 @@ RN_heatmap <- function(int_data,cover_data,int_type=c("rec","fac","comp"), weigh
 
     int_data<-db
 
-    require(ggplot2)
     # manually set node order
     canopy_order <- unique(int_data$Canopy)
     int_data$Canopy2 <- factor(int_data$Canopy, levels = canopy_order)
@@ -130,7 +128,6 @@ RN_heatmap <- function(int_data,cover_data,int_type=c("rec","fac","comp"), weigh
 
     int_data<-db
 
-    require(ggplot2)
     # manually set node order
     canopy_order <- unique(int_data$Canopy)
     int_data$Canopy2 <- factor(int_data$Canopy, levels = canopy_order)
