@@ -1,23 +1,56 @@
-#' Title
+#' Convert field data to matrix format
 #'
-#' @param int_data
-#' @param cover_data
-#' @param int_type
-#' @param weight
+#'
+#' @description
+#' converts the community data collected in the field, where each row represents
+#' a single canopy-recruit interaction, into a matrix format, with recruit
+#' species as rows and canopy species as columns. For general recruitment
+#' networks, the matrix should be square including all species observed at the study site. This means that the same set of species appears in both rows and columns, with "Open" areas treated as an additional category in both the Canopy and Recruit variables. In contrast, for recruitment enhancement (i.e. facilitation) or depression (i.e. competition), the matrix can be non-square. In this case, rows represent the species whose recruitment is enhanced or suppressed, while columns represent the canopy species that influence this recruitment. These two groups may not include the same species.
+
+#' @inheritParams int_significance
+#' @param weight Specifies the metric used to represent interaction strength
+#' (i.e., the weight) assigned to each pair of species in the matrix. Explanation of its
+#' options (more mathematical information in the description of the function
+#' [associndex()] :
+#'   - *Fcr*: ***frequency of recruitment***, in number of recruits by
+#'   canopy-recruit pair.
+#'   - *Dcr*: ***density of recruitment***, as number of recruits per unit
+#'   area of canopy species cover.
+#'   - *Dro*: ***density of recruitment in open interspaces***, as number of
+#'   recruits per unit area of open interspaces.
+#'   - *Ns*: The ***Normalized Neighbour Suitability index***; suitable for
+#'   comparisons of interaction strength between pairs of species within a
+#'   local community.
+#'   - *NIntA*: The ***Additive symmetry intensity index***.
+#'   - *NIntC*: The ***Commutative symmetry intensity index***.
+#'   - *RII*: The ***Relative Interaction Index***.
+
 #'
 #' @returns
+#'A matrix with recruit species in rows and canopy species in columns,
+#'with cells describing the measure selected to describe the interaction
+#'strength (i.e. weight) between each pair of species.
+#'
+#'
 #' @export
 #'
 #' @examples
-#' #This function returns a matrix with canopy species as columns and recruits as rows, containing the association index specified in the weight argument. If int_type is set to "rec," all possible interactions between species with known coverage are displayed. If set to "fac" (or "comp"), a nonzero value appears when recruits associate with canopy plants more (or less) than expected based on their coverage; otherwise, the value is zero.
 #'
-RN_to_matrix<- function(int_data,cover_data, int_type=c("rec", "fac","comp"), weight = c("Fcr","Dcr","Dro","Ns", "NintC", "NintA", "RII")){
+#' RN_to_matrix(Amoladeras_int, Amoladeras_cover, int_type="rec", weight="Dcr")
+#'
+#'
+RN_to_matrix<- function(int_data,cover_data, int_type=c("rec", "fac","comp"),
+                        weight = c("Fcr","Dcr","Dro","Ns", "NintC", "NintA",
+                                   "RII")){
 
-  if (!"Open" %in% int_data$Canopy) stop("ERROR: your data does not contain a node named Open or it is spelled differently.")
+  if (!"Open" %in% int_data$Canopy)
+    stop("ERROR: your data does not contain a node named Open or it is
+         spelled differently.")
 
   if(int_type=="rec"){
 
-    index<-suppressWarnings(associndex(int_data,cover_data,expand="yes",rm_sp_no_cover="allsp"))
+    index<-suppressWarnings(associndex(int_data,cover_data,expand="yes",
+                                       rm_sp_no_cover="allsp"))
     data<-comm_to_RN_UNI(int_data,cover_data)
     data$Dcr<-data$Fcr/data$Ac
 
@@ -29,12 +62,16 @@ RN_to_matrix<- function(int_data,cover_data, int_type=c("rec", "fac","comp"), we
 
     data$int<-paste(data$Canopy,data$Recruit, sep="_")
     index$int<-paste(index$Canopy,index$Recruit, sep="_")
-    db<-merge(data[,c("int","Canopy","Recruit","Fcr","Icr","Pcr","Dcr","Dro")],index[,c("int","Ns", "NintC", "NintA", "RII")],   by="int", all.x=T)
+    db<-merge(data[,c("int","Canopy","Recruit","Fcr","Icr","Pcr","Dcr","Dro")],
+              index[,c("int","Ns", "NintC", "NintA", "RII")],
+              by="int", all.x=T)
     db[is.na(db)]<-0
     net<-suppressWarnings(RN_to_matrix_UNI(db, weight))
 
     if (weight %in% c("Ns", "NintC", "NintA", "RII")) {
-      warning("Since the index specified in the 'weight' argument is defined relative to 'Open', rows or columns labeled 'Open' are mathematically zero and not biologically meaningful")
+      warning("Since the index specified in the 'weight' argument is defined
+              relative to 'Open', rows or columns labeled 'Open' are
+              mathematically zero and not biologically meaningful")
     }
   }
 
@@ -51,7 +88,8 @@ RN_to_matrix<- function(int_data,cover_data, int_type=c("rec", "fac","comp"), we
 
       df<-df[df$Effect_int=="Enhancing",]
       fac_int<-paste(df$Canopy,df$Recruit, sep="_")
-      db<-suppressWarnings(associndex_UNISITE_BI(comm_to_RN_BI(int_data,cover_data)))
+      db<-suppressWarnings(associndex_UNISITE_BI(comm_to_RN_BI(int_data,
+                                                               cover_data)))
       db$int<-paste(db$Canopy,db$Recruit, sep="_")
       db<-merge(db, data[,c("int","Icr","Pcr")], by="int", all.x=T)
       db<-db[db$int%in%fac_int,]
@@ -73,7 +111,8 @@ RN_to_matrix<- function(int_data,cover_data, int_type=c("rec", "fac","comp"), we
 
       df<-df[df$Effect_int=="Depressing",]
       comp_int<-paste(df$Canopy,df$Recruit, sep="_")
-      db<-suppressWarnings(associndex_UNISITE_BI_COMP(comm_to_RN_UNI_COMP(int_data,cover_data)))
+      db<-suppressWarnings(associndex_UNISITE_BI_COMP(comm_to_RN_UNI_COMP
+                                                      (int_data,cover_data)))
       db$int<-paste(db$Canopy,db$Recruit, sep="_")
       db<-merge(db, data[,c("int","Icr","Pcr")], by="int", all.x=T)
       db<-db[db$int%in%comp_int,]
