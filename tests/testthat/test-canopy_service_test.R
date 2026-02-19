@@ -1,7 +1,7 @@
 
-test_that("canopy_service_test  data.frame with correct columns", {
+res <- canopy_service_test(Amoladeras_int, Amoladeras_cover)
 
-  res <- canopy_service_test(Amoladeras_int, Amoladeras_cover)
+test_that("canopy_service_test  data.frame with correct columns", {
 
   expect_s3_class(res, "data.frame")
 
@@ -18,8 +18,6 @@ test_that("canopy_service_test  data.frame with correct columns", {
 #------------------------------------
 
 test_that("Aggregated values correct for Artemisia_barrelieri", {
-
-  res <- canopy_service_test(Amoladeras_int, Amoladeras_cover)
 
   fila <- res[res$Canopy == "Artemisia_barrelieri", ]
 
@@ -38,8 +36,6 @@ test_that("Aggregated values correct for Artemisia_barrelieri", {
 
 test_that("Clasification Canopy_effect correct for known species", {
 
-  res <- canopy_service_test(Amoladeras_int, Amoladeras_cover)
-
   expect_equal(
     res$Canopy_effect[res$Canopy == "Artemisia_barrelieri"],
     "Facilitative"
@@ -50,5 +46,6 @@ test_that("Clasification Canopy_effect correct for known species", {
     "Neutral"
   )
 })
+
 
 
