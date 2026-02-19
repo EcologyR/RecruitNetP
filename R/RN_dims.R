@@ -44,8 +44,8 @@
 #' @examples
 #
 #'RN_dims(Amoladeras_int, Amoladeras_cover, int_type="rec")
-#'RN_dims(mysite_com, mysite_cov, int_type="fac")
-#'RN_dims(mysite_com, mysite_cov, int_type="comp")
+#'RN_dims(Amoladeras_int, Amoladeras_cover, int_type="fac")
+#'RN_dims(Amoladeras_int, Amoladeras_cover, int_type="comp")
 #'
 #'
 #'
