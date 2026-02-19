@@ -15,7 +15,7 @@ load_cover <- function(path = getwd()) {
     download_RN(path)
   }
 
-  CanopyCover <- read.csv(file.path(path, "CanopyCover.csv"))
+  CanopyCover <- utils::read.csv(file.path(path, "CanopyCover.csv"))
 
   return(CanopyCover)
 
