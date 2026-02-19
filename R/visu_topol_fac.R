@@ -56,7 +56,7 @@ visu_topol_fac <- function(int_data,
 
   if (length(scc_groups) > 0) {
 
-    palette_colors <- rainbow(length(scc_groups))
+    palette_colors <- grDevices::rainbow(length(scc_groups))
 
     for (i in seq_along(scc_groups)) {
       vertex_colors[scc_groups[[i]]] <- palette_colors[i]
