@@ -14,8 +14,7 @@
 #' @export
 #'
 #' @examples
-#' cover_data <- load_cover()
-#' check_cover(cover_data)
+#' check_cover(Amoladeras_cover)
 check_cover <- function(cover_data = NULL) {
 
   stopifnot(c("Plot","Canopy", "Cover", "Sampled_distance_or_area") %in% names(cover_data))
