@@ -1,26 +1,122 @@
-#' Title
+#' Statistical significance of interactions
 #'
-#' @param int_data
-#' @param cover_data
-#' @param int_type
+#' @description
+#' conducts statistical tests for each pairwise interaction, indicating whether
+#' the effect of the canopy species on recruitment is enhancing (i.e. positive),
+#' depressing (i.e. negative), neutral, or whether it could not be tested due to
+#'  low sample size.
+
+#'**IMPORTANT NOTE: Data on recruitment in Open is required for the tests.**
+
+#' To assess whether recruitment is affected by a given canopy species compared
+#' to the "Open" it is used an exact binomial test or a chi square test (if
+#' the number of recruits is large enough so that the expected frequencies are
+#' larger than 5). The tests address the null hypothesis that recruitment is
+#' as frequent under a given canopy species as it is in open interspaces. Thus,
+#' we use these tests as a goodness-of-fit tests. The logic is that, if
+#' recruitment were neutral regarding the microhabitat, we would observe that
+#' the number of recruits under canopy would be exactly proportional to the
+#' relative cover of each microhabitat. If the null hypothesis is rejected,
+#' we would conclude that recruitment is affected (enhanced or depressed) by
+#' the canopy species compared with the prospects of recruitment when seeds
+#' are dispersed away from established plants.
+
+#' When the exact binomial test is applied to canopy-recruit pairs with very
+#'low number of recruits, it may be impossible to reject the null hypothesis
+#' even if all the recruits occurred in the less likely microhabitat. In such
+#' cases, one might conclude that the interaction has a neutral effect when it
+#' is actually not possible to reach a conclusion. We classify these cases as
+#' "not testable".
+
 #'
-#' @returns
+#' @inheritParams check_interactions
+#' @inheritParams check_cover
+#'
+#' @param int_type Indicates the type of plant-plant interaction that will be
+#' analyzed: general recruitment, recruitment enhancement (i.e. facilitation)
+#' or recruitment depression (i.e. competition).
+#' Explanation of its options:
+#'
+#'  - *rec*: All the pairwise interactions observed will be in the output.
+#'  Focuses on canopy-recruit interactions considering that every recruit
+#'  growing under the canopy of another plant may occupy that space in the
+#'  future, thus having a potentially positive effect on the recruit species
+#'  population. Therefore, even a single observation is considered an
+#'  interaction. This type of networks considers every species present in the
+#'  study system, whether as a canopy or as a recruit, as a node in the network.
+#'  It also includes "Open" as a particular node since some species may recruit
+#'  away from established plants. Non-detected interactions are also considered
+#'  since zero frequency can provide evidence of a very negative interaction
+#'  if the expected frequency under the canopy species is large.
+#' - *fac*: Only those pairwise interactions that resulted in recruitment
+#' enhancement will be in the output. Focuses on interactions with a
+#' significantly higher recruitment density under canopy  than in "Open"
+#' (i.e. facilitation).  Non-detected interactions are not considered and
+#' "Open" is not included as a node, although its relative cover is considered
+#' as part of the sampling area.
+#' - *comp*: Only those pairwise interactions that resulted in a recruitment
+#' depression will be in the output. Focuses on interactions with a
+#' significantly lower recruitment density under canopy than "Open"
+#' (i.e. competition). Non-detected interactions are considered (i.e. expanding
+#' with 0 all possible interactions in the study system), as the absence of
+#' recruitment of a species under a given canopy can reflect a particularly
+#' strong depression of recruitment under that canopy species. "Open" is not
+#' included as a node, although its relative cover is considered as part of the
+#'  sampling area.
+
+#'
+#' @returns a data frame with the following information for each recruit-canopy
+#'  interaction with the following information:
+
+#'- *Canopy*: Canopy species
+#'- *Recruit*: Recruit species
+#'- *Fcr*: frequency of recruitment, as the number of recruits found under that
+#'canopy species.
+#'- *Ac*: Area (in m^2^), (or m when relative cover is measured with transects)
+#' occupied by the canopy species in the study site.
+#'- *Fro*: frequency of recruitment in open interspaces.
+#'- *Ao*: Area (in m^2^), (or m when relative cover is measured with transects)
+#' occupied by the open interspaces in the study site.
+#'- *testability*: Testability indicates the smallest p-value that a binomial
+#' test will estimate based in a given number of recruits. If this p-value is
+#' above the reference p-value (typically 0.05), then you have too few cases
+#' (number of recruits) to ever reject the null hypothesis, and the interaction
+#' is not testable.
+#'- *Significance*: p-value of the chi square or binomial test assessing the
+#' null hypothesis that Fcr and Fro are equal to the expected frequencies based
+#' on the relative cover of each of the two microhabitats: $Ac/(Ac+Ao)$ and
+#' $1-(Ac/(Ac+Ao))$
+#'  - *Test_type*: Indicates whether, depending on the sample size, a chi square
+#' or binomial test has been conducted.
+#'- *Effect_int*: Indicates, for each interaction, whether the analysis
+#' classifies it as "Enhancing", "Depressing", "Neutral" or "Not Testable".
+
 #' @export
 #'
 #' @examples
 #'
-#' # int_significance() Use all functions to consider all interactions (observed and non-observed) (for Recruitment networks) or only observed interactions (for facilitation/completition networks)
+#' int_signif_rec <- int_significance(Amoladeras_int, Amoladeras_cover, int_type = "rec")
+#' head(int_signif_rec)
 #'
+#' int_signif_fac <- int_significance(Amoladeras_int, Amoladeras_cover, int_type = "fac")
+#' head(int_signif_fac)
+#'
+#' int_signif_comp <- int_significance(Amoladeras_int, Amoladeras_cover, int_type = "comp")
+#' head(int_signif_comp)
 #'
 int_significance <- function(int_data, cover_data, int_type=c("rec", "fac","comp")){
 
-  if (!"Open" %in% int_data$Canopy) stop("ERROR: tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
+  if (!"Open" %in% int_data$Canopy)
+  stop("ERROR: tests cannot be conducted because your data does not contain a
+       node named Open or it is spelled differently.")
 
   if(int_type=="rec"){
 
     data<-comm_to_RN_UNI(int_data,cover_data)
     df<-int_significance_UNI(data)
-    if(length(unique(df$Test_type))>1) message("Different tests were used for different canopy-recruit pairs. Check column Test_type")
+    if(length(unique(df$Test_type))>1)
+      message("Different tests were used for different canopy-recruit pairs.
+              Check column Test_type")
   }
 
   if(int_type=="fac"){
@@ -28,7 +124,9 @@ int_significance <- function(int_data, cover_data, int_type=c("rec", "fac","comp
     data<-comm_to_RN_BI(int_data,cover_data)
     df<-int_significance_BI (data)
     df<-df[df$Effect_int=="Enhancing",]
-    if(length(unique(df$Test_type))>1) message("Different tests were used for different canopy-recruit pairs. Check column Test_type")
+    if(length(unique(df$Test_type))>1)
+      message("Different tests were used for different canopy-recruit pairs.
+              Check column Test_type")
   }
 
   if(int_type=="comp"){
@@ -36,11 +134,14 @@ int_significance <- function(int_data, cover_data, int_type=c("rec", "fac","comp
     data<-comm_to_RN_UNI_COMP(int_data,cover_data)
     df<-int_significance_BI_COMP(data)
     df<-df[df$Effect_int=="Depressing",]
-    if(length(unique(df$Test_type))>1) message("Different tests were used for different canopy-recruit pairs. Check column Test_type")
+    if(length(unique(df$Test_type))>1)
+      message("Different tests were used for different canopy-recruit pairs.
+              Check column Test_type")
 
   }
 
   return(df)
 }
+
 
 
