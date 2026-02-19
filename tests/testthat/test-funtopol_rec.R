@@ -25,7 +25,7 @@ test_that("funtopol_rec returns the values expected by Descriptors", {
 
 #--------------------------------------------------
 
-test_that("Functional clasification has the correct number of species", {
+test_that("Functional classification has the correct number of species", {
 
   res <- funtopol_rec(Amoladeras_int, Amoladeras_cover)
   fc  <- res$Functional_classification
@@ -62,3 +62,4 @@ test_that("Open non present error", {
     "does not contain a node named Open"
   )
 })
+
