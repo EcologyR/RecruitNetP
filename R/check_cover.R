@@ -37,7 +37,7 @@ check_cover <- function(cover_data = NULL) {
   if (cover_data$Cover < 0) stop("Cover values cannot be negative.")
 
   stopifnot(is.numeric(cover_data$Sampled_distance_or_area))
-  stopifnot(cover_data$Sampled_distance_or_area) > 0))
+  stopifnot(cover_data$Sampled_distance_or_area > 0)
 
 
   message("Format OK!")
