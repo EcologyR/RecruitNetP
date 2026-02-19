@@ -1,21 +1,23 @@
-#' Title
+#' Identifies wheather  a species acts as depressing, enhancing or neutral
+#' @description
+#' Tests whether a canopy species has a depressing, enhancing or neutral
+#' effect on recruitment in general (i.e., at the community level) compared
+#' to the "Open", independently considering all the recruit species together.
 #'
-#' @param int_data
-#' @param cover_data
 #'
-#' @returns
+#' @inheritParams check_interactions
+#' @inheritParams check_cover
+#'
+#'
+#' @returns Data frame with the same variables provided by the function
+#' [int_significance()] but without distinguishing between recruit species.
+#'
 #' @export
 #'
 #' @examples
+#' canopy_service_test(Amoladeras_int, Amoladeras_cover)
 #'
-#' #como canopy_service_test_UNI pero sin quitar especies de reclutas
-#que no tienen cover ( solo las canopy que no tienen cover)
-#sustituimos pre_associndex_UNISITE_UNI por
-#associndex(int_data,cover_data, expand="yes", rm_sp_no_cover="onlycanopy")
-#calcula para cada especie de nodriza, si alberga bajo su copa una mayor (o menor)
-# densidad de reclutas (de cualquier especie) que la esperada en funcion del area que ocupa.
-#The input data are two files: the field data containing interactions and species cover
-#'
+
 canopy_service_test <- function(int_data,cover_data){
 
   df<-associndex(int_data,cover_data, expand="yes", rm_sp_no_cover="onlycanopy")
@@ -42,7 +44,7 @@ canopy_service_test <- function(int_data,cover_data){
 
   testability <- c()
   for(i in 1:n_tests) {
-    testability[i] <- binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
+    testability[i] <- stats::binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
   }
   df$testability <- testability
 
@@ -86,4 +88,3 @@ canopy_service_test <- function(int_data,cover_data){
   df <- df[ , !(names(df) %in% drops)]
   return(df)
 }
-
