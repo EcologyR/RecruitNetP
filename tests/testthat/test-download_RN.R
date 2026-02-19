@@ -9,5 +9,7 @@ test_that("RN is downloaded", {
   download_RN(path, destfile)
   expect_true(file.exists(file.path(path, "RecruitNet.csv")))
   expect_true(file.exists(file.path(path, "CanopyCover.csv")))
+  file.remove(file.path(path, "RecruitNet.csv"))
+  file.remove(file.path(path, "CanopyCover.csv"))
 
 })

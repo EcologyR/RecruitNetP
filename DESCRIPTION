@@ -29,8 +29,14 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: 
+    bipartite,
     dplyr,
+    extremevalues,
+    ggplot2,
     igraph,
     iNEXT,
-    reshape2
+    reshape2,
+    stats,
+    utils,
+    visNetwork
 Config/Needs/website: rmarkdown
