@@ -1,6 +1,6 @@
 # Test 1.- La función devuelve un dataframe válido
 test_that("recruitment_niche_test devuelve dataframe válido", {
-  res <- recruitment_niche_test(vent.int, vent.cov)
+  res <- recruitment_niche_test(Amoladeras_int, Amoladeras_cover)
   expect_s3_class(res, "data.frame")
   expect_true(all(c(
     "Recruit",
@@ -17,10 +17,10 @@ test_that("recruitment_niche_test devuelve dataframe válido", {
 
 # Test 2.- Test type y Veg effect contienen categorías válidas
 test_that("Test_type y Veg_effect contienen categorías válidas", {
-  res <- recruitment_niche_test(vent.int, vent.cov)
+  res <- recruitment_niche_test(Amoladeras_int, Amoladeras_cover)
   expect_true(all(res$Test_type %in% c("Binomial", "Chi-square")))
   expect_true(all(res$Veg_effect %in% c(
-    
+
     "Facilitated",
     "Depressed",
     "Neutral",
@@ -32,7 +32,7 @@ test_that("Test_type y Veg_effect contienen categorías válidas", {
 
 # Test 3.- coherencia testability y veg_effect
 test_that("Coherencia completa entre testability y Veg_effect", {
-  res <- recruitment_niche_test(vent.int, vent.cov)
+  res <- recruitment_niche_test(Amoladeras_int, Amoladeras_cover)
   # Not testable
   idx_nt <- which(res$testability > 0.05)
   if(length(idx_nt) > 0){
@@ -52,10 +52,10 @@ test_that("Coherencia completa entre testability y Veg_effect", {
   }
 })
 
-# Test 4.- se lanza el warning sobre diferentes tipos de tests  
+# Test 4.- se lanza el warning sobre diferentes tipos de tests
 test_that("lanza warning cuando hay varios tipos de tests", {
   expect_warning(
-    recruitment_niche_test(vent.int, vent.cov),
+    recruitment_niche_test(Amoladeras_int, Amoladeras_cover),
     "Different tests were used")
 })
 
