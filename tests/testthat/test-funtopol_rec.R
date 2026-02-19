@@ -30,7 +30,7 @@ test_that("Functional classification has the correct number of species", {
   res <- funtopol_rec(Amoladeras_int, Amoladeras_cover)
   fc  <- res$Functional_classification
 
-  a<-sort(a$Functional_classification$id)
+  a<-sort(fc$id)
   b<-sort(intersect(unique(Amoladeras_int$Recruit),unique(Amoladeras_cover$Canopy)))
   expect_equal(nrow(fc), 23)
   expect_true(all(c("id", "group") %in% colnames(fc)))
@@ -40,7 +40,7 @@ test_that("Functional classification has the correct number of species", {
 
 ##--------------------------------------------------
 
-test_that("Artemisia_barrelieri clasified as Core", {
+test_that("Artemisia_campestris is classified as Satellite", {
 
   res <- funtopol_rec(Amoladeras_int, Amoladeras_cover)
   fc  <- res$Functional_classification
@@ -62,4 +62,5 @@ test_that("Open non present error", {
     "does not contain a node named Open"
   )
 })
+
 
