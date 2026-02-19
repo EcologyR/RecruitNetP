@@ -1,5 +1,3 @@
-library(testthat)
-
 
 test_that("RN_to_matrix works (Amoladeras)", {
 
@@ -14,43 +12,43 @@ test_that("RN_to_matrix works (Amoladeras)", {
   )
 
   expected <- structure(
-    c(3L, 0L, 0L, 0L, 0L, 3L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
-      0L, 9L, 0L, 0L, 0L, 0L, 2L, 0L, 1L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
-      0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
-      0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 2L, 1L, 1L, 1L, 
-      0L, 4L, 0L, 0L, 0L, 0L, 0L, 2L, 0L, 3L, 0L, 0L, 0L, 0L, 0L, 1L, 
-      0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 4L, 0L, 0L, 0L, 0L, 0L, 0L, 
-      1L, 0L, 0L, 0L, 0L, 0L, 2L, 0L, 4L, 0L, 0L, 0L, 0L, 0L, 0L, 2L, 
-      0L, 14L, 0L, 5L, 0L, 0L, 1L, 3L, 0L, 0L, 0L, 0L, 0L, 0L, 2L, 
-      3L, 0L, 0L, 1L, 0L, 0L, 0L, 0L, 15L, 0L, 4L, 0L, 7L, 0L, 0L, 
-      12L, 14L, 4L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 1L, 0L, 1L, 
-      0L, 0L, 1L, 0L, 8L, 0L, 0L, 0L, 5L, 2L, 2L, 1L, 1L, 0L, 0L, 0L, 
-      5L, 7L, 5L, 35L, 4L, 9L, 0L, 6L, 1L, 1L, 113L, 0L, 168L, 2L, 
-      8L, 0L, 4L, 14L, 20L, 14L, 36L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
-      0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
-      0L, 0L, 0L, 1L, 2L, 20L, 17L, 0L, 3L, 0L, 4L, 0L, 0L, 9L, 0L, 
-      42L, 0L, 12L, 0L, 0L, 7L, 4L, 0L, 0L, 0L, 23L, 3L, 4L, 7L, 0L, 
-      4L, 0L, 6L, 0L, 2L, 10L, 1L, 10L, 0L, 41L, 0L, 17L, 0L, 6L, 17L, 
-      13L, 12L, 0L, 0L, 0L, 0L, 1L, 0L, 0L, 0L, 0L, 1L, 0L, 1L, 0L, 
-      0L, 3L, 0L, 7L, 0L, 0L, 0L, 0L, 0L, 0L, 2L, 1L, 0L, 1L, 0L, 0L, 
-      0L, 0L, 2L, 2L, 19L, 0L, 2L, 0L, 0L, 36L, 0L, 3L, 0L, 3L, 0L, 
-      0L, 4L, 1L, 0L, 0L, 0L, 54L, 1L, 7L, 18L, 11L, 796L, 34L, 89L, 
-      6L, 20L, 80L, 0L, 1839L, 0L, 528L, 19L, 60L, 1L, 16L, 308L, 170L, 
-      1030L, 5L, 4L, 0L, 0L, 0L, 2L, 0L, 0L, 0L, 3L, 0L, 1L, 0L, 0L, 
-      5L, 0L, 3L, 0L, 5L, 0L, 0L, 8L, 9L, 4L, 0L, 0L, 0L, 0L, 0L, 0L, 
-      0L, 0L, 0L, 5L, 0L, 1L, 0L, 0L, 0L, 0L, 4L, 0L, 0L, 0L, 0L, 4L, 
-      0L, 0L, 0L, 0L, 2L, 0L, 0L, 2L, 4L, 32L, 1L, 9L, 0L, 5L, 1L, 
-      0L, 6L, 0L, 46L, 0L, 0L, 0L, 0L, 17L, 5L, 14L, 0L, 0L, 0L, 0L, 
-      0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
-      0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
-      0L, 0L, 1L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 1L, 1L, 0L, 0L, 0L, 0L, 
-      0L, 0L, 0L, 6L, 3L, 0L, 0L, 0L, 0L, 0L, 8L, 0L, 7L, 2L, 3L, 0L, 
-      0L, 0L, 12L, 3L, 0L, 0L, 5L, 0L, 0L, 5L, 5L, 58L, 2L, 7L, 1L, 
-      1L, 2L, 0L, 43L, 0L, 138L, 0L, 11L, 0L, 5L, 54L, 19L, 34L, 1L, 
-      0L, 2L, 2L, 3L, 2L, 1L, 86L, 3L, 4L, 1L, 2L, 6L, 0L, 7L, 0L, 
-      133L, 4L, 27L, 0L, 0L, 87L, 65L, 9L, 0L, 0L, 0L, 0L, 0L, 4L, 
-      0L, 0L, 0L, 8L, 0L, 3L, 0L, 1L, 4L, 0L, 10L, 0L, 0L, 0L, 0L, 
-      3L, 2L, 5L, 1L, 0L, 0L, 0L, 4L, 0L, 32L, 12L, 4L, 4L, 0L, 13L, 
+    c(3L, 0L, 0L, 0L, 0L, 3L, 0L, 0L, 0L, 0L, 0L, 0L, 0L,
+      0L, 9L, 0L, 0L, 0L, 0L, 2L, 0L, 1L, 0L, 0L, 0L, 0L, 0L, 0L, 0L,
+      0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L,
+      0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 2L, 1L, 1L, 1L,
+      0L, 4L, 0L, 0L, 0L, 0L, 0L, 2L, 0L, 3L, 0L, 0L, 0L, 0L, 0L, 1L,
+      0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 4L, 0L, 0L, 0L, 0L, 0L, 0L,
+      1L, 0L, 0L, 0L, 0L, 0L, 2L, 0L, 4L, 0L, 0L, 0L, 0L, 0L, 0L, 2L,
+      0L, 14L, 0L, 5L, 0L, 0L, 1L, 3L, 0L, 0L, 0L, 0L, 0L, 0L, 2L,
+      3L, 0L, 0L, 1L, 0L, 0L, 0L, 0L, 15L, 0L, 4L, 0L, 7L, 0L, 0L,
+      12L, 14L, 4L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 1L, 0L, 1L,
+      0L, 0L, 1L, 0L, 8L, 0L, 0L, 0L, 5L, 2L, 2L, 1L, 1L, 0L, 0L, 0L,
+      5L, 7L, 5L, 35L, 4L, 9L, 0L, 6L, 1L, 1L, 113L, 0L, 168L, 2L,
+      8L, 0L, 4L, 14L, 20L, 14L, 36L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L,
+      0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L,
+      0L, 0L, 0L, 1L, 2L, 20L, 17L, 0L, 3L, 0L, 4L, 0L, 0L, 9L, 0L,
+      42L, 0L, 12L, 0L, 0L, 7L, 4L, 0L, 0L, 0L, 23L, 3L, 4L, 7L, 0L,
+      4L, 0L, 6L, 0L, 2L, 10L, 1L, 10L, 0L, 41L, 0L, 17L, 0L, 6L, 17L,
+      13L, 12L, 0L, 0L, 0L, 0L, 1L, 0L, 0L, 0L, 0L, 1L, 0L, 1L, 0L,
+      0L, 3L, 0L, 7L, 0L, 0L, 0L, 0L, 0L, 0L, 2L, 1L, 0L, 1L, 0L, 0L,
+      0L, 0L, 2L, 2L, 19L, 0L, 2L, 0L, 0L, 36L, 0L, 3L, 0L, 3L, 0L,
+      0L, 4L, 1L, 0L, 0L, 0L, 54L, 1L, 7L, 18L, 11L, 796L, 34L, 89L,
+      6L, 20L, 80L, 0L, 1839L, 0L, 528L, 19L, 60L, 1L, 16L, 308L, 170L,
+      1030L, 5L, 4L, 0L, 0L, 0L, 2L, 0L, 0L, 0L, 3L, 0L, 1L, 0L, 0L,
+      5L, 0L, 3L, 0L, 5L, 0L, 0L, 8L, 9L, 4L, 0L, 0L, 0L, 0L, 0L, 0L,
+      0L, 0L, 0L, 5L, 0L, 1L, 0L, 0L, 0L, 0L, 4L, 0L, 0L, 0L, 0L, 4L,
+      0L, 0L, 0L, 0L, 2L, 0L, 0L, 2L, 4L, 32L, 1L, 9L, 0L, 5L, 1L,
+      0L, 6L, 0L, 46L, 0L, 0L, 0L, 0L, 17L, 5L, 14L, 0L, 0L, 0L, 0L,
+      0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L,
+      0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L,
+      0L, 0L, 1L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 1L, 1L, 0L, 0L, 0L, 0L,
+      0L, 0L, 0L, 6L, 3L, 0L, 0L, 0L, 0L, 0L, 8L, 0L, 7L, 2L, 3L, 0L,
+      0L, 0L, 12L, 3L, 0L, 0L, 5L, 0L, 0L, 5L, 5L, 58L, 2L, 7L, 1L,
+      1L, 2L, 0L, 43L, 0L, 138L, 0L, 11L, 0L, 5L, 54L, 19L, 34L, 1L,
+      0L, 2L, 2L, 3L, 2L, 1L, 86L, 3L, 4L, 1L, 2L, 6L, 0L, 7L, 0L,
+      133L, 4L, 27L, 0L, 0L, 87L, 65L, 9L, 0L, 0L, 0L, 0L, 0L, 4L,
+      0L, 0L, 0L, 8L, 0L, 3L, 0L, 1L, 4L, 0L, 10L, 0L, 0L, 0L, 0L,
+      3L, 2L, 5L, 1L, 0L, 0L, 0L, 4L, 0L, 32L, 12L, 4L, 4L, 0L, 13L,
       2L, 0L, 9L, 0L, 40L, 0L, 14L, 0L, 7L, 9L, 3L, 9L, 2L, 0L),
     dim = c(24L, 24L),
     dimnames = list(
@@ -171,7 +169,7 @@ test_that("Changing weight changes matrix values (Amoladeras)", {
 #-------------------------------
 
 test_that("RN_to_matrix keeps Open column but it may be zero for some indices", {
- 
+
   #data(RecruitNet)
   #data(CanopyCover)
   Amoladeras_com <- comm_subset(RecruitNet, site = "Amoladeras")
