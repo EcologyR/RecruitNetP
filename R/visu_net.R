@@ -8,37 +8,7 @@
 #' each interaction type network, to visualize the functional topology of general
 #' recruitment networks *`visu_funtopol_rec`* and the structural topology of the
 #' recruitment enhancement *`visu_topol_fac`* and depression *`visu_topol_depre`*
-#' networks respectively. **All arguments (options)**:
-#' - **input**: interactions and cover data, as detailed in [int_significance()]
-#' - **int_type**: Indicates the type of plant-plant interaction that will be
-#' analyzed: general recruitment, recruitment enhancement (i.e. facilitation)
-#' or recruitment depression (i.e. competition). See detailed options in
-#' [int_significance()].
-#' - **weight**: specifies the metric used to represent interaction strength
-#' (i.e., the weight) assigned to each pair of species in the matrix.
-#' Explanation of its options (more mathematical information in the description
-#' of the function **associndex**).
-#' - *Fcr*: **frequency of recruitment** in number of recruits by canopy-recruit pair.
-#' - *Dcr*: **density of recruitment** as number of recruits per unit area of canopy
-#' species.
-#' - *Ns*: The index **Normalized Neighbour Suitability index** (proposed by Mingo, 2014),
-#' suitable for comparisons of interaction strength between pairs of species within a
-#' local community, which should be preferred in general recruitment networks
-#' (Alcantara et al. 2025).
-#' - *NIntA*: The index **additive symmetry intensity index** proposed by
-#' Diaz-Sierra et al. (2017).
-#' - *NIntC*: The index **commutative symmetry intensity index** proposed by
-#' Diaz-Sierra et al. (2017).
-#' -*RII*: The index **Relative Interaction Index** (Armas et al., 2004).
-#' - **mode**: to be used only for recruitment enhancement("fac") and recruitment
-#' depression ("comp") networks. Indicates whether the network should be plotted as a
-#' unipartite or a bipartite network. In bipartite networks, canopy species are shown
-#' in the upper row and recruits in the lower row of the graph. For general
-#' recruitment networks, the network should be considered as unipartite, and it will
-#' result in an error if this argument is given the option "bi".
-#' - **scale_w**: is an argument to proportionally increase or decrease the thickness
-#' of the links. In some networks, high values can result in the overlapping of links
-#' that difficult the visualization.
+#' networks respectively. 
 #'
 #' @inheritParam check_interactions
 #' @inheritParam check_cover
@@ -98,7 +68,7 @@
 #' Bipartite representation of a recruitment depression (*competition*) network. Link
 #' width corresponds to the scaled *RII* index. Canopy species are shown in the upper row
 #' and recruits in the lower row of the graph:
-#' visu_net(mysite_com, mysite_cov, int_type="com", weight="RII", mode="bi", scale_w=5)
+#' visu_net(mysite_com, mysite_cov, int_type="comp", weight="RII", mode="bi", scale_w=5)
 #'
 #'
 visu_net<-function(int_data,cover_data,int_type=c("rec","fac","comp"),
