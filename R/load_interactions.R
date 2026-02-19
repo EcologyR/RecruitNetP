@@ -15,7 +15,7 @@ load_interactions <- function(path = getwd()) {
     download_RN(path)
   }
 
-  RecruitNet <- read.csv(file.path(path, "RecruitNet.csv"))
+  RecruitNet <- utils::read.csv(file.path(path, "RecruitNet.csv"))
 
   return(RecruitNet)
 
