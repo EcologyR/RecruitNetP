@@ -2,8 +2,7 @@ test_that("remove_no_cover falla con argumento inválido", {
 
   expect_error(
     remove_no_cover(Amoladeras_int, Amoladeras_cover,
-                    rm_sp_no_cover = "loquesea"),
-    NA
+                    rm_sp_no_cover = "loquesea")
   )
 
 })
@@ -48,6 +47,7 @@ test_that("allsp elimina especies sin cover", {
 
   expect_false("B" %in% res$Canopy)
   expect_false("Z" %in% res$Recruit)
+  expect_false("Y" %in% res$Recruit)
 
 })
 
@@ -71,6 +71,7 @@ test_that("onlycanopy elimina solo canopy sin cover", {
                          rm_sp_no_cover = "onlycanopy")
 
   expect_false("B" %in% res$Canopy)
+  expect_true("Y" %in% res$Recruit)
 
 })
 
