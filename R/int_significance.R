@@ -106,17 +106,21 @@
 #'
 int_significance <- function(int_data, cover_data, int_type=c("rec", "fac","comp")){
 
-  if (!"Open" %in% int_data$Canopy)
-  stop("ERROR: tests cannot be conducted because your data does not contain a
-       node named Open or it is spelled differently.")
+  int_type <- match.arg(int_type)
+
+  if (!"Open" %in% int_data$Canopy) {
+    stop("tests cannot be conducted because your data does not contain a
+         node named Open or it is spelled differently.")
+  }
 
   if(int_type=="rec"){
 
     data<-comm_to_RN_UNI(int_data,cover_data)
     df<-int_significance_UNI(data)
-    if(length(unique(df$Test_type))>1)
+    if(length(unique(df$Test_type))>1) {
       message("Different tests were used for different canopy-recruit pairs.
               Check column Test_type")
+    }
   }
 
   if(int_type=="fac"){
