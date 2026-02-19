@@ -79,13 +79,13 @@
 #' @export
 #'
 #' @examples associndex (Amoladeras_int, Amoladeras_cover, expand = "yes",
-#' rm_sp_no_cover = "allsp", thresold_density=NULL)
+#' rm_sp_no_cover = "allsp", threshold_density=NULL)
 #' associndex (Amoladeras_int, Amoladeras_cover, expand = "yes",
-#' rm_sp_no_cover = "onlycanopy", thresold_density=NULL)
+#' rm_sp_no_cover = "onlycanopy", threshold_density=NULL)
 #' associndex (Amoladeras_int, Amoladeras_cover, expand = "no",
-#' rm_sp_no_cover = "allsp", thresold_density=NULL)
+#' rm_sp_no_cover = "allsp", threshold_density=NULL)
 #' associndex (Amoladeras_int, Amoladeras_cover, expand = "yes",
-#' rm_sp_no_cover = "onlycanopy", thresold_density=NULL)
+#' rm_sp_no_cover = "onlycanopy", threshold_density=NULL)
 
 associndex<- function(int_data, cover_data, expand=c("yes","no"),
                       rm_sp_no_cover=c("allsp","onlycanopy"),
