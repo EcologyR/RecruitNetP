@@ -54,8 +54,8 @@ canopy_service_test <- function(int_data,cover_data){
   Significance <- vector(mode = "numeric", length = nrow(df))
   for(i in 1:n_tests) {
     ifelse(((df$Fc[i]+df$Fro[i])*(df$Ac[i]/(df$Ac[i]+df$Ao[i]))<=5 | (df$Fc[i]+df$Fro[i])*(df$Ao[i]/(df$Ac[i]+df$Ao[i]))<=5),
-           Significance[i] <- binom.test(df$Fc[i], df$Fc[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
-           Significance[i] <- chisq.test(c(df$Fc[i], df$Fro[i]), p = c(df$exp_p[i], 1-df$exp_p[i]))$p.value
+           Significance[i] <- stats::binom.test(df$Fc[i], df$Fc[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
+           Significance[i] <- stats::chisq.test(c(df$Fc[i], df$Fro[i]), p = c(df$exp_p[i], 1-df$exp_p[i]))$p.value
     )
   }
   df$Significance <- Significance

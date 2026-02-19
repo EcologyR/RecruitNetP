@@ -295,7 +295,7 @@ int_significance_UNI <- function(int_data){
 
   testability <- c()
   for(i in 1:n_tests) {
-    testability[i] <- binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
+    testability[i] <- stats::binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
   }
   df$testability <- testability
 
@@ -304,8 +304,8 @@ int_significance_UNI <- function(int_data){
   Significance <- c()
   for(i in 1:n_tests) {
     ifelse(((df$Fcr[i]+df$Fro[i])*(df$Ac[i]/(df$Ac[i]+df$Ao[i]))<=5 | (df$Fcr[i]+df$Fro[i])*(df$Ao[i]/(df$Ac[i]+df$Ao[i]))<=5),
-           Significance[i] <- binom.test(df$Fcr[i], df$Fcr[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
-           Significance[i] <- chisq.test(c(df$Fcr[i], df$Fro[i]), p = c(df$exp_p[i], 1-df$exp_p[i]))$p.value
+           Significance[i] <- stats::binom.test(df$Fcr[i], df$Fcr[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
+           Significance[i] <- stats::chisq.test(c(df$Fcr[i], df$Fro[i]), p = c(df$exp_p[i], 1-df$exp_p[i]))$p.value
     )
   }
   df$Significance <- Significance

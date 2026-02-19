@@ -136,7 +136,7 @@ topol_fac <- function(int_data,cover_data, direction=c("in","out")){
 
     dfs_extend <- function(current_path) {
 
-      last_node <- tail(current_path, 1)
+      last_node <- utils::tail(current_path, 1)
 
       if(dir=="out"){
         neighbors_exp <- setdiff(neighbors(g, last_node, mode = "out")$name, current_path)

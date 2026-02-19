@@ -8,7 +8,7 @@
 #' each interaction type network, to visualize the functional topology of general
 #' recruitment networks *`visu_funtopol_rec`* and the structural topology of the
 #' recruitment enhancement *`visu_topol_fac`* and depression *`visu_topol_depre`*
-#' networks respectively. 
+#' networks respectively.
 #'
 #' @inheritParam check_interactions
 #' @inheritParam check_cover
@@ -113,7 +113,7 @@ visu_net<-function(int_data,cover_data,int_type=c("rec","fac","comp"),
          #layout=layout_with_kk(RN_igraph),
          layout=igraph::layout_in_circle(RN_igraph),
          frame = TRUE)
-    title(main="Recruitment Network")
+    graphics::title(main="Recruitment Network")
     return(RN_igraph)
 
 
@@ -147,7 +147,7 @@ visu_net<-function(int_data,cover_data,int_type=c("rec","fac","comp"),
          #layout=layout_with_kk(RN_igraph),
          layout=igraph::layout_in_circle(RN_igraph),
          frame = TRUE)
-    title(main="Unipartite Recruitment Enhancement Network")
+    graphics::title(main="Unipartite Recruitment Enhancement Network")
 
     return(RN_igraph)
   }
@@ -184,7 +184,7 @@ visu_net<-function(int_data,cover_data,int_type=c("rec","fac","comp"),
          #layout=layout_with_kk(RN_igraph),
          layout=igraph::layout_in_circle(RN_igraph),
          frame = TRUE)
-    title(main="Unipartite Recruitment Depression Network")
+    graphics::title(main="Unipartite Recruitment Depression Network")
 
     return(RN_igraph)
 
