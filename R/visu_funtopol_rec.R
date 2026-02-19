@@ -1,14 +1,15 @@
-#' Title
+#' visualize the functional topology of general recruitment networks
 #'
-#' @param int_data
-#' @param cover_data
 #'
-#' @returns
+#' @inheritParams check_interactions
+#' @inheritParams check_cover
+#'
+#' @returns a plot with teh different species role
 #' @export
 #'
 #' @examples
 #'
-#'
+#'visu_funtopol_rec(Amoladeras_int,Amoladeras_cover)
 #'
 visu_funtopol_rec <- function(int_data,cover_data){
 
@@ -49,15 +50,15 @@ visu_funtopol_rec <- function(int_data,cover_data){
 
     # Network visualization and export to html
 
-    network <- visNetwork(nodes_list, edges_list) %>%
+    network <- visNetwork::visNetwork(nodes_list, edges_list) %>%
       visNetwork::visIgraphLayout(layout = "layout_with_fr") %>%
-      visEdges(arrows ="to") %>%
-      visGroups(groupname = "Open", color = "#F0E442") %>%
-      visGroups(groupname = "Core", color = "#009E73") %>%
-      visGroups(groupname = "Satellite", color = "#0072B2") %>%
-      visGroups(groupname = "Strict_transients", color = "#D55E00") %>%
-      visGroups(groupname = "Disturbance_dependent_transients", color = "#CC79A7") %>%
-      visOptions(nodesIdSelection = TRUE) %>%
+      visNetwork::visEdges(arrows ="to") %>%
+      visNetwork::visGroups(groupname = "Open", color = "#F0E442") %>%
+      visNetwork::visGroups(groupname = "Core", color = "#009E73") %>%
+      visNetwork::visGroups(groupname = "Satellite", color = "#0072B2") %>%
+      visNetwork::visGroups(groupname = "Strict_transients", color = "#D55E00") %>%
+      visNetwork::visGroups(groupname = "Disturbance_dependent_transients", color = "#CC79A7") %>%
+      visNetwork::visOptions(nodesIdSelection = TRUE) %>%
       visNetwork::visLegend(addNodes = lnodes, useGroups = FALSE)
 
 

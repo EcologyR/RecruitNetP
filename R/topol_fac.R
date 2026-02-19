@@ -1,14 +1,63 @@
-
-#' Title
+#' summary and node-based information of species in loops and simple paths
+#' @description
+#' provides summary and node-based information of number of species involved
+#' in loops of reciprocal facilitation or simple indirect facilitation linear
+#' paths from (or to) any given species.
 #'
-#' @param int_data
-#' @param cover_data
-#' @param direction
+#' @inheritParams check_interactions
+#' @inheritParams check_cover
 #'
-#' @returns
+#' @param direction the direction of the link
+#'
+#' @returns A list with two elements, one with the information of reciprocal
+#'  facilitation loops and another with information of the simple linear
+#'   indirect facilitation paths beginning of ending in each species.
+#'
+#' The first element of the list **loops** provides the following information
+#' within two levels:
+#' - **summary**: A data frame with as many rows as SCC are present in the
+#' facilitation network (with more than one species, as autofacilitation is
+#' not considered) and in columns, an scc identifier **scc_id** and the number
+#' of species involved in that SCC **n_nodos**
+#'  - **nodes**: a list with as many elements as SCCs found, each of them
+#'  including a vector with the name of the species involved in that SCC
+#'  The second element of the list **simple**, provides the following
+#'  information within two levels:
+#'   - **summary**: A data frame with as many rows as distinct simple
+#'   linear indirect facilitation paths (i.e. their overlap in species
+#'   composition is less than 75%) that begin ("from") or end ("to") in any
+#'   species, including the linear versions of the SCCs. In columns, the species
+#'    in which that distinct linear path begin or end  **nodo**, and numeric
+#'    index that identifies the paths within species **path_index** and the
+#'    number of species involved in that path **n_nodes_in_path** which includes
+#'     the focal species, independently of whether there is autofacilitation.
+#'   - **nodes**: a list with as many elements as species in the facilitation
+#'   network (either as nurse or facilitated), each of them including as many
+#'   elements as distinct paths begin or ends in it, and in each of them, a
+#'   vector with the name of the species involved in that simple indirect
+#'   facilitation linear path.
+#'   All arguments (options):
+#'   - **direction** = c("in","out")
+#'   Argument 1.
+#'   - **direction**: Indicates the direction in which the indirect facilitation
+#'    is assessed.
+#'   Explanation of its options:
+#'   - **in**: Estimates the paths based on the incoming links to each node,
+#'   representing the set of nurse species from which a recruit species
+#'   benefits, either directly (by enhancing its recruitment) or indirectly
+#'   (by facilitating other nurse species that enhance its recruitment).
+#'   Link direction is considered for both reciprocal and simple paths.
+#'   - **out**: Estimates the paths based on the outgoing links from each nodes,
+#'    representing the set of species that a nurse species benefits, either
+#'    directly or indirectly (i.e. through other intermediate species).
+#'    The direction of the links is applied to both reciprocal and simple paths
 #' @export
 #'
 #' @examples
+#'
+#'topol_fac(Amoladeras_int,Amoladeras_cover, direction="out")
+#'
+#'topol_fac(Amoladeras_int,Amoladeras_cover, direction="in")
 #'
 #'
 topol_fac <- function(int_data,cover_data, direction=c("in","out")){
@@ -17,7 +66,8 @@ topol_fac <- function(int_data,cover_data, direction=c("in","out")){
 
   M<-RN_to_matrix(int_data, cover_data, int_type="fac",weight="Pcr")
 
-  #make a square matrix to build a unipartite directed graph to assess reciprocal facilitation
+  #make a square matrix to build a unipartite directed graph to assess
+  #reciprocal facilitation
 
   species <- union(rownames(M), colnames(M))
 
@@ -30,7 +80,7 @@ topol_fac <- function(int_data,cover_data, direction=c("in","out")){
 
   #generate a graph (A facilitates B)
 
-  g<-graph_from_adjacency_matrix(M, mode="directed", diag=FALSE)
+  g<-igraph::graph_from_adjacency_matrix(M, mode="directed", diag=FALSE)
 
   ###generate a list to save the objects
 
@@ -50,8 +100,8 @@ topol_fac <- function(int_data,cover_data, direction=c("in","out")){
   #######
 
   #nodes
-  scc <- components(g, mode = "strong")
-  scc_groups <- split(V(g)$name, scc$membership)
+  scc <- igraph::components(g, mode = "strong")
+  scc_groups <- split(igraph::V(g)$name, scc$membership)
 
   scc_groups<-scc_groups[sapply(scc_groups, length) > 1]
 
@@ -139,12 +189,12 @@ topol_fac <- function(int_data,cover_data, direction=c("in","out")){
       last_node <- utils::tail(current_path, 1)
 
       if(dir=="out"){
-        neighbors_exp <- setdiff(neighbors(g, last_node, mode = "out")$name, current_path)
+        neighbors_exp <- setdiff(igraph::neighbors(g, last_node, mode = "out")$name, current_path)
 
       }
 
       if(dir=="in"){
-        neighbors_exp <- setdiff(neighbors(g, last_node, mode = "in")$name, current_path)
+        neighbors_exp <- setdiff(igraph::neighbors(g, last_node, mode = "in")$name, current_path)
 
       }
 
@@ -215,28 +265,28 @@ topol_fac <- function(int_data,cover_data, direction=c("in","out")){
 
     # list to save the linea paths for each node
 
-    paths_per_node_out <- vector("list", vcount(g))
+    paths_per_node_out <- vector("list", igraph::vcount(g))
 
-    for (i in seq_along(V(g))) {
+    for (i in seq_along(igraph::V(g))) {
 
-      nodo <- V(g)[i]
+      nodo <- igraph::V(g)[i]
 
       # subgrafo reachable from this node
-      reachable <- subcomponent(g, nodo, mode = "out")
-      g_sub <- induced_subgraph(g, reachable)
+      reachable <- igraph::subcomponent(g, nodo, mode = "out")
+      g_sub <- igraph::induced_subgraph(g, reachable)
 
       # eliminate edges that come back to the initial node
-      edges_to_delete <- E(g_sub)[.to(V(g_sub)[name == V(g)$name[i]])]
-      g_sub <- delete_edges(g_sub, edges_to_delete)
+      edges_to_delete <- igraph::E(g_sub)[.to(igraph::V(g_sub)[name == igraph::V(g)$name[i]])]
+      g_sub <- igraph::delete_edges(g_sub, edges_to_delete)
 
       # calculate máximum paths
-      paths <- maximal_paths_distinct_pruned(g_sub, V(g_sub)$name[V(g_sub)$name == V(g)$name[i]],dir="out")
+      paths <- maximal_paths_distinct_pruned(g_sub, igraph::V(g_sub)$name[igraph::V(g_sub)$name == igraph::V(g)$name[i]],dir="out")
 
       # save
       paths_per_node_out[[i]] <- paths
     }
 
-    names(paths_per_node_out) <- V(g)$name
+    names(paths_per_node_out) <- igraph::V(g)$name
 
 
     #summary
@@ -280,19 +330,19 @@ topol_fac <- function(int_data,cover_data, direction=c("in","out")){
 
     #nodes
 
-    paths_per_node_in <- vector("list", vcount(g))
+    paths_per_node_in <- vector("list", igraph::vcount(g))
 
-    for (i in seq_along(V(g))) {
+    for (i in seq_along(igraph::V(g))) {
 
-      nodo <- V(g)[i]
+      nodo <- igraph::V(g)[i]
 
       # subgrafo reaching this node
-      reachable <- subcomponent(g, nodo, mode = "in")
-      g_sub <- induced_subgraph(g, reachable)
+      reachable <- igraph::subcomponent(g, nodo, mode = "in")
+      g_sub <- igraph::induced_subgraph(g, reachable)
 
 
       # calculate máximum paths distinct between them
-      paths <- maximal_paths_distinct_pruned(g_sub, V(g_sub)$name[V(g_sub)$name == V(g)$name[i]], dir="in")
+      paths <- maximal_paths_distinct_pruned(g_sub, igraph::V(g_sub)$name[igraph::V(g_sub)$name == igraph::V(g)$name[i]], dir="in")
 
       # save
       paths_per_node_in[[i]] <- paths
