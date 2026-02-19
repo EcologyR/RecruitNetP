@@ -1,7 +1,7 @@
 #' Calculate width of canopy service and recruitment niches
 #'
 #' @inheritParams check_interactions
-#' @inheritParams chack_cover
+#' @inheritParams check_cover
 #'
 #' @param int_type
 #' Indicates the type of plant-plant interaction that will be presented in the
@@ -57,7 +57,7 @@
 #' For facilitation or recruitment depressing interactions, the output consists
 #' in two data frames, one for the  **canopy** species and another for the
 #' **recruit** species. The data frame with information for the canopy species
-#' prodives the following information:
+#' provides the following information:
 #' - *Nurse (or Canopy) sp*: Canopy species.
 #' - *Ac*: Area of the canopy species (and "Open" interspaces), measured as the
 #' distance (m, in transects) or area (m^2^, in plots) used to estimate canopy
@@ -83,6 +83,8 @@
 #' head(out)
 
 node_degrees <- function(int_data,cover_data, int_type=c("rec", "fac","comp")) {
+
+  int_type <- match.arg(int_type)
 
   if(int_type=="rec"){
 
