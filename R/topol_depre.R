@@ -5,7 +5,7 @@
 #' recruitment depression linear paths from (or to) any given species.
 #'
 #' @inheritParams check_interactions
-#' @inheritParams chec_cover
+#' @inheritParams check_cover
 #' @param direction direction of teh links, in or out
 #'
 #'

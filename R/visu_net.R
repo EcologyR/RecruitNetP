@@ -10,8 +10,8 @@
 #' recruitment enhancement *`visu_topol_fac`* and depression *`visu_topol_depre`*
 #' networks respectively.
 #'
-#' @inheritParam check_interactions
-#' @inheritParam check_cover
+#' @inheritParams check_interactions
+#' @inheritParams check_cover
 #'
 #' @param int_type Indicates the type of plant-plant interaction that will be
 #' analyzed: general recruitment, recruitment enhancement (i.e. facilitation)

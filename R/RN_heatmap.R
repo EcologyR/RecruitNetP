@@ -1,7 +1,7 @@
 #' Visualize a heatmap of the interactions matrix.
 #'
 #' @inheritParams check_interactions
-#' @inheritParams checkk_cover
+#' @inheritParams check_cover
 #'
 #' @param int_type
 #' #' Indicates the type of plant-plant interaction that will be presented in the

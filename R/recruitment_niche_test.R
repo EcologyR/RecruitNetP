@@ -6,8 +6,8 @@
 #' recruit species. **Input**:The canopy-recruit interactions dataset and the canopy
 #' cover dataset (details as explained in [int_significance()] documentation).
 #'
-#' @inheritParam check_interactions
-#' @inheritParam check_cover
+#' @inheritParams check_interactions
+#' @inheritParams check_cover
 #'
 #' @returns The same variables provided by the function [int_significance()]
 #' but without distinguishing between canopy species.

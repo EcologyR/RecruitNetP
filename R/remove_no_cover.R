@@ -6,8 +6,8 @@
 #' interactions database, and for comp or fac, it removes only canopy species without
 #' cover data keeping recruit species without cover data.
 #'
-#' @inheritParam check_interactions
-#' @inheritParam check_cover
+#' @inheritParams check_interactions
+#' @inheritParams check_cover
 #'
 #' @param rm_sp_no_cover Options:
 #' - *allsp*: removes any species without cover data.
