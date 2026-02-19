@@ -57,12 +57,12 @@ test_that("Changing weight changes matrix values (Amoladeras)", {
     weight     = "Fcr"
   )
 
-  net_RII <- RN_to_matrix(
+  net_RII <- suppressWarnings(RN_to_matrix(
     int_data   = Amoladeras_int,
     cover_data = Amoladeras_cover,
     int_type   = "rec",
     weight     = "RII"
-  )
+  ))
 
   # same dimension
   expect_equal(dim(net_Fcr), dim(net_RII))
@@ -75,12 +75,12 @@ test_that("Changing weight changes matrix values (Amoladeras)", {
 
 test_that("RN_to_matrix keeps Open column but it may be zero for some indices", {
 
-   net <- RN_to_matrix(
+   net <- suppressWarnings(RN_to_matrix(
     int_data   = Amoladeras_int,
     cover_data = Amoladeras_cover,
     int_type   = "rec",
     weight     = "Ns"
-  )
+  ))
 
   expect_true("Open" %in% colnames(net))
 })

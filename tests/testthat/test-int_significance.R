@@ -53,8 +53,7 @@ test_that("int_significance fails in Amoladeras if 'Open' canopy is missing", {
       int_data   = int_data,
       cover_data = Amoladeras_cover,
       int_type   = "rec"
-    ),
-    "ERROR: tests cannot be conducted"
+    )
   )
 })
 

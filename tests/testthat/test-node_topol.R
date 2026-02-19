@@ -1,8 +1,8 @@
 
 test_that("node_topol returns NULL if int_type is invalid", {
 
-  res <- node_topol(Amoladeras_int, Amoladeras_cover, int_type = "wrong")
-  expect_null(res)
+  expect_error(node_topol(Amoladeras_int, Amoladeras_cover, int_type = "wrong"))
+
 })
 
 #------------------------------------

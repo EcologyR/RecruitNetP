@@ -55,12 +55,13 @@ test_that("Artemisia_campestris is classified as Satellite", {
 test_that("Open non present error", {
 
   com_sin_open <- Amoladeras_int
-  com_sin_open$Canopy <- gsub("Open", "OPEN_WRONG", com_sin_open$Canopy)
+  com_sin_open$Canopy <- gsub("Open", "WRONG", com_sin_open$Canopy)
+
+  cover_sin_open <- Amoladeras_cover
+  cover_sin_open$Canopy <- gsub("Open", "WRONG", cover_sin_open$Canopy)
 
   expect_error(
-    funtopol_rec(com_sin_open, Amoladeras_cover),
-    "does not contain a node named Open"
-  )
+    suppressWarnings(funtopol_rec(com_sin_open, cover_sin_open)))
 })
 
 

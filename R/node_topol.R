@@ -45,7 +45,7 @@ node_topol <- function(int_data,cover_data, int_type=c("rec","fac","comp")){
     int_data<-comm_to_RN_UNI(int_data,cover_data)
 
     RN_igraph <- igraph::graph_from_adjacency_matrix(t(RN_to_matrix_UNI(int_data, weight = "Pcr")), mode = "directed")
-    eigen_cent <- igraph::eigen_centrality(RN_igraph, directed=TRUE, scale=FALSE, options = list(which="LR"))$vector
+    eigen_cent <- igraph::eigen_centrality(RN_igraph, directed=TRUE, options = list(which="LR"))$vector
     out_neigh <- igraph::neighborhood_size(RN_igraph, order=igraph::gorder(RN_igraph), mode="out", mindist=1)
     in_neigh <- igraph::neighborhood_size(RN_igraph, order=igraph::gorder(RN_igraph), mode="in", mindist=1)
     df <- data.frame(eigen_cent, out_neigh,in_neigh)
@@ -70,7 +70,7 @@ node_topol <- function(int_data,cover_data, int_type=c("rec","fac","comp")){
     RN_igraph <- igraph::graph_from_adjacency_matrix(t(my_mat), mode = "directed")
     RN_igraphN <- igraph::graph_from_adjacency_matrix(my_mat, mode = "directed")
 
-    eigen_cent <- igraph::eigen_centrality(RN_igraphN, directed=TRUE, scale=FALSE, options = list(which="LR"))$vector
+    eigen_cent <- igraph::eigen_centrality(RN_igraphN, directed=TRUE, options = list(which="LR"))$vector
     out_neigh <- igraph::neighborhood_size(RN_igraph, order=igraph::gorder(RN_igraph), mode="out", mindist=1)
     in_neigh <- igraph::neighborhood_size(RN_igraph, order=igraph::gorder(RN_igraph), mode="in", mindist=1)
     df <- data.frame(eigen_cent, out_neigh,in_neigh)
@@ -96,7 +96,7 @@ node_topol <- function(int_data,cover_data, int_type=c("rec","fac","comp")){
     RN_igraph <- igraph::graph_from_adjacency_matrix(t(my_mat), mode = "directed")
     RN_igraphN <- igraph::graph_from_adjacency_matrix(my_mat, mode = "directed")
 
-    eigen_cent <- igraph::eigen_centrality(RN_igraphN, directed=TRUE, scale=FALSE, options = list(which="LR"))$vector
+    eigen_cent <- igraph::eigen_centrality(RN_igraphN, directed=TRUE, options = list(which="LR"))$vector
     out_neigh <- igraph::neighborhood_size(RN_igraph, order=igraph::gorder(RN_igraph), mode="out", mindist=1)
     in_neigh <- igraph::neighborhood_size(RN_igraph, order=igraph::gorder(RN_igraph), mode="in", mindist=1)
     df <- data.frame(eigen_cent, out_neigh,in_neigh)
