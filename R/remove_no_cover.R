@@ -23,6 +23,8 @@
 #'
 remove_no_cover<- function(int_data,cover_data, rm_sp_no_cover=c("allsp","onlycanopy")){
 
+  rm_sp_no_cover <- match.arg(rm_sp_no_cover)
+
   if(rm_sp_no_cover=="allsp"){
     df<-remove_no_cover_UNI(int_data,cover_data)
   }

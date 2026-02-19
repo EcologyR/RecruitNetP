@@ -61,9 +61,9 @@
 #'
 #'
 #' @examples
-#'topol_depre(Amoladeras_int,Amoladeras_cover, direction="out")
+#'topol_depre(test_data$com,test_data$cov, direction="out")
 #'
-#'topol_depre(Amoladeras_int,Amoladeras_cover, direction="in")
+#'topol_depre(test_data$com,test_data$cov, direction="in")
 #'
 #'
 topol_depre <- function(int_data,cover_data, direction=c("in","out")){

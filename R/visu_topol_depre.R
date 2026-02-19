@@ -8,6 +8,9 @@
 #'
 #' @inheritParams check_interactions
 #' @inheritParams check_cover
+#' @param layout_fun type of igraph layout (see [igraph::layout_()])
+#' @param vertex_size numeric
+#' @param edge_arrow_size numeric
 #'
 #'
 #' @returns a plot

@@ -34,6 +34,7 @@ Imports:
     bipartite,
     extremevalues,
     ggplot2,
+    htmlwidgets,
     igraph,
     iNEXT,
     reshape2,

@@ -55,9 +55,9 @@
 #'
 #' @examples
 #'
-#'topol_fac(Amoladeras_int,Amoladeras_cover, direction="out")
+#'topol_fac(test_data$com,test_data$cov, direction="out")
 #'
-#'topol_fac(Amoladeras_int,Amoladeras_cover, direction="in")
+#'topol_fac(test_data$com,test_data$cov, direction="in")
 #'
 #'
 topol_fac <- function(int_data,cover_data, direction=c("in","out")){
@@ -348,7 +348,7 @@ topol_fac <- function(int_data,cover_data, direction=c("in","out")){
       paths_per_node_in[[i]] <- paths
     }
 
-    names(paths_per_node_in) <- V(g)$name
+    names(paths_per_node_in) <- igraph::V(g)$name
 
 
 

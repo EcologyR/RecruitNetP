@@ -50,15 +50,15 @@ visu_funtopol_rec <- function(int_data,cover_data){
 
     # Network visualization and export to html
 
-    network <- visNetwork::visNetwork(nodes_list, edges_list) %>%
-      visNetwork::visIgraphLayout(layout = "layout_with_fr") %>%
-      visNetwork::visEdges(arrows ="to") %>%
-      visNetwork::visGroups(groupname = "Open", color = "#F0E442") %>%
-      visNetwork::visGroups(groupname = "Core", color = "#009E73") %>%
-      visNetwork::visGroups(groupname = "Satellite", color = "#0072B2") %>%
-      visNetwork::visGroups(groupname = "Strict_transients", color = "#D55E00") %>%
-      visNetwork::visGroups(groupname = "Disturbance_dependent_transients", color = "#CC79A7") %>%
-      visNetwork::visOptions(nodesIdSelection = TRUE) %>%
+    network <- visNetwork::visNetwork(nodes_list, edges_list) |
+      visNetwork::visIgraphLayout(layout = "layout_with_fr") |>
+      visNetwork::visEdges(arrows ="to") |>
+      visNetwork::visGroups(groupname = "Open", color = "#F0E442") |>
+      visNetwork::visGroups(groupname = "Core", color = "#009E73") |>
+      visNetwork::visGroups(groupname = "Satellite", color = "#0072B2") |>
+      visNetwork::visGroups(groupname = "Strict_transients", color = "#D55E00") |>
+      visNetwork::visGroups(groupname = "Disturbance_dependent_transients", color = "#CC79A7") |>
+      visNetwork::visOptions(nodesIdSelection = TRUE) |>
       visNetwork::visLegend(addNodes = lnodes, useGroups = FALSE)
 
 

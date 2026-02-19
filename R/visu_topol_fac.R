@@ -8,6 +8,7 @@
 #'
 #' @inheritParams check_interactions
 #' @inheritParams check_cover
+#' @inheritParams visu_topol_depre
 #'
 #'
 #' @returns a plot
