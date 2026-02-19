@@ -1,7 +1,4 @@
 ###ALL INTERNAL FUNCTIONS
-#packages required
-#("readxl","utils","stats","iNEXT","bipartite","igraph","visNetwork",
-#"tibble","reshape2","extremevalues", "ggplot2")
 
 remove_no_cover_UNI <- function(int_data=NULL, cover_data=NULL) {
 
@@ -50,9 +47,9 @@ aggr_RN_UNI <- function(int_data) {
     int_data<-int_data}
 
   # Sum the number of recruits per interaction across plots
-  RN <- aggregate(Frequency ~ Canopy*Recruit, data = int_data, FUN = sum)
+  RN <- stats::aggregate(Frequency ~ Canopy*Recruit, data = int_data, FUN = sum)
   colnames(RN) <- c("Canopy", "Recruit", "Fcr")
-  RN$Icr <- aggregate(Frequency ~ Canopy*Recruit, data=int_data, FUN = NROW)[[3]]
+  RN$Icr <- stats::aggregate(Frequency ~ Canopy*Recruit, data=int_data, FUN = NROW)[[3]]
   RN$Pcr <- ifelse(RN$Icr==0,0,1)
   RN$Canopy <- gsub("[[:space:]]", "_", RN$Canopy)
   RN$Recruit <- gsub("[[:space:]]", "_", RN$Recruit)
@@ -224,7 +221,7 @@ pre_associndex_UNISITE_UNI <- function(int_data = NULL) {
 
 associndex_UNISITE_UNI <- function(int_data = NULL, threshold_density=100) {
 
-  if (!"Open" %in% int_data$Canopy) stop("ERROR: tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
+  if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
 
   thr <- threshold_density
 
@@ -280,7 +277,7 @@ associndex_UNISITE_UNI <- function(int_data = NULL, threshold_density=100) {
 
 int_significance_UNI <- function(int_data){
 
-  if (!"Open" %in% int_data$Canopy) stop("ERROR: tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
+  if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
 
   df <- pre_associndex_UNISITE_UNI(int_data)
   n_tests <- dim(df)[1]
@@ -401,7 +398,7 @@ canopy_service_test_UNI <- function(int_data){
 
   testability <- c()
   for(i in 1:n_tests) {
-    testability[i] <- binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
+    testability[i] <- stats::binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
   }
   df$testability <- testability
 
@@ -410,8 +407,8 @@ canopy_service_test_UNI <- function(int_data){
   Significance <- c()
   for(i in 1:n_tests) {
     ifelse(((df$Fc[i]+df$Fro[i])*(df$Ac[i]/(df$Ac[i]+df$Ao[i]))<=5 | (df$Fc[i]+df$Fro[i])*(df$Ao[i]/(df$Ac[i]+df$Ao[i]))<=5),
-           Significance[i] <- binom.test(df$Fc[i], df$Fc[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
-           Significance[i] <- chisq.test(c(df$Fc[i], df$Fro[i]), p = c(df$exp_p[i], 1-df$exp_p[i]))$p.value
+           Significance[i] <- stats::binom.test(df$Fc[i], df$Fc[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
+           Significance[i] <- stats::chisq.test(c(df$Fc[i], df$Fro[i]), p = c(df$exp_p[i], 1-df$exp_p[i]))$p.value
     )
   }
   df$Significance <- Significance
@@ -476,7 +473,7 @@ recruitment_niche_test_UNI <- function(int_data){
 
   testability <- c()
   for(i in 1:n_tests) {
-    testability[i] <- binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
+    testability[i] <- stats::binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
   }
   df$testability <- testability
 
@@ -485,8 +482,8 @@ recruitment_niche_test_UNI <- function(int_data){
   Significance <- c()
   for(i in 1:n_tests) {
     ifelse(((df$Fr[i]+df$Fro[i])*(df$Av[i]/(df$Av[i]+df$Ao[i]))<=5 | (df$Fr[i]+df$Fro[i])*(df$Ao[i]/(df$Av[i]+df$Ao[i]))<=5),
-           Significance[i] <- binom.test(df$Fr[i], df$Fr[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
-           Significance[i] <- chisq.test(c(df$Fr[i], df$Fro[i]), p = c(df$exp_p[i], 1-df$exp_p[i]))$p.value
+           Significance[i] <- stats::binom.test(df$Fr[i], df$Fr[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
+           Significance[i] <- stats::chisq.test(c(df$Fr[i], df$Fro[i]), p = c(df$exp_p[i], 1-df$exp_p[i]))$p.value
     )
   }
   df$Significance <- Significance
@@ -557,7 +554,7 @@ node_degrees_UNI <- function(int_data) {
 
 partial_RNs_UNI <- function(int_data, k) {
 
-  if (!"Plot" %in% names(int_data)) stop("ERROR: your interactions data lacks a column named Plots. This function requires data assembled in plots.")
+  if (!"Plot" %in% names(int_data)) stop("your interactions data lacks a column named Plots. This function requires data assembled in plots.")
 
   # Prepare the data
   int_data$Pcr <- ifelse(int_data$Frequency==0,0,1)
@@ -567,9 +564,7 @@ partial_RNs_UNI <- function(int_data, k) {
   nPlots <- length(unique(netRaw$Plot))
 
   if (nPlots == 1)
-    stop(
-      "ERROR: Data must be structured in multiple plots."
-    )
+    stop("Data must be structured in multiple plots.")
 
   # Make the network of each plot
   plot_RNs <- c()
@@ -603,7 +598,7 @@ partial_RNs_UNI <- function(int_data, k) {
 
 RN_dims_UNI <- function(int_data, P_int){
   #TEST
-  if(is.null(P_int)==TRUE) stop("P_int column not found in dataframe.")
+  if(is.null(P_int)) stop("P_int column not found in dataframe.")
 
   # FUNCTION
   df <- int_data
@@ -639,7 +634,7 @@ node_topol_UNI <- function(int_data) {
 
 funtopol_UNI <- function(int_data){
 
-  if (!"Open" %in% int_data$Canopy) stop("ERROR: your data does not contain a node named Open or it is spelled differently.")
+  if (!"Open" %in% int_data$Canopy) stop("your data does not contain a node named Open or it is spelled differently.")
 
   int_data <- int_data[which(int_data$Fcr!=0), c("Canopy", "Recruit")]
   g <- igraph::graph_from_data_frame(int_data, directed = TRUE)
@@ -790,7 +785,7 @@ visu_funtopol_UNI <- function(int_data){
 
 
 
-  if (!"Open" %in% int_data$Canopy) stop("ERROR: your data does not contain a node named Open or it is spelled differently.")
+  if (!"Open" %in% int_data$Canopy) stop("your data does not contain a node named Open or it is spelled differently.")
 
   nodes_list <- funtopol_UNI(int_data)$Functional_classification
 
@@ -826,7 +821,7 @@ visu_funtopol_UNI <- function(int_data){
 
     return(network)
 
-  }else{stop("ERROR: This network does not have a Core, and thus the functional topology can not be visualized")
+  }else{stop("This network does not have a Core, and thus the functional topology can not be visualized")
   }
 
 }
@@ -836,7 +831,7 @@ visu_funtopol_UNI <- function(int_data){
 # RN_heatmap_UNI
 
 RN_heatmap_UNI <- function(int_data, weight_var = c("Fcr", "Dcr", "Icr", "Pcr"), scale_top = 1) {
-  require(ggplot2)
+
   # manually set node order
   canopy_order <- unique(int_data$Canopy)
   canopy_order <- canopy_order[!canopy_order %in% c('Open')]
@@ -898,9 +893,9 @@ remove_no_cover_BI <- function(int_data=NULL, cover_data=NULL) {
 aggr_RN_BI <- function(int_data) {
 
   # Sum the number of recruits per interaction across plots
-  RN <- aggregate(Frequency ~ Canopy*Recruit, data = int_data, FUN = sum)
+  RN <- stats::aggregate(Frequency ~ Canopy*Recruit, data = int_data, FUN = sum)
   colnames(RN) <- c("Canopy", "Recruit", "Fcr")
-  RN$Icr <- aggregate(Frequency ~ Canopy*Recruit, data=int_data, FUN = NROW)[[3]]
+  RN$Icr <- stats::aggregate(Frequency ~ Canopy*Recruit, data=int_data, FUN = NROW)[[3]]
   RN$Pcr <- ifelse(RN$Icr==0,0,1)
   RN$Canopy <- gsub("[[:space:]]", "_", RN$Canopy)
   RN$Recruit <- gsub("[[:space:]]", "_", RN$Recruit)
@@ -1041,8 +1036,8 @@ comm_to_RN_UNI_COMP <- function(int_data, cover_data) {
 RN_to_matrix_BI <- function(int_data=NULL, weight = "Fcr"){
 
   # Check column names
-  if ("Canopy" %in% names(int_data) == FALSE) warning("ERROR: your data lacks a column named: Canopy")
-  if ("Recruit" %in% names(int_data) == FALSE) warning("ERROR: your data lacks a column named: Recruit")
+  if ("Canopy" %in% names(int_data) == FALSE) warning("your data lacks a column named: Canopy")
+  if ("Recruit" %in% names(int_data) == FALSE) warning("your data lacks a column named: Recruit")
 
   data <- int_data
   # Formatting
@@ -1113,7 +1108,7 @@ pre_associndex_UNISITE_BI_COMP <- function(int_data = NULL) {
 associndex_UNISITE_BI <- function(int_data = NULL,
                                   threshold_density = 100) {
 
-  if (!"Open" %in% int_data$Canopy) stop("ERROR: tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
+  if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
 
   thr <- threshold_density
 
@@ -1171,7 +1166,7 @@ associndex_UNISITE_BI <- function(int_data = NULL,
 associndex_UNISITE_BI_COMP <- function(int_data = NULL,
                                        threshold_density = 100) {
 
-  if (!"Open" %in% int_data$Canopy) stop("ERROR: tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
+  if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
 
   thr <- threshold_density
 
@@ -1228,7 +1223,9 @@ associndex_UNISITE_BI_COMP <- function(int_data = NULL,
 
 int_significance_BI <- function(int_data){
 
-  if (!"Open" %in% int_data$Canopy) stop("ERROR: tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
+  if (!"Open" %in% int_data$Canopy)
+    stop("tests cannot be conducted because your data does not contain a node
+         named Open or it is spelled differently.")
 
   df <- pre_associndex_UNISITE_BI(int_data)
   n_tests <- dim(df)[1]
@@ -1246,7 +1243,7 @@ int_significance_BI <- function(int_data){
 
   testability <- c()
   for(i in 1:n_tests) {
-    testability[i] <- binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
+    testability[i] <- stats::binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
   }
   df$testability <- testability
 
@@ -1255,8 +1252,8 @@ int_significance_BI <- function(int_data){
   Significance <- c()
   for(i in 1:n_tests) {
     ifelse(((df$Fcr[i]+df$Fro[i])*(df$Ac[i]/(df$Ac[i]+df$Ao[i]))<=5 | (df$Fcr[i]+df$Fro[i])*(df$Ao[i]/(df$Ac[i]+df$Ao[i]))<=5),
-           Significance[i] <- binom.test(df$Fcr[i], df$Fcr[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
-           Significance[i] <- chisq.test(c(df$Fcr[i], df$Fro[i]), p = c(df$exp_p[i], 1-df$exp_p[i]))$p.value
+           Significance[i] <- stats::binom.test(df$Fcr[i], df$Fcr[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
+           Significance[i] <- stats::chisq.test(c(df$Fcr[i], df$Fro[i]), p = c(df$exp_p[i], 1-df$exp_p[i]))$p.value
     )
   }
   df$Significance <- Significance
@@ -1299,7 +1296,9 @@ int_significance_BI <- function(int_data){
 
 int_significance_BI_COMP <- function(int_data){
 
-  if (!"Open" %in% int_data$Canopy) stop("ERROR: tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
+  if (!"Open" %in% int_data$Canopy)
+    stop("tests cannot be conducted because your data does not contain a node
+         named Open or it is spelled differently.")
 
   df <- pre_associndex_UNISITE_BI_COMP(int_data)
   n_tests <- dim(df)[1]
@@ -1317,7 +1316,7 @@ int_significance_BI_COMP <- function(int_data){
 
   testability <- c()
   for(i in 1:n_tests) {
-    testability[i] <- binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
+    testability[i] <- stats::binom.test(df$Ftot[i], df$Ftot[i], df$extreme_p[i], alternative ="two.sided")$p.value
   }
   df$testability <- testability
 
@@ -1326,8 +1325,8 @@ int_significance_BI_COMP <- function(int_data){
   Significance <- c()
   for(i in 1:n_tests) {
     ifelse(((df$Fcr[i]+df$Fro[i])*(df$Ac[i]/(df$Ac[i]+df$Ao[i]))<=5 | (df$Fcr[i]+df$Fro[i])*(df$Ao[i]/(df$Ac[i]+df$Ao[i]))<=5),
-           Significance[i] <- binom.test(df$Fcr[i], df$Fcr[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
-           Significance[i] <- chisq.test(c(df$Fcr[i], df$Fro[i]), p = c(df$exp_p[i], 1-df$exp_p[i]))$p.value
+           Significance[i] <- stats::binom.test(df$Fcr[i], df$Fcr[i]+df$Fro[i], df$exp_p[i], alternative ="two.sided")$p.value,
+           Significance[i] <- stats::chisq.test(c(df$Fcr[i], df$Fro[i]), p = c(df$exp_p[i], 1-df$exp_p[i]))$p.value
     )
   }
   df$Significance <- Significance
@@ -1377,7 +1376,7 @@ node_degrees_BI <- function(int_data,cover_data){
   rownames(node_abund)<-node_abund$Canopy
 
   N_open <-unique(p[,c("Recruit","Fro")])
-  N_can<-aggregate(Fcr ~ Recruit, data = p, FUN = sum, na.rm = TRUE)
+  N_can<-stats::aggregate(Fcr ~ Recruit, data = p, FUN = sum, na.rm = TRUE)
 
   node_abund_f <-merge(N_can, N_open, by="Recruit")
   node_abund_f$N_ind <-with(node_abund_f, Fcr+Fro)
@@ -1428,7 +1427,7 @@ node_degrees_BI_COMP <- function(int_data,cover_data){
   rownames(node_abund)<-node_abund$Canopy
 
   N_open <-unique(p[,c("Recruit","Fro")])
-  N_can<-aggregate(Fcr ~ Recruit, data = p, FUN = sum, na.rm = TRUE)
+  N_can<-stats::aggregate(Fcr ~ Recruit, data = p, FUN = sum, na.rm = TRUE)
 
   node_abund_f <-merge(N_can, N_open, by="Recruit")
   node_abund_f$N_ind <-with(node_abund_f, Fcr+Fro)
