@@ -1,18 +1,56 @@
-#' Title
+#' Visualize a heatmap of the interactions matrix.
 #'
-#' @param int_data
-#' @param cover_data
+#' @inheritParams check_interactions
+#' @inheritParams checkk_cover
+#'
 #' @param int_type
+#' #' Indicates the type of plant-plant interaction that will be presented in the
+#' output matrix: general recruitment, recruitment enhancement (i.e.
+#' facilitation) or recruitment depression (i.e. competition). It may take three
+#' possible values:
+#'   - *rec*: Estimates the node degree based on all plant-plant interaction
+#'   that contribute to recruitment.
+#'   - *fac*: Estimates the node degree based on only those pairwise
+#'   interactions that enhance recruitment. Not every observed interaction in
+#'   the field has to be present in the matrix. In this case non-detected
+#'   interactions are not considered and "Open" is not included as a canopy
+#'   species category.
+#'   - *comp*: Estimates the node degree based on only those pairwise
+#'   interactions that depress recruitment. Not every observed interaction in
+#'   the field has to be present in the matrix. However, in this case
+#'   non-detected interactions are considered (i.e. expanding with 0 all
+#'   possible interactions in the study system). "Open" is not included as a
+#'   canopy species category.
+#'
+#'
 #' @param weight
-#' @param scale_top
+#' Specifies the metric used to represent interaction strength (i.e., the
+#' weight) assigned to each pair of species in the matrix. See function
+#' **associndex** for further details. The possible options are:
+#' - *Fcr*: **frequency of recruitment** in number of recruits by canopy-recruit
+#'  pair.
+#'  - *Dcr*: **density of recruitment** as number of recruits per unit area of
+#'  canopy species.
+#'  - *Ns*: The index **Normalized Neighbour Suitability index** (proposed by
+#'  Mingo, 2014), suitable for comparisons of interaction strength between pairs
+#'  of species within a local community, which should be preferred in general
+#'  recruitment networks (Alcantara et al. 2025).
+#'  - *NIntA*: The index **additive symmetry intensity index** proposed by
+#'  Diaz-Sierra et al. (2017).
+#'  - *NIntC*: The index **commutative symmetry intensity index** proposed by
+#'  Diaz-Sierra et al. (2017).
+#'  - *RII*: The index **Relative Interaction Index** (Armas et al., 2004).
+#'
 #'
 #' @returns
+#' Heatmap plot of the weighted network.
+#'
 #' @export
 #'
 #' @examples
+#' RN_heatmap(Amoladeras_int, Amoladeras_cover, int_type="fac", weight ="Ns")
 #'
-#'
-RN_heatmap <- function(int_data,cover_data,int_type=c("rec","fac","comp"), weight = c("Pcr","Fcr","Dcr","Dro","Ns", "NintC", "NintA", "RII"), scale_top = 1) {
+RN_heatmap <- function(int_data,cover_data,int_type=c("rec","fac","comp"), weight = c("Pcr","Fcr","Dcr","Dro","Ns", "NintC", "NintA", "RII")) {
 
   if(int_type=="rec"){
 
@@ -55,13 +93,13 @@ RN_heatmap <- function(int_data,cover_data,int_type=c("rec","fac","comp"), weigh
     lowest_W <- min(int_data$weight_v[int_data$weight_v>0])
 
     # Plot the heatmap
-    p<-ggplot(int_data, aes(Canopy2, Recruit2, fill= weight_v)) +
-      geom_tile(aes(height = 1, alpha = weight_v != 0),
+    p<-ggplot2::ggplot(int_data, ggplot2::aes(Canopy2, Recruit2, fill= weight_v)) +
+      ggplot2::geom_tile(ggplot2::aes(height = 1, alpha = weight_v != 0),
                 colour = "gray", linewidth = 0.25) +
-      scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0), guide = "none") +
-      scale_x_discrete(position = "top") +
-      labs(fill = weight,x = "Canopy", y = "Recruit") +
-      theme(panel.grid = element_blank(),axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0))
+      ggplot2::scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0), guide = "none") +
+      ggplot2::scale_x_discrete(position = "top") +
+      ggplot2::labs(fill = weight,x = "Canopy", y = "Recruit") +
+      ggplot2::theme(panel.grid = ggplot2::element_blank(), axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=0))
 
     return(p)
 
@@ -100,13 +138,13 @@ RN_heatmap <- function(int_data,cover_data,int_type=c("rec","fac","comp"), weigh
     lowest_W <- min(int_data$weight_v[int_data$weight_v>0])
 
     # Plot the heatmap
-    p<-ggplot(int_data, aes(Canopy2, Recruit2, fill= weight_v)) +
-      geom_tile(aes(height = 1, alpha = weight_v != 0),
+    p<-ggplot2::ggplot(int_data, ggplot2::aes(Canopy2, Recruit2, fill= weight_v)) +
+      ggplot2::geom_tile(ggplot2::aes(height = 1, alpha = weight_v != 0),
                 colour = "gray", linewidth = 0.25) +
-      scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0), guide = "none") +
-      scale_x_discrete(position = "top") +
-      labs(fill = weight,x = "Canopy", y = "Recruit") +
-      theme(panel.grid = element_blank(),axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0))
+      ggplot2::scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0), guide = "none") +
+      ggplot2::scale_x_discrete(position = "top") +
+      ggplot2::labs(fill = weight,x = "Canopy", y = "Recruit") +
+      ggplot2::theme(panel.grid = ggplot2::element_blank(),axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=0))
 
     return(p)
 
@@ -153,13 +191,13 @@ RN_heatmap <- function(int_data,cover_data,int_type=c("rec","fac","comp"), weigh
       lowest_W <- min(nonzero_vals)
     }
     # Plot the heatmap
-    p<-ggplot(int_data, aes(Canopy2, Recruit2, fill= weight_v)) +
-      geom_tile(aes(height = 1, alpha = weight_v != 0),
+    p<-ggplot2::ggplot(int_data, ggplot2::aes(Canopy2, Recruit2, fill= weight_v)) +
+      ggplot2::geom_tile(ggplot2::aes(height = 1, alpha = weight_v != 0),
                 colour = "gray", linewidth = 0.25) +
-      scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0), guide = "none") +
-      scale_x_discrete(position = "top") +
-      labs(fill = weight,x = "Canopy", y = "Recruit") +
-      theme(panel.grid = element_blank(),axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0))
+      ggplot2::scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0), guide = "none") +
+      ggplot2::scale_x_discrete(position = "top") +
+      ggplot2::labs(fill = weight,x = "Canopy", y = "Recruit") +
+      ggplot2::theme(panel.grid = ggplot2::element_blank(),axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=0))
 
     return(p)
 
