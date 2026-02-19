@@ -3,7 +3,7 @@
 #' @description
 #' Uses plot accumulation curves to assess whether the estimates of the number
 #' of nodes, links, and link density (a.k.a. connectance) are stable (see Pulgar
-#' et al. 2017 for other descriptors). The function cum_values plots
+#' et al. 2017 for other descriptors). The function accum_curve plots
 #' accumulation curves for parameters that can be obtained with package
 #' **`igraph`** (Csardi & Nepusz, 2006).
 #'
@@ -37,7 +37,7 @@
 #' increasing number of randomly selected plots are considered.
 #' - A data frame with the cumulative values of the property for each
 #' repetition of *k* plots. Provided so you can prepare your own customized
-#' 6accumulation plot.
+#' accumulation plot.
 #'
 #' @export
 #'
@@ -46,75 +46,40 @@
 #' head(accum_links$Data)
 #' accum_links$Plot
 
-accum_curve <- function(int_data, property=c("vcount","ecount","edge_density"), k = 100){
+accum_curve <- function(int_data, property=c("vcount","ecount","edge_density"), k = 100) {
+
+  property <- match.arg(property)
 
   if (!"Plot" %in% names(int_data)) stop("Your interactions data lacks a column named Plots. This function requires data assembled in plots.")
   nPlots <- length(unique(int_data$Plot))
 
   if (nPlots < 10)
-    warning(
-      "You are using the incidence approach with very few plots."
-    )
+    warning("You are using the incidence approach with very few plots.")
 
-  if(property=="vcount"){
+  prop_settings <- list(
+    "vcount" = list(fun = igraph::vcount, title = "Number of species"),
+    "ecount" = list(fun = igraph::ecount, title = "Number of interactions"),
+    "edge_density" = list(fun = igraph::edge_density, title = "Connectance")
+  )
 
-    part_RNs <- partial_RNs_UNI(int_data, k)
-    nSteps <- length(part_RNs)
-    borrar <- unlist(part_RNs, recursive = FALSE)
-    df <- data.frame(unlist(lapply(borrar, igraph::vcount)))
-    colnames(df) <- c("Value")
-    df$sampleSize <- sort(rep(c(1:nSteps),k))
-    plot_cumm_value <- ggplot2::ggplot(df, ggplot2::aes(x=as.factor(sampleSize), y=Value)) +
-      ggplot2::geom_jitter(colour="turquoise3", alpha=0.5, height = 0, width=0.1) +
-      ggplot2::geom_point(stat="summary", fun="mean") +
-      ggplot2::geom_errorbar(stat="summary", fun.data="mean_se", fun.args = list(mult = 1.96), width=0.3) +
-      ggplot2::labs(x="Sample Size (Num. Plots)", y="Value (mean + 95%CI)") +
-      ggplot2::ggtitle("Number of species")
+  setting <- prop_settings[[property]]
 
-    outputs <- list("Data" = df, "Plot" = plot_cumm_value)
-    return(outputs)
+  part_RNs <- partial_RNs_UNI(int_data, k)
+  nSteps <- length(part_RNs)
+  partial_networks <- unlist(part_RNs, recursive = FALSE)
 
-  }
+  df <- data.frame(Value = unlist(lapply(partial_networks, setting$fun)))
+  df$sampleSize <- sort(rep(c(1:nSteps),k))
 
-  if(property=="ecount"){
+  plot_cumm_value <- ggplot2::ggplot(df, ggplot2::aes(x=as.factor(sampleSize), y=Value)) +
+    ggplot2::geom_jitter(colour="turquoise3", alpha=0.5, height = 0, width=0.1) +
+    ggplot2::geom_point(stat="summary", fun="mean") +
+    ggplot2::geom_errorbar(stat="summary", fun.data="mean_se", fun.args = list(mult = 1.96), width=0.3) +
+    ggplot2::labs(x="Sample Size (Num. Plots)", y="Value (mean + 95%CI)") +
+    ggplot2::ggtitle(setting$title)
 
-    part_RNs <- partial_RNs_UNI(int_data, k)
-    nSteps <- length(part_RNs)
-    borrar <- unlist(part_RNs, recursive = FALSE)
-    df <- data.frame(unlist(lapply(borrar, igraph::ecount)))
-    colnames(df) <- c("Value")
-    df$sampleSize <- sort(rep(c(1:nSteps),k))
-    plot_cumm_value <- ggplot2::ggplot(df, ggplot2::aes(x=as.factor(sampleSize), y=Value)) +
-      ggplot2::geom_jitter(colour="turquoise3", alpha=0.5, height = 0, width=0.1) +
-      ggplot2::geom_point(stat="summary", fun="mean") +
-      ggplot2::geom_errorbar(stat="summary", fun.data="mean_se", fun.args = list(mult = 1.96), width=0.3) +
-      ggplot2::labs(x="Sample Size (Num. Plots)", y="Value (mean + 95%CI)") +
-      ggplot2::ggtitle("Number of interactions")
-
-    outputs <- list("Data" = df, "Plot" = plot_cumm_value)
-    return(outputs)
-
-  }
-
-  if(property=="edge_density"){
-
-    part_RNs <- partial_RNs_UNI(int_data, k)
-    nSteps <- length(part_RNs)
-    borrar <- unlist(part_RNs, recursive = FALSE)
-    df <- data.frame(unlist(lapply(borrar, igraph::edge_density)))
-    colnames(df) <- c("Value")
-    df$sampleSize <- sort(rep(c(1:nSteps),k))
-    plot_cumm_value <- ggplot2::ggplot(df, ggplot2::aes(x=as.factor(sampleSize), y=Value)) +
-      ggplot2::geom_jitter(colour="turquoise3", alpha=0.5, height = 0, width=0.1) +
-      ggplot2::geom_point(stat="summary", fun="mean") +
-      ggplot2::geom_errorbar(stat="summary", fun.data="mean_se", fun.args = list(mult = 1.96), width=0.3) +
-      ggplot2::labs(x="Sample Size (Num. Plots)", y="Value (mean + 95%CI)") +
-      ggplot2::ggtitle("Connectance")
-
-    outputs <- list("Data" = df, "Plot" = plot_cumm_value)
-    return(outputs)
-
-  }
+  outputs <- list("Data" = df, "Plot" = plot_cumm_value)
+  return(outputs)
 
 }
 
