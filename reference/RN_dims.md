@@ -1,0 +1,121 @@
+# Basic network dimensions
+
+Calculates basic descriptors of the interactions network, such as its
+size described by the number of nodes and links, and its complexity,
+which is proportional to network connectance.
+
+## Usage
+
+``` r
+RN_dims(int_data, cover_data, int_type = c("rec", "fac", "comp"))
+```
+
+## Arguments
+
+- int_data:
+
+  data frame containing interaction data.
+
+- cover_data:
+
+  data frame with the abundance of each canopy species in each plot.
+
+- int_type:
+
+  Indicates the type of plant-plant interaction that will be analyzed:
+  general recruitment, recruitment enhancement (i.e. facilitation) or
+  recruitment depression (i.e. competition). Explanation of its options:
+
+  - *rec*: All the pairwise interactions observed will be in the output.
+    Focuses on canopy-recruit interactions considering that every
+    recruit growing under the canopy of another plant may occupy that
+    space in the future, thus having a potentially positive effect on
+    the recruit species population. Therefore, even a single observation
+    is considered an interaction. This type of networks considers every
+    species present in the study system, whether as a canopy or as a
+    recruit, as a node in the network. It also includes "Open" as a
+    particular node since some species may recruit away from established
+    plants. Non-detected interactions are also considered since zero
+    frequency can provide evidence of a very negative interaction if the
+    expected frequency under the canopy species is large.
+
+  - *fac*: Only those pairwise interactions that resulted in recruitment
+    enhancement will be in the output. Focuses on interactions with a
+    significantly higher recruitment density under canopy than in "Open"
+    (i.e. facilitation). Non-detected interactions are not considered
+    and "Open" is not included as a node, although its relative cover is
+    considered as part of the sampling area.
+
+  - *comp*: Only those pairwise interactions that resulted in a
+    recruitment depression will be in the output. Focuses on
+    interactions with a significantly lower recruitment density under
+    canopy than "Open" (i.e. competition). Non-detected interactions are
+    considered (i.e. expanding with 0 all possible interactions in the
+    study system), as the absence of recruitment of a species under a
+    given canopy can reflect a particularly strong depression of
+    recruitment under that canopy species. "Open" is not included as a
+    node, although its relative cover is considered as part of the
+    sampling area.
+
+## Value
+
+A table with the following information:
+
+- *Num nodes*: Number of nodes in the network (*N*). In the case of
+  facilitation and competition the nodes are provided for each guild
+
+- *Num. links*: Number of links in the network (*L*).
+
+- *Connectance*: Proportion of links observed from all the possible
+  links (*C*). In the case of general recruitment networks, we use the
+  formula \$C = L / (N^2 - N)\$ since the node "Open" does not act as a
+  recruit (i.e. Open is represented by a row of zeroes in the adjacency
+  matrix). For facilitation and recruitment depressing networks,
+  connectance is calculated as \$C = L /(N_c N_r)\$, where *N_c* and
+  *N_r* are the number of canopy and recruit species, respectively.
+
+int_type\*\*: Indicates the type of plant-plant interaction that will be
+presented in the output (recruitment patterns, recruitment enhancement
+(i.e. facilitation) or recruitment depression (i.e. competition))
+
+- *rec*: Estimates the number of nodes, links and connectance of the
+  network based on all plant-plant interactions that contribute to
+  recruitment. "Open" is considered an additional canopy species
+  category.
+
+- *fac*: Estimates the number of nodes, links and connectance of the
+  network based on only those pairwise interactions that significantly
+  enhance recruitment. Not every interaction detected in the field has
+  to be present in the matrix. Non-detected interactions are not
+  considered and "Open" is not included as a canopy species category.
+
+- *comp*: Estimates the number of nodes, links and connectance of the
+  network based on only those pairwise interactions that depress
+  recruitment. Not every interaction detected in the field has to be
+  present in the matrix. However, in this case non-detected interactions
+  are considered. "Open" is not included as a canopy species category.
+
+## Examples
+
+``` r
+RN_dims(Amoladeras_int, Amoladeras_cover, int_type="rec")
+#>                   Value
+#> Num. Nodes   24.0000000
+#> Num. Links  221.0000000
+#> Connectance   0.4003623
+RN_dims(Amoladeras_int, Amoladeras_cover, int_type="fac")
+#>                          Value
+#> Num. Nurse sp       18.0000000
+#> Num. Facilitated sp 19.0000000
+#> Num. Links          94.0000000
+#> Connectance          0.2748538
+RN_dims(Amoladeras_int, Amoladeras_cover, int_type="comp")
+#>                                Value
+#> Num. Canopy depressing sp 13.0000000
+#> Num. Recruit depressed sp  7.0000000
+#> Num. Links                25.0000000
+#> Connectance                0.2747253
+
+
+
+```
