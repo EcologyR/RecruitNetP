@@ -15,6 +15,24 @@ test_that("visu_topol_depre returns graph and SCC list", {
 
 #------------------------------------
 
+test_that("direction reverses displayed links", {
+
+  graph_out <- visu_topol_depre(test_data$com,
+                                test_data$cov,
+                                direction = "out")$graph
+  graph_in <- visu_topol_depre(test_data$com,
+                               test_data$cov,
+                               direction = "in")$graph
+
+  edges_out <- igraph::as_data_frame(graph_out, what = "edges")
+  edges_in <- igraph::as_data_frame(graph_in, what = "edges")
+
+  expect_setequal(paste(edges_out$from, edges_out$to),
+                  paste(edges_in$to, edges_in$from))
+})
+
+#------------------------------------
+
 test_that("Graph contains correct number of nodes", {
 
   res <- suppressWarnings(
@@ -84,6 +102,5 @@ test_that("Custom vertex and edge parameters work", {
                      edge_arrow_size = 0.2)
   )
 })
-
 
 
