@@ -52,6 +52,9 @@
 #'
 RN_heatmap <- function(int_data,cover_data,int_type=c("rec","fac","comp"), weight = c("Pcr","Fcr","Dcr","Dro","Ns", "NintC", "NintA", "RII")) {
 
+  int_type <- match.arg(int_type)
+  weight <- match.arg(weight)
+
   if(int_type=="rec"){
 
     index<-suppressWarnings(associndex(int_data,cover_data,expand="yes",rm_sp_no_cover="allsp"))

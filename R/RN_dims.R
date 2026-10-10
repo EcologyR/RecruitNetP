@@ -52,6 +52,8 @@
 #'
 RN_dims <- function(int_data,cover_data, int_type=c("rec","fac","comp")){
 
+  int_type <- match.arg(int_type)
+
   if(int_type=="rec"){
 
     int_data <-comm_to_RN_UNI(int_data,cover_data)

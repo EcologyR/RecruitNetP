@@ -84,6 +84,9 @@ associndex<- function(int_data, cover_data, expand=c("yes","no"),
 
 {
 
+  expand <- match.arg(expand)
+  rm_sp_no_cover <- match.arg(rm_sp_no_cover)
+
   if (!"Open" %in% int_data$Canopy) stop(
     "ERROR: your data does not contain a node named Open or it is spelled
     differently. Data for recruitment in Open is required to calculate the indices."
