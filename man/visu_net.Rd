@@ -29,11 +29,8 @@ Explanation of its options (more mathematical information in the description
 of the function \strong{associndex}):
 \itemize{
 \item \emph{Fcr}: \strong{frequency of recruitment} in number of recruits by canopy-recruit pair.
-\item \emph{Pcr}: \strong{presence/absence} (1/0) of the interaction (unweighted network).
 \item \emph{Dcr}: \strong{density of recruitment} as number of recruits per unit area of canopy
 species.
-\item \emph{Dro}: \strong{density of recruitment in open interspaces} as number of recruits
-per unit area of open interspaces.
 \item \emph{Ns}: The index \strong{Normalized Neighbour Suitability index} (proposed by Mingo, 2014),
 suitable for comparisons of interaction strength between pairs of species within a
 local community, which should be preferred in general recruitment networks
@@ -72,25 +69,25 @@ networks respectively.
 \examples{
 # Unipartite network representation of a general recruitment network. Link width
 # corresponds to the scaled frequency of recruitment (*Fcr*):
-visu_net(Amoladeras_int, Amoladeras_cover, int_type="rec", weight="Fcr", mode="uni", scale_w=0.01)
+visu_net(mysite_com, mysite_cov, int_type="rec", weight="Fcr", mode="uni", scale_w=0.01)
 
 # Unipartite representation of a facilitation network. Link width corresponds to the
 # scaled *Ns* index:
-visu_net(Amoladeras_int, Amoladeras_cover, int_type="fac", weight="Ns", mode="uni", scale_w=5)
+visu_net(mysite_com, mysite_cov, int_type="fac", weight="Ns", mode="uni", scale_w=5)
 
 # Bipartite representation of a facilitation network. Link width corresponds to the
 # scaled *Ns* index. Canopy species are shown in the upper row and recruits in the lower
 # row of the graph:
-visu_net(Amoladeras_int, Amoladeras_cover, int_type="fac", weight="Ns", mode="bi", scale_w=5)
+visu_net(mysite_com, mysite_cov, int_type="fac", weight="Ns", mode="bi", scale_w=5)
 
 # Unipartite representation of a recruitment depression (*competition*) network. Link
 # width corresponds to the scaled *RII* index:
-visu_net(Amoladeras_int, Amoladeras_cover, int_type="comp", weight="RII", mode="uni", scale_w=5)
+visu_net(mysite_com, mysite_cov, int_type="comp", weight="RII", mode="uni", scale_w=5)
 
 # Bipartite representation of a recruitment depression (*competition*) network. Link
 # width corresponds to the scaled *RII* index. Canopy species are shown in the upper row
 # and recruits in the lower row of the graph:
-visu_net(Amoladeras_int, Amoladeras_cover, int_type="comp", weight="RII", mode="bi", scale_w=5)
+visu_net(mysite_com, mysite_cov, int_type="comp", weight="RII", mode="bi", scale_w=5)
 
 
 }

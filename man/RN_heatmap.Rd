@@ -42,11 +42,8 @@ weight) assigned to each pair of species in the matrix. See function
 \itemize{
 \item \emph{Fcr}: \strong{frequency of recruitment} in number of recruits by canopy-recruit
 pair.
-\item \emph{Pcr}: \strong{presence/absence} (1/0) of the interaction (unweighted network).
 \item \emph{Dcr}: \strong{density of recruitment} as number of recruits per unit area of
 canopy species.
-\item \emph{Dro}: \strong{density of recruitment in open interspaces} as number of
-recruits per unit area of open interspaces.
 \item \emph{Ns}: The index \strong{Normalized Neighbour Suitability index} (proposed by
 Mingo, 2014), suitable for comparisons of interaction strength between pairs
 of species within a local community, which should be preferred in general

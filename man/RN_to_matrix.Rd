@@ -8,7 +8,7 @@ RN_to_matrix(
   int_data,
   cover_data,
   int_type = c("rec", "fac", "comp"),
-  weight = c("Fcr", "Pcr", "Dcr", "Dro", "Ns", "NintC", "NintA", "RII")
+  weight = c("Fcr", "Dcr", "Dro", "Ns", "NintC", "NintA", "RII")
 )
 }
 \arguments{
@@ -56,8 +56,6 @@ options (more mathematical information in the description of the function
 \itemize{
 \item \emph{Fcr}: \emph{\strong{frequency of recruitment}}, in number of recruits by
 canopy-recruit pair.
-\item \emph{Pcr}: \emph{\strong{presence/absence}} (1/0) of the interaction (unweighted
-network).
 \item \emph{Dcr}: \emph{\strong{density of recruitment}}, as number of recruits per unit
 area of canopy species cover.
 \item \emph{Dro}: \emph{\strong{density of recruitment in open interspaces}}, as number of
