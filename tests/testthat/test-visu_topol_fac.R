@@ -15,6 +15,24 @@ test_that("visu_topol_fac returns graph and SCC list", {
 
 #------------------------------------
 
+test_that("direction reverses displayed links", {
+
+  graph_out <- visu_topol_fac(test_data$com,
+                              test_data$cov,
+                              direction = "out")$graph
+  graph_in <- visu_topol_fac(test_data$com,
+                             test_data$cov,
+                             direction = "in")$graph
+
+  edges_out <- igraph::as_data_frame(graph_out, what = "edges")
+  edges_in <- igraph::as_data_frame(graph_in, what = "edges")
+
+  expect_setequal(paste(edges_out$from, edges_out$to),
+                  paste(edges_in$to, edges_in$from))
+})
+
+#------------------------------------
+
 test_that("Graph has correct number of vertices", {
 
   res <- suppressWarnings(
