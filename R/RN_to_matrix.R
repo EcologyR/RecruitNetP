@@ -40,8 +40,11 @@
 #'
 #'
 RN_to_matrix<- function(int_data,cover_data, int_type=c("rec", "fac","comp"),
-                        weight = c("Fcr","Dcr","Dro","Ns", "NintC", "NintA",
+                        weight = c("Fcr","Pcr","Dcr","Dro","Ns", "NintC", "NintA",
                                    "RII")){
+
+  int_type <- match.arg(int_type)
+  weight <- match.arg(weight)
 
   if (!"Open" %in% int_data$Canopy)
     stop("ERROR: your data does not contain a node named Open or it is

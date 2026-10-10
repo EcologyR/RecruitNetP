@@ -60,6 +60,8 @@
 
 comm_to_RN<- function(int_data,cover_data, expand=c("yes","no"), rm_sp_no_cover=c("allsp","onlycanopy")){
 
+  expand <- match.arg(expand)
+  rm_sp_no_cover <- match.arg(rm_sp_no_cover)
 
   if(expand=="yes" & rm_sp_no_cover=="allsp"){int_type ="rec"}
   if(expand=="yes" & rm_sp_no_cover=="onlycanopy"){int_type ="comp"}
