@@ -14,6 +14,8 @@
 #' [associndex()] :
 #'   - *Fcr*: ***frequency of recruitment***, in number of recruits by
 #'   canopy-recruit pair.
+#'   - *Pcr*: ***presence/absence*** (1/0) of the interaction (unweighted
+#'   network).
 #'   - *Dcr*: ***density of recruitment***, as number of recruits per unit
 #'   area of canopy species cover.
 #'   - *Dro*: ***density of recruitment in open interspaces***, as number of

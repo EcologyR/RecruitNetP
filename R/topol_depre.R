@@ -6,7 +6,7 @@
 #'
 #' @inheritParams check_interactions
 #' @inheritParams check_cover
-#' @param direction direction of teh links, in or out
+#' @param direction direction of the links, "in" or "out"
 #'
 #'
 #'
