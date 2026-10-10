@@ -626,8 +626,8 @@ node_topol_UNI <- function(int_data) {
 
   RN_igraph <- igraph::graph_from_adjacency_matrix(t(RN_to_matrix_UNI(int_data, weight = "Pcr")), mode = "directed")
   eigen_cent <- igraph::eigen_centrality(RN_igraph, directed=TRUE, scale=FALSE, options = list(which="LR"))$vector
-  out_neigh <- igraph::neighborhood_size(RN_igraph, order=gorder(RN_igraph), mode="out", mindist=1)
-  in_neigh <- igraph::neighborhood_size(RN_igraph, order=gorder(RN_igraph), mode="in", mindist=1)
+  out_neigh <- igraph::neighborhood_size(RN_igraph, order=igraph::gorder(RN_igraph), mode="out", mindist=1)
+  in_neigh <- igraph::neighborhood_size(RN_igraph, order=igraph::gorder(RN_igraph), mode="in", mindist=1)
   df <- data.frame(eigen_cent, out_neigh,in_neigh)
   df[, 1] <- round(df[, 1], digits = 4)
   colnames(df) <- c("Eigenvector centrality", "Extended canopy service", "Extended recruitment niche")
@@ -860,7 +860,7 @@ RN_heatmap_UNI <- function(int_data, weight_var = c("Fcr", "Dcr", "Icr", "Pcr"),
 
   # Plot the heatmap
   ggplot2::ggplot(int_data, ggplot2::aes(Canopy2, Recruit2, fill= Dcr)) +
-    ggplot2::geom_tile(colour="gray", size=0.25, aes(height = 1)) +
+    ggplot2::geom_tile(colour="gray", size=0.25, ggplot2::aes(height = 1)) +
     ggplot2::scale_fill_gradientn(colours = c("#F5F5F5", "#E69F00","#0072B2"), values = c(0,lowest_W, scale_top*highest_W)) +
     ggplot2::scale_x_discrete(position = "top") +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=0))

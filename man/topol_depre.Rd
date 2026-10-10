@@ -11,7 +11,7 @@ topol_depre(int_data, cover_data, direction = c("in", "out"))
 
 \item{cover_data}{data frame with the abundance of each canopy species in each plot.}
 
-\item{direction}{direction of teh links, in or out}
+\item{direction}{direction of the links, "in" or "out"}
 }
 \value{
 A list with two elements, one with the information of intransitive
