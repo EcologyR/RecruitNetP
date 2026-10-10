@@ -36,23 +36,14 @@ of interaction of interest. Explanation of its options:
 species even if they lack cover data.
 }}
 
-\item{threshold_density}{\strong{threshold_density}: indicates a threshold to retain only
-those interactions in which the observed density is below the threshold
-(i.e. Dcr < thr & Dro < thr). This is required to avoid the use of interactions
-based on very few recruits which may have occurred by chance under a very scarce
-canopy species. These cases will result in a large overestimation of Dcr, likely
-being spurious outlayers. If no threshold value is provided or it is set to NULL,
-the function estimates a threshold value based on recruitment density outliers
-according to a Weibull distribution: a value is an outlier if it is above the limit
-where less than 1 observation is expected. Explanation of its options:
+\item{threshold_density}{\strong{threshold_density}. Possible values are:
 \itemize{
-\item A positive value. High values provide more chance to include potentially spurious
-interactions, unless such a high density is reliable based on the knowledge of the
-study system. A way to decide the threshold value would consist in identifying possible
-outlayers in the distribution of recruitment densities (\emph{Dcr} and \emph{Dro}).
-\item NULL: use package \strong{extremevalues} to find the density threshold value (\emph{K})
-above which, according to the Weibull distribution, less than 1 observation is
-expected given the number of observations in the sample.
+\item The default option is \emph{NULL} if no threshold is required.
+\item A \emph{positive number} if a particular threshold is to be used.
+\item \emph{"Weibull"} Can be used to exclude possible outlayers according to a Weibull
+distribution. The function uses package \strong{extremevalues} to find the density
+threshold value (\emph{K}) above which, according to the Weibull distribution, less
+than 1 observation is expected, given the number of observations in the sample.
 }}
 }
 \value{
@@ -107,6 +98,6 @@ associndex (Amoladeras_int, Amoladeras_cover, expand = "yes",
 rm_sp_no_cover = "onlycanopy", threshold_density=NULL)
 associndex (Amoladeras_int, Amoladeras_cover, expand = "no",
 rm_sp_no_cover = "allsp", threshold_density=NULL)
-associndex (Amoladeras_int, Amoladeras_cover, expand = "yes",
+associndex (Amoladeras_int, Amoladeras_cover, expand = "no",
 rm_sp_no_cover = "onlycanopy", threshold_density=NULL)
 }
