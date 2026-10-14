@@ -3,8 +3,7 @@ test_that("visu_topol_fac returns graph and SCC list", {
 
   expect_silent({
     res <- visu_topol_fac(test_data$com,
-                          test_data$cov,
-                          direction = "out")
+                          test_data$cov)
   })
 
   expect_type(res, "list")
@@ -19,14 +18,13 @@ test_that("Graph has correct number of vertices", {
 
   res <- suppressWarnings(
     visu_topol_fac(test_data$com,
-                   test_data$cov,
-                   direction = "out")
+                   test_data$cov)
   )
 
   expected_species <- unique(c(test_data$com$Canopy,
                                test_data$com$Recruit))
 
-  expect_equal(vcount(res$graph), length(expected_species))
+  expect_equal(vcount(res$graph), length(expected_species[expected_species!="Open"]))
 })
 
 #------------------------------------
@@ -35,13 +33,11 @@ test_that("SCC groups match those detected by fac_topol", {
 
   res_visu <- suppressWarnings(
     visu_topol_fac(test_data$com,
-                   test_data$cov,
-                   direction = "out")
+                   test_data$cov)
   )
 
-  res_topol <- fac_topol(test_data$com,
-                         test_data$cov,
-                         direction = "out")
+  res_topol <- topol_fac(test_data$com,
+                         test_data$cov)
 
   # Compare number of SCCs
   expect_equal(length(res_visu$scc),
@@ -59,8 +55,7 @@ test_that("Detects SCCs with more than one node", {
 
   res <- suppressWarnings(
     visu_topol_fac(test_data$com,
-                   test_data$cov,
-                   direction = "out")
+                   test_data$cov)
   )
 
   expect_true(length(res$scc) > 0)
@@ -74,7 +69,6 @@ test_that("Custom layout function works correctly", {
   expect_silent(
     visu_topol_fac(test_data$com,
                    test_data$cov,
-                   direction = "out",
                    layout_fun = layout_in_circle)
   )
 })
@@ -86,7 +80,6 @@ test_that("Custom vertex and edge parameters do not break plotting", {
   expect_silent(
     visu_topol_fac(test_data$com,
                    test_data$cov,
-                   direction = "out",
                    vertex_size = 10,
                    edge_arrow_size = 0.2)
   )
@@ -99,9 +92,8 @@ test_that("Custom vertex and edge parameters do not break plotting", {
 test_that("Works with real dataset without errors", {
 
   expect_silent({
-    res <- visu_topol_fac(mysite_com,
-                          mysite_cov,
-                          direction = "out")
+    res <- visu_topol_fac(test_data$com,
+                          test_data$cov)
   })
 
   expect_s3_class(res$graph, "igraph")
