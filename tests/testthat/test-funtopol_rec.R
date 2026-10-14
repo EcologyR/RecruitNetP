@@ -18,7 +18,7 @@ test_that("funtopol_rec returns the values expected by Descriptors", {
 
   expect_equal(df["Num. nodes", "Value"], 24)
   expect_equal(df["Num. edges", "Value"], 221)
-  expect_equal(df["Connectance", "Value"], 0.4, tolerance = 1e-6)
+  expect_equal(df["Connectance", "Value"], 221 / (24 * 23), tolerance = 1e-6)
   expect_equal(df["Num. non-trivial SCCs", "Value"], 1)
   expect_equal(df["Num. core species", "Value"], 19)
 })
@@ -63,5 +63,4 @@ test_that("Open non present error", {
   expect_error(
     suppressWarnings(funtopol_rec(com_sin_open, cover_sin_open)))
 })
-
 

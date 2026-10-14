@@ -24,9 +24,6 @@ visu_topol_fac <- function(int_data,
                            vertex_size = 20,
                            edge_arrow_size = 0.4) {
 
-
-
-
   # 1. Rebuild graph (same logic as inside depre_topol)
   M <- RN_to_matrix(int_data, cover_data, int_type = "fac", weight = "Pcr")
 
@@ -72,7 +69,9 @@ visu_topol_fac <- function(int_data,
        vertex.label.cex = 0.8,
        vertex.frame.color = "black",
        edge.arrow.size = edge_arrow_size,
-       main = paste0("Enhancement recruitment loops (Nurse -> Recruit)"))
+       main = "Enhancement recruitment loops (Nurse -> Recruit)"
+       )
+
 
   # Return invisibly for further manipulation if needed
   invisible(list(graph = g,

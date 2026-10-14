@@ -15,6 +15,7 @@ test_that("visu_topol_depre returns graph and SCC list", {
 
 #------------------------------------
 
+
 test_that("Graph contains correct number of nodes", {
 
   res <- suppressWarnings(
@@ -84,6 +85,5 @@ test_that("Custom vertex and edge parameters work", {
                      edge_arrow_size = 0.2)
   )
 })
-
 
 

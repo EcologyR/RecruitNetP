@@ -15,6 +15,7 @@ test_that("visu_topol_fac returns graph and SCC list", {
 
 #------------------------------------
 
+
 test_that("Graph has correct number of vertices", {
 
   res <- suppressWarnings(
