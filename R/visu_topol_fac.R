@@ -1,3 +1,5 @@
+#' Allow the visualization of reciprocal facilitation
+#'
 #' @description This function allows the visualization of intransitivity loops of recruitment enhancement differentiated from the rest of nodes (in grey).
 #' Nodes in different SCC are identified by different colors, and the rest of nodes, not belonging to any SCC are presented in grey
 #' The direction of the arrows indicate the enhancing effect of the canopy species (origin of the arrow)

@@ -27,8 +27,10 @@ visu_topol_depre(
 a plot
 }
 \description{
-with nodes in different SCC identified by different colors (in grey if they
-do not belong to any SCC).
+This function allows the visualization of intransitivity loops of recruitment depression differentiated from the rest of nodes (in grey).
+Nodes in different SCC are identified by different colors, and the rest of nodes, not belonging to any SCC are presented in grey
+The direction of the arrows indicate the depressing effect of the canopy species (origin of the arrow)
+on the recruitment of the recruit species (head of the arrow).
 It may be frequent that in recruitment enhancement (i.e. facilitation) or
 depression (i.e.competition) networks, there is not any SCC as they tend to
 have smaller dimensions that general recruitment networks.
