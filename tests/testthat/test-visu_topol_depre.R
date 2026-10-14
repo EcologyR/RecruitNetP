@@ -24,7 +24,7 @@ test_that("Graph contains correct number of nodes", {
   expected_species <- unique(c(test_data$com$Canopy,
                                test_data$com$Recruit))
 
-  expect_equal(vcount(res$graph), length(expected_species[expected_species!="Open"]))
+  expect_equal(igraph::vcount(res$graph), length(expected_species[expected_species!="Open"]))
 })
 
 #------------------------------------
@@ -62,7 +62,7 @@ test_that("Custom layout function does not break plotting", {
   expect_silent(
     visu_topol_depre(test_data$com,
                      test_data$cov,
-                     layout_fun = layout_in_circle)
+                     layout_fun = igraph::layout_in_circle)
   )
 })
 

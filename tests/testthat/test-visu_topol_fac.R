@@ -25,7 +25,7 @@ test_that("Graph has correct number of vertices", {
   expected_species <- unique(c(test_data$com$Canopy,
                                test_data$com$Recruit))
 
-  expect_equal(vcount(res$graph), length(expected_species[expected_species!="Open"]))
+  expect_equal(igraph::vcount(res$graph), length(expected_species[expected_species!="Open"]))
 })
 
 #------------------------------------
@@ -37,7 +37,7 @@ test_that("SCC groups match those detected by fac_topol", {
                    test_data$cov)
   )
 
-  res_topol <- fac_topol(test_data$com,
+  res_topol <- topol_fac(test_data$com,
                          test_data$cov)
 
   # Compare number of SCCs
@@ -48,7 +48,7 @@ test_that("SCC groups match those detected by fac_topol", {
   visu_sizes <- sort(sapply(res_visu$scc, length))
   topol_sizes <- sort(sapply(res_topol$loops$nodes, length))
 
-  expect_equal(visu_sizes, topol_sizes)
+  expect_equal(unname(visu_sizes), unname(topol_sizes))
 })
 #------------------------------------
 
@@ -70,7 +70,7 @@ test_that("Custom layout function works correctly", {
   expect_silent(
     visu_topol_fac(test_data$com,
                    test_data$cov,
-                   layout_fun = layout_in_circle)
+                   layout_fun = igraph::layout_in_circle)
   )
 })
 

@@ -1,6 +1,6 @@
 Package: RecruitNetP
 Title: Analysis of Recruitment Networks 
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
   c(
     person("Alicia", "Montesinos-Navarro", , "alimontesinos@gmail.com", 
