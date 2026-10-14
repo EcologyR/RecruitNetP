@@ -23,6 +23,9 @@ A canopy-recruit interactions data set must contain, at least, the raw data of t
 }
 }
 \examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+
 int_data <- load_interactions()
 check_interactions(int_data)
+\dontshow{\}) # examplesIf}
 }

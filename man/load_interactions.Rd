@@ -18,5 +18,7 @@ a data frame containing interaction data
 Load interaction data from RecruitNet database
 }
 \examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 int_data <- load_interactions()
+\dontshow{\}) # examplesIf}
 }

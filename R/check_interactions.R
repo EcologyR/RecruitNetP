@@ -14,7 +14,8 @@
 #' an OK message.
 #' @export
 #'
-#' @examples
+#' @examplesIf interactive()
+#'
 #' int_data <- load_interactions()
 #' check_interactions(int_data)
 check_interactions <- function(int_data = NULL) {

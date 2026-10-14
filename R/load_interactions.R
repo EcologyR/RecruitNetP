@@ -7,8 +7,9 @@
 #' @returns a data frame containing interaction data
 #' @export
 #'
-#' @examples
+#' @examplesIf interactive()
 #' int_data <- load_interactions()
+
 load_interactions <- function(path = getwd()) {
 
   if (!file.exists(file.path(path, "RecruitNet.csv"))) {
