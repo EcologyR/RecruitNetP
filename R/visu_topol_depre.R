@@ -11,8 +11,6 @@
 #' @param layout_fun type of igraph layout (see [igraph::layout_()])
 #' @param vertex_size numeric
 #' @param edge_arrow_size numeric
-#' @param direction Direction of the displayed links, either "out" or "in".
-#'
 #'
 #' @returns a plot
 #' @export
@@ -24,10 +22,8 @@ visu_topol_depre <- function(int_data,
                              cover_data,
                              layout_fun = igraph::layout_with_fr,
                              vertex_size = 20,
-                             edge_arrow_size = 0.4,
-                             direction = c("out", "in")) {
-
-  direction <- match.arg(direction)
+                             edge_arrow_size = 0.4
+                             ) {
 
   # 1. Rebuild graph (same logic as inside depre_topol)
   M <- RN_to_matrix(int_data, cover_data, int_type = "comp", weight = "Pcr")
@@ -41,7 +37,6 @@ visu_topol_depre <- function(int_data,
 
   A[rownames(M), colnames(M)] <- M
   M <- t(A)
-  if (direction == "in") M <- t(M)
 
   g <- igraph::graph_from_adjacency_matrix(M,
                                    mode = "directed",
@@ -75,11 +70,8 @@ visu_topol_depre <- function(int_data,
        vertex.label.cex = 0.8,
        vertex.frame.color = "black",
        edge.arrow.size = edge_arrow_size,
-       main = if (direction == "out") {
-         "Depression recruitment loops (Canopy -> Recruit)"
-       } else {
-         "Depression recruitment loops (Recruit -> Canopy)"
-       })
+       main = paste0("Depression recruitment loops (Canopy -> Recruit)")
+       )
 
   # Return invisibly for further manipulation if needed
   invisible(list(graph = g,

@@ -22,10 +22,7 @@ visu_topol_fac <- function(int_data,
                            cover_data,
                            layout_fun = igraph::layout_with_fr,
                            vertex_size = 20,
-                           edge_arrow_size = 0.4,
-                           direction = c("out", "in")) {
-
-  direction <- match.arg(direction)
+                           edge_arrow_size = 0.4) {
 
   # 1. Rebuild graph (same logic as inside depre_topol)
   M <- RN_to_matrix(int_data, cover_data, int_type = "fac", weight = "Pcr")
@@ -39,7 +36,6 @@ visu_topol_fac <- function(int_data,
 
   A[rownames(M), colnames(M)] <- M
   M <- t(A)
-  if (direction == "in") M <- t(M)
 
   g <- igraph::graph_from_adjacency_matrix(M,
                                    mode = "directed",
@@ -73,11 +69,9 @@ visu_topol_fac <- function(int_data,
        vertex.label.cex = 0.8,
        vertex.frame.color = "black",
        edge.arrow.size = edge_arrow_size,
-       main = if (direction == "out") {
-         "Enhancement recruitment loops (Nurse -> Recruit)"
-       } else {
-         "Enhancement recruitment loops (Recruit -> Nurse)"
-       })
+       main = "Enhancement recruitment loops (Nurse -> Recruit)"
+       )
+
 
   # Return invisibly for further manipulation if needed
   invisible(list(graph = g,

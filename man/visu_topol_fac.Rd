@@ -9,8 +9,7 @@ visu_topol_fac(
   cover_data,
   layout_fun = igraph::layout_with_fr,
   vertex_size = 20,
-  edge_arrow_size = 0.4,
-  direction = c("out", "in")
+  edge_arrow_size = 0.4
 )
 }
 \arguments{
@@ -23,8 +22,6 @@ visu_topol_fac(
 \item{vertex_size}{numeric}
 
 \item{edge_arrow_size}{numeric}
-
-\item{direction}{Direction of the displayed links, either "out" or "in".}
 }
 \value{
 a plot
