@@ -79,18 +79,19 @@ information within two levels:
 ## Examples
 
 ``` r
+
 topol_fac(test_data$com,test_data$cov, direction="out")
 #> $loops
 #> $loops$summary
 #>   scc_id n_nodos
-#> 4      1       3
-#> 5      2       3
+#> 1      1       3
+#> 2      2       3
 #> 
 #> $loops$nodes
-#> $loops$nodes$`4`
+#> $loops$nodes$`1`
 #> [1] "E" "H" "K"
 #> 
-#> $loops$nodes$`5`
+#> $loops$nodes$`2`
 #> [1] "B" "I" "J"
 #> 
 #> 
@@ -197,14 +198,14 @@ topol_fac(test_data$com,test_data$cov, direction="in")
 #> $loops
 #> $loops$summary
 #>   scc_id n_nodos
-#> 4      1       3
-#> 5      2       3
+#> 1      1       3
+#> 2      2       3
 #> 
 #> $loops$nodes
-#> $loops$nodes$`4`
+#> $loops$nodes$`1`
 #> [1] "E" "H" "K"
 #> 
-#> $loops$nodes$`5`
+#> $loops$nodes$`2`
 #> [1] "B" "I" "J"
 #> 
 #> 

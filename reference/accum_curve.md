@@ -67,11 +67,11 @@ The function returns a list of two objects:
 accum_links <- accum_curve(Amoladeras_int, property="ecount", k=10)
 head(accum_links$Data)
 #>   Value sampleSize
-#> 1    53          1
-#> 2    49          1
-#> 3    49          1
-#> 4    55          1
-#> 5    55          1
+#> 1    23          1
+#> 2    30          1
+#> 3    55          1
+#> 4    49          1
+#> 5    43          1
 #> 6    43          1
 accum_links$Plot
 ```

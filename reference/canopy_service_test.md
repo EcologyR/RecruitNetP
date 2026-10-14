@@ -31,13 +31,12 @@ but without distinguishing between recruit species.
 
 ``` r
 canopy_service_test(Amoladeras_int, Amoladeras_cover)
-#> Based on Weibull distribution fitted to the observed values, the threshold density has been set to: 1.12346719046902.
 #> Different tests were used for different canopy-recruit pairs. Check column Test_type
 #>                   Canopy  Fc       Ac  Fro       Ao testability  Significance
-#> 1   Artemisia_barrelieri   1   1.0000 3425 6926.992           0  3.901555e-01
+#> 1   Artemisia_barrelieri  18   1.0000 5111 6926.992           0  3.365852e-19
 #> 2   Artemisia_campestris   0   0.1100 5111 6926.992           0  1.000000e+00
 #> 3        Asparagus_albus  14  27.7250 5111 6926.992           0  1.539899e-01
-#> 4     Asparagus_horridus   2   1.5725 4583 6926.992           0  2.791773e-01
+#> 4     Asparagus_horridus   6   1.5725 5111 6926.992           0  1.270810e-03
 #> 5        Ballota_hirsuta  31  38.4550 5111 6926.992           0  6.230153e-01
 #> 6   Helichrysum_stoechas  62  29.0700 5111 6926.992           0  3.225618e-18
 #> 7      Hyparrhenia_hirta  22  13.2550 5111 6926.992           0  9.654367e-05
@@ -58,10 +57,10 @@ canopy_service_test(Amoladeras_int, Amoladeras_cover)
 #> 22   Whitania_frutescens  41  56.8150 5111 6926.992           0  8.874189e-01
 #> 23        Ziziphus_lotus 167 465.1950 5111 6926.992           0  7.899946e-21
 #>     Test_type Canopy_effect
-#> 1    Binomial       Neutral
+#> 1    Binomial  Facilitative
 #> 2    Binomial       Neutral
 #> 3  Chi-square       Neutral
-#> 4    Binomial       Neutral
+#> 4    Binomial  Facilitative
 #> 5  Chi-square       Neutral
 #> 6  Chi-square  Facilitative
 #> 7  Chi-square  Facilitative

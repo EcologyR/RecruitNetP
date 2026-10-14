@@ -1,10 +1,15 @@
 # Allow the visualization of reciprocal facilitation
 
-with nodes in different SCC identified by different colors (in grey if
-they do not belong to any SCC). It may be frequent that in recruitment
-enhancement (i.e. facilitation) or depression (i.e.competition)
-networks, there is not any SCC as they tend to have smaller dimensions
-that general recruitment networks.
+This function allows the visualization of intransitivity loops of
+recruitment enhancement differentiated from the rest of nodes (in grey).
+Nodes in different SCC are identified by different colors, and the rest
+of nodes, not belonging to any SCC are presented in grey The direction
+of the arrows indicate the enhancing effect of the canopy species
+(origin of the arrow) on the recruitment of the recruit species (head of
+the arrow). It may be frequent that in recruitment enhancement (i.e.
+facilitation) or depression (i.e.competition) networks, there is not any
+SCC as they tend to have smaller dimensions that general recruitment
+networks.
 
 ## Usage
 
@@ -48,6 +53,7 @@ a plot
 ## Examples
 
 ``` r
+
 visu_topol_fac(test_data$com,test_data$cov)
 
 ```

@@ -23,7 +23,7 @@ topol_depre(int_data, cover_data, direction = c("in", "out"))
 
 - direction:
 
-  direction of teh links, in or out
+  direction of the links, "in" or "out"
 
 ## Value
 
@@ -88,10 +88,10 @@ topol_depre(test_data$com,test_data$cov, direction="out")
 #> $loops
 #> $loops$summary
 #>   scc_id n_nodos
-#> 3      1       3
+#> 1      1       3
 #> 
 #> $loops$nodes
-#> $loops$nodes$`3`
+#> $loops$nodes$`1`
 #> [1] "C" "E" "F"
 #> 
 #> 
@@ -182,10 +182,10 @@ topol_depre(test_data$com,test_data$cov, direction="in")
 #> $loops
 #> $loops$summary
 #>   scc_id n_nodos
-#> 3      1       3
+#> 1      1       3
 #> 
 #> $loops$nodes
-#> $loops$nodes$`3`
+#> $loops$nodes$`1`
 #> [1] "C" "E" "F"
 #> 
 #> 

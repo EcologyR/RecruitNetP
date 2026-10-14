@@ -118,6 +118,7 @@ interaction with the following information:
 ## Examples
 
 ``` r
+
 int_signif_rec <- int_significance(Amoladeras_int, Amoladeras_cover, int_type = "rec")
 #> Different tests were used for different canopy-recruit pairs.
 #>               Check column Test_type

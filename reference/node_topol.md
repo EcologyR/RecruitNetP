@@ -134,6 +134,7 @@ recruitment networks:
 ## Examples
 
 ``` r
+
 summary_node_topol_rec <- node_topol(Amoladeras_int,Amoladeras_cover, int_type="rec")
 head(summary_node_topol_rec)
 #>                      Eigenvector centrality Extended canopy service

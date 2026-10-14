@@ -20,7 +20,7 @@ RN_to_matrix(
   int_data,
   cover_data,
   int_type = c("rec", "fac", "comp"),
-  weight = c("Fcr", "Dcr", "Dro", "Ns", "NintC", "NintA", "RII")
+  weight = c("Fcr", "Pcr", "Dcr", "Dro", "Ns", "NintC", "NintA", "RII")
 )
 ```
 
@@ -83,6 +83,9 @@ RN_to_matrix(
   - *Fcr*: ***frequency of recruitment***, in number of recruits by
     canopy-recruit pair.
 
+  - *Pcr*: ***presence/absence*** (1/0) of the interaction (unweighted
+    network).
+
   - *Dcr*: ***density of recruitment***, as number of recruits per unit
     area of canopy species cover.
 
@@ -108,8 +111,8 @@ strength (i.e. weight) between each pair of species.
 ## Examples
 
 ``` r
+
 RN_to_matrix(Amoladeras_int, Amoladeras_cover, int_type="rec", weight="Dcr")
-#> Based on Weibull distribution fitted to the observed values, the threshold density has been set to: 1.12346719046902.
 #>                       Artemisia_barrelieri Artemisia_campestris Asparagus_albus
 #> Artemisia_barrelieri                     3                    0      0.00000000
 #> Artemisia_campestris                     0                    0      0.00000000

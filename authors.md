@@ -27,12 +27,12 @@ Source:
 
 Montesinos-Navarro A, Garrido J, Verdú M, Alcántara J, Rodriguez-Sanchez
 F (2026). *RecruitNetP: Analysis of Recruitment Networks*. R package
-version 0.0.0.9000, <https://github.com/EcologyR/RecruitNetP>.
+version 0.0.1, <https://github.com/EcologyR/RecruitNetP>.
 
     @Manual{,
       title = {RecruitNetP: Analysis of Recruitment Networks},
       author = {Alicia Montesinos-Navarro and José Luis Garrido and Miguel Verdú and Julio M. Alcántara and Francisco Rodriguez-Sanchez},
       year = {2026},
-      note = {R package version 0.0.0.9000},
+      note = {R package version 0.0.1},
       url = {https://github.com/EcologyR/RecruitNetP},
     }

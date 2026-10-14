@@ -26,6 +26,7 @@ a dataframe
 ## Examples
 
 ``` r
+
 data<-load_interactions()
 comm_subset(data, site="Amoladeras")
 #>      Study_site                                  Location      Site_responsible

@@ -55,8 +55,14 @@ RN_heatmap(
   - *Fcr*: **frequency of recruitment** in number of recruits by
     canopy-recruit pair.
 
+  - *Pcr*: **presence/absence** (1/0) of the interaction (unweighted
+    network).
+
   - *Dcr*: **density of recruitment** as number of recruits per unit
     area of canopy species.
+
+  - *Dro*: **density of recruitment in open interspaces** as number of
+    recruits per unit area of open interspaces.
 
   - *Ns*: The index **Normalized Neighbour Suitability index** (proposed
     by Mingo, 2014), suitable for comparisons of interaction strength

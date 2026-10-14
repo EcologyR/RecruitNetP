@@ -1,6 +1,7 @@
 # Completeness of the recruitment network
 
 ``` r
+
 library(RecruitNetP)
 ```
 
@@ -8,7 +9,7 @@ library(RecruitNetP)
 
 The basic parameters of a RN are its *order* (number of nodes: *S*) and
 *size* (number of links: *l*). The ratio of the size to the square of
-order is the *connectance* of the network: $C = l/S^{2}$ (proportion of
+order is the *connectance* of the network: $`C = l/S^2`$ (proportion of
 the maximum possible number of links that are actually realized). An
 important preliminary step before the analysis of the RN is determining
 to which extent our sampling provides a good approximation to estimate
@@ -52,8 +53,8 @@ or links (*q0_(obs)*). But the observed number underestimates the real
 number, so we need an estimate of the real *q0_(est)*, which can be
 obtained using non-parametric estimators (e.g, Chao1, Chao2, ACE or
 ICE). Using the non-parametric estimate as reference, we can estimate
-the completeness of *q0* as $^{0^{C}} = q0\ obs\ /q0\ est\ $. In turn,
-Hill’s number of order 1 (*q₁*) is the exponential of Shannon’s index of
+the completeness of *q0* as $`^0^C = q0~obs~/q0~est~`$. In turn, Hill’s
+number of order 1 (*q₁*) is the exponential of Shannon’s index of
 diversity. Differently from *q0*, *q1* incorporates information on the
 relative frequencies. The completeness of *q₁* (*¹C*) is most often
 referred to as “coverage”, and indicates the proportion of the total
