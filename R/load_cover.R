@@ -7,7 +7,7 @@
 #' @returns a data frame containing canopy cover data
 #' @export
 #'
-#' @examples
+#' @examplesIf interactive()
 #' cover_data <- load_cover()
 load_cover <- function(path = getwd()) {
 

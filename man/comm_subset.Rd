@@ -18,8 +18,9 @@ a dataframe
 this function is to be used with datasets containing multiple study sites
 }
 \examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 
 data<-load_interactions()
 comm_subset(data, site="Amoladeras")
-
+\dontshow{\}) # examplesIf}
 }

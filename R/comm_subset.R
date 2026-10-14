@@ -9,7 +9,7 @@
 #' @returns a dataframe
 #' @export
 #'
-#' @examples
+#' @examplesIf interactive()
 #'
 #' data<-load_interactions()
 #' comm_subset(data, site="Amoladeras")

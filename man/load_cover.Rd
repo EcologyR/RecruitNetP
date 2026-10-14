@@ -18,5 +18,7 @@ a data frame containing canopy cover data
 Load canopy cover data from RecruitNet database
 }
 \examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 cover_data <- load_cover()
+\dontshow{\}) # examplesIf}
 }
