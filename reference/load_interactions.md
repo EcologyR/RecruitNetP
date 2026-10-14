@@ -24,5 +24,7 @@ a data frame containing interaction data
 ## Examples
 
 ``` r
+if (FALSE) { # interactive()
 int_data <- load_interactions()
+}
 ```

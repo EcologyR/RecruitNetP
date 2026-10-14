@@ -44,7 +44,9 @@ OK message.
 ## Examples
 
 ``` r
+if (FALSE) { # interactive()
+
 int_data <- load_interactions()
 check_interactions(int_data)
-#> Format OK!
+}
 ```
