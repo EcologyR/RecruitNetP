@@ -104,6 +104,7 @@ topol_fac <- function(int_data,cover_data, direction=c("in","out")){
   scc_groups <- split(igraph::V(g)$name, scc$membership)
 
   scc_groups<-scc_groups[sapply(scc_groups, length) > 1]
+  names(scc_groups) <- seq_along(scc_groups)
 
   #summary
   table_scc <- data.frame(

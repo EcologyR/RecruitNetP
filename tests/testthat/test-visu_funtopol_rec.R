@@ -6,11 +6,11 @@ test_that(" Core has a green color", {
   groups <- net$x$options$groups
 
   expect_true("Core" %in% names(groups))
-  expect_equal(groups$Open$color$background, "#F0E442")
-  expect_equal(groups$Core$color$background, "#009E73")
-  expect_equal(groups$Satellite$color$background, "#0072B2")
-  expect_equal(groups$Strict_transients$color$background, "#D55E00")
-  expect_equal(groups$Disturbance_dependent_transients$color$background, "#CC79A7")
+  expect_equal(groups$Open$color, "#F0E442")
+  expect_equal(groups$Core$color, "#009E73")
+  expect_equal(groups$Satellite$color, "#0072B2")
+  expect_equal(groups$Strict_transients$color, "#D55E00")
+  expect_equal(groups$Disturbance_dependent_transients$color, "#CC79A7")
 })
 
 #------------------------------------
@@ -43,4 +43,3 @@ test_that("All nodes appera in the visualization", {
 
   expect_true(all(core_expected %in% net$x$nodes$id))
 })
-
