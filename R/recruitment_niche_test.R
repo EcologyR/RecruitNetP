@@ -20,15 +20,19 @@
 #'
 recruitment_niche_test <- function(int_data,cover_data){
 
-  df <- associndex(int_data,cover_data, expand="yes", rm_sp_no_cover="onlycanopy", threshold_density = NULL)
-  sp_Fr <- stats::aggregate(Fcr ~ Recruit, data = df, FUN = sum)
-  sp_Av <- stats::aggregate(Ac ~ Recruit, data = df, FUN = sum)
-  sp_Fro <- stats::aggregate(Fro ~ Recruit, data = df, FUN = max)
-  sp_Ao <- stats::aggregate(Ao ~ Recruit, data = df, FUN = max)
-  n_tests <- dim(sp_Fr)[1]
-  df <- data.frame(c(sp_Fr, sp_Av, sp_Fro, sp_Ao))
-  myvars <- names(df) %in% c("Recruit.1", "Recruit.2", "Recruit.3")
-  df <- df[!myvars]
+  cover_data$Ac <- (cover_data$Cover / 100) * cover_data$Sampled_distance_or_area
+  Av <- sum(cover_data[cover_data$Canopy!= "Open",]$Ac)
+  Ao <- sum(cover_data[cover_data$Canopy== "Open",]$Ac)
+  sp_Fr <- stats::aggregate(Frequency ~ Recruit, data = int_data [int_data$Canopy!="Open",], sum)
+  sp_Fro <- stats::aggregate(Frequency ~ Recruit, data = int_data [int_data$Canopy=="Open",], sum)
+  df<-merge (sp_Fr, sp_Fro, by="Recruit", all.x=T, all.y=T)
+  colnames(df) <- c("Recruit", "sp_Fr", "sp_Fro")
+  df$sp_Av<-rep(Av, nrow(df))
+  df$sp_Ao<-rep(Ao, nrow(df))
+  df$sp_Fr[is.na(df$sp_Fr)] <-0
+  df$sp_Fro[is.na(df$sp_Fro)] <-0
+  n_tests <- dim(df)[1]
+  df<- df [,c("Recruit", "sp_Fr", "sp_Av", "sp_Fro", "sp_Ao")]
   colnames(df) <- c("Recruit", "Fr", "Av", "Fro", "Ao")
   df$exp_p <- df$Av/(df$Av+df$Ao) # Expected probability of success (i.e. of recruiting
   # under canopy)
@@ -70,6 +74,7 @@ recruitment_niche_test <- function(int_data,cover_data){
   }
   df$Test_type <- Test_type
 
+  message("P-values are unadjusted for multiple tests")
   if(length(unique(df$Test_type))>1) warning("Different tests were used for different canopy-recruit pairs. Check column Test_type")
 
   Effect_int <- c()
@@ -90,4 +95,5 @@ recruitment_niche_test <- function(int_data,cover_data){
   df <- df[ , !(names(df) %in% drops)]
   return(df)
 }
+
 

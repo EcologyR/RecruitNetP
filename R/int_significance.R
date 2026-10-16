@@ -117,6 +117,8 @@ int_significance <- function(int_data, cover_data, int_type=c("rec", "fac","comp
 
     data<-comm_to_RN_UNI(int_data,cover_data)
     df<-int_significance_UNI(data)
+    
+    message("P-values are unadjusted for multiple tests")
     if(length(unique(df$Test_type))>1) {
       message("Different tests were used for different canopy-recruit pairs.
               Check column Test_type")
@@ -128,6 +130,9 @@ int_significance <- function(int_data, cover_data, int_type=c("rec", "fac","comp
     data<-comm_to_RN_BI(int_data,cover_data)
     df<-int_significance_BI (data)
     df<-df[df$Effect_int=="Enhancing",]
+    
+    message("P-values are unadjusted for multiple tests")
+    
     if(length(unique(df$Test_type))>1)
       message("Different tests were used for different canopy-recruit pairs.
               Check column Test_type")
@@ -138,6 +143,8 @@ int_significance <- function(int_data, cover_data, int_type=c("rec", "fac","comp
     data<-comm_to_RN_UNI_COMP(int_data,cover_data)
     df<-int_significance_BI_COMP(data)
     df<-df[df$Effect_int=="Depressing",]
+    message("P-values are unadjusted for multiple tests")
+    
     if(length(unique(df$Test_type))>1)
       message("Different tests were used for different canopy-recruit pairs.
               Check column Test_type")
