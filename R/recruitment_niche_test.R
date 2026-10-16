@@ -74,6 +74,7 @@ recruitment_niche_test <- function(int_data,cover_data){
   }
   df$Test_type <- Test_type
 
+  message("P-values are unadjusted for multiple tests")
   if(length(unique(df$Test_type))>1) warning("Different tests were used for different canopy-recruit pairs. Check column Test_type")
 
   Effect_int <- c()
